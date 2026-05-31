@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VeraCruz — A design studio</title>
+<meta name="description" content="VeraCruz is a design studio for problems that cross product, service, and physical. We design them as one." />
+<meta name="theme-color" content="#FFFFFF" />
+
+<!-- Favicons -->
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+
+<!-- Social sharing -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://veracruz.be/" />
+<meta property="og:title" content="VeraCruz — A design studio" />
+<meta property="og:description" content="A design studio for problems that cross product, service, and physical. We design them as one." />
+<meta property="og:image" content="https://veracruz.be/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="VeraCruz — A design studio" />
+<meta name="twitter:description" content="A design studio for problems that cross product, service, and physical. We design them as one." />
+<meta name="twitter:image" content="https://veracruz.be/og-image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* ── VeraCruz Design System tokens ──────────────────────────── */
+
+    /* Type families */
+    --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+    --font-body:    'Outfit', system-ui, -apple-system, sans-serif;
+    --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+    /* Ink & paper (core duotone) */
+    --ink:   #0A0A0A;
+    --paper: #FFFFFF;
+
+    /* Neutral scale */
+    --n-950: #0A0A0A;
+    --n-900: #161616;
+    --n-800: #232323;
+    --n-700: #3A3A3A;
+    --n-600: #565656;
+    --n-500: #767676;
+    --n-400: #9B9B9B;
+    --n-300: #C4C4C4;
+    --n-200: #E2E2E2;
+    --n-100: #F1F1F1;
+    --n-050: #F8F8F7;
+
+    /* Cherry — emphasis & emotion only */
+    --cherry:        #D21F3C;
+    --cherry-press:  #A8182F;
+    --cherry-hover:  #E63147;
+    --cherry-tint:   #FBEAEC;
+
+    /* Semantic foreground / background */
+    --fg1: var(--ink);
+    --fg2: var(--n-600);
+    --fg3: var(--n-500);
+    --bg1: var(--paper);
+    --bg2: var(--n-050);
+    --bg3: var(--n-100);
+    --line:        var(--n-200);
+    --line-strong: var(--n-300);
+
+    /* Radii — architectural, near-square */
+    --r-xs: 2px;
+    --r-sm: 4px;
+    --r-md: 6px;
+    --r-lg: 10px;
+    --r-pill: 999px;
+
+    /* Spacing (4px base) */
+    --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+    --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px; --sp-10: 128px;
+
+    /* Elevation — restrained, low-spread */
+    --shadow-sm: 0 1px 2px rgba(10,10,10,0.06);
+    --shadow-md: 0 4px 16px rgba(10,10,10,0.08);
+    --shadow-lg: 0 18px 48px rgba(10,10,10,0.12);
+
+    /* Motion */
+    --ease:      cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-fast:  140ms;
+    --dur:       260ms;
+    --dur-slow:  520ms;
+
+    /* Aliases used elsewhere in this file (kept stable so existing rules still resolve) */
+    --ink-2:  var(--fg2);
+    --ink-3:  var(--fg3);
+    --rule:   var(--line);
+    --rule-2: var(--line);
+    --accent: var(--cherry);
+    --sans:   var(--font-body);
+    --serif:  var(--font-display);    /* DS has no serif; display carries it */
+
+    /* Layout */
+    --max: 1200px;
+    --gutter: clamp(20px, 4vw, 40px);
+  }
+
+  ::selection { background: var(--cherry-tint); color: var(--cherry-press); }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  section.block { scroll-margin-top: 84px; }
+  body {
+    background: var(--paper);
+    color: var(--fg2);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* ────────── Header ────────── */
+  header.site {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: saturate(140%) blur(8px);
+    background: color-mix(in oklch, var(--paper) 82%, transparent);
+    border-bottom: 1px solid transparent;
+    transition: border-color 240ms cubic-bezier(.2,.7,.2,1);
+  }
+  header.site.scrolled { border-bottom-color: var(--rule); }
+  .header-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-block: 10px;             /* tighter; nav links carry their own 44px */
+  }
+  .wordmark {
+    display: inline-flex; align-items: center; gap: 12px;
+    height: 40px;
+    line-height: 0;
+    transition: opacity 200ms ease;
+  }
+  .wordmark:hover,
+  .wordmark:focus-visible { opacity: 0.7; }
+  .wordmark .mark-img,
+  .wordmark .logotype-img {
+    display: block;
+    width: auto;
+    /* PNGs now have alpha channels (transparent backgrounds), so they sit cleanly
+       on any section tint without needing blend-mode tricks. */
+  }
+  .wordmark .mark-img { height: 32px; }
+  .wordmark .logotype-img { height: 36px; }
+  nav.primary ul {
+    display: flex; gap: clamp(18px, 3vw, 36px);
+    list-style: none; margin: 0; padding: 0;
+    font-size: 15px; color: var(--ink-2);
+  }
+  nav.primary a {
+    position: relative;
+    display: inline-flex; align-items: center;
+    min-height: 44px;                /* iOS/Android tap target minimum */
+    padding-block: 12px;
+    font-weight: 400;
+    transition: color 240ms cubic-bezier(.2,.7,.2,1),
+                font-weight 240ms cubic-bezier(.2,.7,.2,1);
+  }
+  nav.primary a:hover,
+  nav.primary a:focus-visible { color: var(--accent); }
+  nav.primary a::after {
+    content: ""; position: absolute; left: 0; right: 0;
+    bottom: 8px;                     /* align with text baseline now that link is taller */
+    height: 1px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 380ms cubic-bezier(.2,.7,.2,1);
+  }
+  nav.primary a:hover::after,
+  nav.primary a:focus-visible::after { transform: scaleX(1); }
+
+  /* Active (scrollspy) state: persistent cherry underline + ink-strength text */
+  nav.primary a.is-active {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  nav.primary a.is-active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ────────── Hero ────────── */
+  .hero {
+    padding-block: clamp(64px, 12vh, 140px) clamp(72px, 14vh, 160px);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  /* Subtle Mont des Arts backdrop, B&W at ~11%.
+     Photo by Najib Samatar / Unsplash (license: free commercial use). */
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    z-index: -1;
+    background-image: url("https://images.unsplash.com/photo-1626013969117-8c13864fdb2d?auto=format&fit=crop&w=2400&q=80");
+    background-size: cover;
+    background-position: 65% 40%;
+    background-repeat: no-repeat;
+    filter: grayscale(1) contrast(1.06);
+    opacity: 0.21;
+    /* Soft fade at the bottom so the section transition into Practice is clean */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero::before { transition: opacity 600ms cubic-bezier(.2,.7,.2,1); }
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-bottom: clamp(28px, 5vh, 44px);
+  }
+  .eyebrow::before {
+    content: ""; width: 26px; height: 1px; background: var(--fg3);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2.8rem, 5.6vw, 5.2rem);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    margin: 0 0 clamp(20px, 3.4vh, 32px);
+    max-width: 17ch;
+    color: var(--fg1);
+    text-wrap: balance;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--cherry);
+  }
+  .hero .lede {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+    color: var(--fg2);
+    max-width: 42ch;
+    margin: 0;
+  }
+  .hero .lede strong { color: var(--fg1); font-weight: 500; }
+
+  /* ────────── Sections ────────── */
+  section.block {
+    padding-block: clamp(72px, 12vh, 132px);
+    position: relative;
+    border-top: 1px solid var(--rule-2);
+  }
+
+  /* DS layout: paper-white throughout; hairlines do the section work. */
+  .hero, #practice, #approach, #currently, #about, #contact { background: var(--paper); }
+
+  /* Lighten the row separators on tinted backgrounds so they don't read heavy. */
+  #practice .practice-row { border-top-color: var(--rule-2); }
+  #practice .practice-row:last-child { border-bottom-color: var(--rule-2); }
+  .block-head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: clamp(40px, 6vh, 64px);
+  }
+  @media (min-width: 760px) {
+    .block-head { grid-template-columns: 220px 1fr; gap: clamp(24px, 4vw, 56px); align-items: baseline; }
+    /* For sections without an eyebrow label, the heading lifts to the full width */
+    .block-head:not(:has(.label)) { grid-template-columns: 1fr; }
+    .block-head:not(:has(.label)) h2 { max-width: 26ch; }
+  }
+  .block-head .label {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    display: inline-flex; align-items: center; gap: 14px;
+  }
+  .block-head h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0;
+    max-width: 22ch;
+    color: var(--fg1);
+    text-wrap: balance;
+  }
+
+  /* ────────── Practice (three lines) ────────── */
+  .practice-list { display: flex; flex-direction: column; }
+  .practice-row {
+    display: grid; grid-template-columns: 1fr;
+    gap: 22px 32px;
+    padding-block: clamp(32px, 5vh, 52px);
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .practice-row:last-child { border-bottom: 1px solid var(--rule); }
+  @media (min-width: 760px) {
+    .practice-row {
+      grid-template-columns: minmax(240px, 300px) 1fr minmax(180px, 220px);
+      gap: 40px;
+      align-items: start;
+    }
+  }
+  .practice-text { display: flex; flex-direction: column; gap: 14px; }
+
+  /* Image slot */
+  .practice-image {
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--bg2);
+    position: relative;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line);
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .practice-row:hover .practice-image {
+    border-color: var(--line-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .practice-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
+    display: block;
+    transition: transform var(--dur-slow) var(--ease);
+    filter: grayscale(1) contrast(1.04);
+  }
+  .practice-row:hover .practice-image img { transform: scale(1.04); }
+
+  /* Placeholder treatment while real photos are dropped in */
+  .practice-image.is-placeholder {
+    background: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .practice-image.is-placeholder::before {
+    content: attr(data-label);
+    font-family: var(--serif); font-style: italic;
+    color: var(--ink-3); font-size: 14px; letter-spacing: 0.02em;
+  }
+  /* On tinted Practice section, lift placeholder to paper so it doesn't blend in */
+  #practice .practice-image.is-placeholder { background: var(--paper); }
+
+  .practice-row .name {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--fg1);
+    margin: 0;
+  }
+  .practice-row .name .index {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 0.7rem;
+    color: var(--fg3);
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .practice-row p { margin: 0; color: var(--fg2); max-width: 42ch; }
+  .practice-row .examples {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--fg3);
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+  }
+  .practice-row .examples li::after {
+    content: "·"; margin-left: 14px; color: var(--line-strong);
+  }
+  .practice-row .examples li:last-child::after { content: ""; }
+
+  /* ────────── Approach ────────── */
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 4vh, 44px) clamp(32px, 5vw, 80px);
+  }
+  @media (min-width: 760px) {
+    .approach-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .approach-item h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 17px;
+    margin: 0 0 6px;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .approach-item h3 .dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); margin-right: 10px; vertical-align: 3px;
+  }
+  .approach-item p {
+    margin: 0; color: var(--ink-2); max-width: 50ch;
+    font-size: 16px; line-height: 1.6;
+  }
+
+  /* ────────── Currently ────────── */
+  .currently-body {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--fg2);
+    max-width: 28ch;
+    margin: 0;
+  }
+  .currently-body .ink { color: var(--fg1); }
+
+  .sectors-block { margin-top: clamp(40px, 6vh, 64px); }
+  .sectors-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-bottom: 20px;
+  }
+  .sectors-label::before {
+    content: ""; width: 22px; height: 1px; background: var(--fg3);
+  }
+  .sectors {
+    display: flex; flex-wrap: wrap; align-items: baseline;
+    gap: 8px 20px;
+    list-style: none; padding: 0; margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    color: var(--fg1);
+    letter-spacing: -0.01em;
+  }
+  .sectors li { display: inline-flex; align-items: baseline; gap: 20px; }
+  .sectors li:not(:last-child)::after {
+    content: "·";
+    color: var(--cherry);
+    font-size: 1.2em; line-height: 0;
+  }
+  .sectors li.more {
+    color: var(--fg3);
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ────────── About ────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 4vh, 44px) clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+  @media (min-width: 760px) {
+    .about-grid { grid-template-columns: minmax(220px, 280px) 1fr; }
+  }
+  .about-portrait {
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+  }
+  .about-portrait img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    object-position: 72% 30%;
+    filter: grayscale(1) contrast(1.04);
+  }
+  .about-portrait.is-placeholder { display: flex; align-items: center; justify-content: center; }
+  .about-portrait.is-placeholder::before {
+    content: "Portrait";
+    font-family: var(--font-mono); font-style: italic;
+    color: var(--fg3); font-size: 0.85rem;
+  }
+  .about-body {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: var(--fg2);
+    max-width: 36ch;
+    margin: 0;
+  }
+  .about-body .ink { color: var(--fg1); }
+  .about-meta {
+    margin-top: clamp(24px, 4vh, 36px);
+    display: flex; flex-direction: column; gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--fg3);
+  }
+  .about-meta .signature {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--fg1);
+    letter-spacing: -0.01em;
+  }
+  .about-meta a {
+    color: var(--fg2);
+    border-bottom: 1px solid var(--line);
+    width: fit-content;
+    padding-bottom: 2px;
+    transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  }
+  .about-meta a:hover, .about-meta a:focus-visible {
+    color: var(--cherry); border-color: var(--cherry);
+  }
+
+  /* ────────── Contact ────────── */
+  .contact-card {
+    display: grid; grid-template-columns: 1fr; gap: 28px;
+    padding: clamp(28px, 4vh, 48px) 0;
+  }
+  @media (min-width: 760px) {
+    .contact-card { grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); }
+  }
+  .contact-pitch {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--fg1);
+    max-width: 28ch;
+    margin: 0;
+  }
+  .contact-meta { display: flex; flex-direction: column; gap: 22px; }
+  .contact-line {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .contact-line .k {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg3);
+  }
+  .contact-line .v {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    color: var(--fg1);
+    display: inline-flex; align-items: center; gap: 10px;
+    width: fit-content;
+  }
+  .contact-line a.v {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 4px;
+    transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  }
+  .contact-line a.v:hover,
+  .contact-line a.v:focus-visible { color: var(--cherry); border-color: var(--cherry); }
+  .contact-line a.v .arrow {
+    color: var(--cherry);
+    transition: transform var(--dur-fast) var(--ease);
+  }
+  .contact-line a.v:hover .arrow { transform: translate(3px, -1px); }
+
+  /* Lead contact line: bigger, the room's primary action */
+  .contact-line--lead { gap: 10px; }
+  .v--lead {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 3.6vw, 3.2rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    padding-bottom: 6px;
+    border-bottom-width: 1px;
+  }
+  .v--lead .arrow { font-size: 0.55em; }
+
+  /* ────────── Contact form ────────── */
+  .contact-form {
+    display: flex; flex-direction: column; gap: 22px;
+    max-width: 520px;
+  }
+  .form-row { display: flex; flex-direction: column; gap: 6px; }
+  .form-label {
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3);
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  }
+  .form-label .optional { text-transform: none; letter-spacing: 0; font-style: italic; font-family: var(--serif); font-size: 14px; color: var(--ink-3); }
+  .form-field {
+    position: relative;
+    display: flex; align-items: stretch;
+    border-bottom: 1px solid var(--ink-2);
+    transition: border-color 200ms ease;
+  }
+  .form-field:focus-within { border-color: var(--accent); }
+  .form-field input[type="email"],
+  .form-field textarea {
+    flex: 1 1 auto;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    font-size: clamp(18px, 1.8vw, 22px);
+    color: var(--ink);
+    padding: 14px 0;
+    caret-color: var(--accent);
+    font-family: var(--sans);
+    resize: none;
+  }
+  .form-field textarea {
+    line-height: 1.5;
+    min-height: 96px;
+  }
+  .form-field input[type="email"]::placeholder,
+  .form-field textarea::placeholder {
+    color: var(--ink-3);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(18px, 1.8vw, 22px);
+  }
+  .form-counter {
+    align-self: flex-end;
+    font-size: 12px;
+    color: var(--ink-3);
+    font-feature-settings: "tnum";
+    margin-top: 4px;
+    transition: color 200ms ease;
+  }
+  .form-counter.is-warn { color: var(--accent); }
+
+  .form-actions {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px; flex-wrap: wrap;
+    padding-top: 4px;
+  }
+  .form-submit {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    color: var(--ink);
+    padding: 8px 0;
+    font-size: 17px;
+    letter-spacing: -0.005em;
+    display: inline-flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid var(--ink);
+    transition: color 180ms ease, border-color 180ms ease;
+  }
+  .form-submit .arrow {
+    font-family: var(--serif); font-style: italic; color: var(--accent);
+    transition: transform 240ms cubic-bezier(.2,.7,.2,1);
+  }
+  .form-submit:hover,
+  .form-submit:focus-visible { color: var(--accent); border-color: var(--accent); }
+  .form-submit:hover .arrow,
+  .form-submit:focus-visible .arrow { transform: translate(3px, -1px); }
+
+  .form-note {
+    margin: 0;
+    font-size: 14px;
+    color: var(--ink-3);
+    min-height: 20px;
+    transition: color 200ms ease;
+  }
+  .form-note a {
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--rule);
+    transition: color 180ms ease, border-color 180ms ease;
+  }
+  .form-note a:hover,
+  .form-note a:focus-visible { color: var(--accent); border-color: var(--accent); }
+  .form-note.is-error { color: var(--accent); }
+  .form-note.is-success { color: var(--ink); }
+
+  .contact-form.is-success > .form-row,
+  .contact-form.is-success > .form-actions { opacity: 0; pointer-events: none; transition: opacity 240ms ease; height: 0; overflow: hidden; margin: 0; padding: 0; gap: 0; }
+  .contact-form.is-success .form-success { opacity: 1; transform: none; }
+  .form-success {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0;
+    opacity: 0; transform: translateY(6px);
+    transition: opacity 360ms ease 120ms, transform 360ms ease 120ms;
+  }
+  .form-success .accent { color: var(--accent); font-style: italic; }
+
+  /* ────────── Footer ────────── */
+  footer.site {
+    border-top: 1px solid var(--rule);
+    padding-block: 28px 36px;
+    color: var(--ink-3);
+    font-size: 13px;
+  }
+  .footer-row {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  footer.site .dot {
+    display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); margin-inline: 8px; vertical-align: 2px;
+  }
+
+  /* ────────── Mobile (≤760px) ──────────
+     Header reduces to logo only. Sections tighten. Images & grids stack. */
+  @media (max-width: 760px) {
+    /* Header: logo only, no nav */
+    nav.primary { display: none; }
+    .header-row { justify-content: flex-start; padding-block: 12px; }
+    .wordmark { gap: 10px; height: 34px; }
+    .wordmark .mark-img { height: 28px; }
+    .wordmark .logotype-img { height: 31px; }
+
+    /* Section rhythm: tighten vertical breathing on small screens */
+    .hero { padding-block: clamp(48px, 10vh, 96px) clamp(56px, 12vh, 112px); }
+    section.block { padding-block: clamp(56px, 9vh, 88px); }
+
+    /* Hero: backdrop biased slightly to keep architecture in frame on narrow screens */
+    .hero::before { background-position: 60% 40%; }
+    .hero h1 { max-width: 14ch; }
+    .hero .lede { max-width: none; }
+
+    /* Block heads: tighter stack */
+    .block-head { gap: 12px; margin-bottom: clamp(28px, 5vh, 44px); }
+
+    /* Practice rows */
+    .practice-row { padding-block: clamp(28px, 5vh, 40px); gap: 18px; }
+    .practice-image { aspect-ratio: 3 / 2; }      /* less tall full-width */
+    .practice-row .name { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+    .practice-row p { max-width: none; }
+
+    /* About */
+    .about-portrait { aspect-ratio: 4 / 3; max-width: 360px; }
+    .about-body { max-width: none; }
+
+    /* Currently */
+    .currently-body { max-width: none; }
+    .sectors { gap: 6px 16px; font-size: 1.05rem; }
+    .sectors li { gap: 16px; }
+
+    /* Contact */
+    .contact-card { gap: 24px; }
+    .v--lead { font-size: clamp(1.6rem, 7.6vw, 2.4rem); }
+    .contact-pitch { max-width: none; }
+
+    /* Footer */
+    .footer-row { gap: 8px; }
+    footer.site { padding-block: 22px 28px; }
+  }
+
+  /* Very narrow phones (≤380px) — final safety net */
+  @media (max-width: 380px) {
+    .wordmark .logotype-img { height: 28px; }
+    .hero h1 { font-size: clamp(2.4rem, 11vw, 3.4rem); letter-spacing: -0.025em; }
+    .v--lead { font-size: clamp(1.4rem, 8vw, 2rem); letter-spacing: -0.025em; }
+  }
+
+  /* ────────── Reveal on scroll ────────── */
+  .reveal {
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap header-row">
+    <a href="#top" class="wordmark" aria-label="VeraCruz, home">
+      <img class="mark-img" src="veracruz-symbol.png" alt="" />
+      <img class="logotype-img" src="veracruz-logotype.png" alt="VeraCruz" />
+    </a>
+    <nav class="primary" aria-label="Primary">
+      <ul>
+        <li><a href="#practice">Practice</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow reveal">A new studio, senior profiles &nbsp;·&nbsp; Brussels</div>
+      <h1 class="reveal">
+        For problems that cross <em>product, service, and physical.</em>
+      </h1>
+      <p class="lede reveal">
+        <strong>VeraCruz</strong> is a design studio for organisations whose hardest questions sit between disciplines. We design them as one.
+      </p>
+    </div>
+  </section>
+
+  <!-- Practice -->
+  <section class="block" id="practice">
+    <div class="wrap">
+      <div class="block-head reveal">
+        <span class="label">Practice</span>
+        <h2>Three disciplines, one studio. Most projects need all three.</h2>
+      </div>
+
+      <div class="practice-list">
+        <article class="practice-row reveal">
+          <figure class="practice-image">
+            <img src="practice-product.jpg" alt="Parcel tracking app on an iPhone, showing pickup points on a map" loading="lazy" />
+          </figure>
+          <div class="practice-text">
+            <div class="name"><span class="index">i</span>Product</div>
+            <p>Digital products, interfaces, and the systems behind them. From first concept to interaction model to the details that ship.</p>
+          </div>
+          <ul class="examples">
+            <li>Apps &amp; web</li>
+            <li>Interaction design</li>
+            <li>Design systems</li>
+          </ul>
+        </article>
+
+        <article class="practice-row reveal">
+          <figure class="practice-image">
+            <img src="practice-service.jpg" alt="Co-design workshop in progress, sticky notes and journey maps on a long table" loading="lazy" />
+          </figure>
+          <div class="practice-text">
+            <div class="name"><span class="index">ii</span>Service</div>
+            <p>Customer journeys, operational flows, and the human side that makes products actually work in the wild.</p>
+          </div>
+          <ul class="examples">
+            <li>Service blueprints</li>
+            <li>Journey design</li>
+            <li>Internal tooling</li>
+          </ul>
+        </article>
+
+        <article class="practice-row reveal">
+          <figure class="practice-image">
+            <img src="practice-physical.jpg" alt="Concept sketch of a street-side parcel locker in an urban setting" loading="lazy" />
+          </figure>
+          <div class="practice-text">
+            <div class="name"><span class="index">iii</span>Physical</div>
+            <p>Objects, hardware, and environments. Where digital meets the world, we design what people touch and stand in.</p>
+          </div>
+          <ul class="examples">
+            <li>Product design</li>
+            <li>Packaging</li>
+            <li>Space &amp; retail</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="block" id="approach">
+    <div class="wrap">
+      <div class="block-head reveal">
+        <h2>We start with the question, not the deliverable.</h2>
+      </div>
+
+      <div class="approach-grid">
+        <div class="approach-item reveal">
+          <h3><span class="dot"></span>Clarity before craft</h3>
+          <p>Most projects fail upstream. We invest in framing the right problem first, then bring craft to bear on the right thing.</p>
+        </div>
+        <div class="approach-item reveal">
+          <h3><span class="dot"></span>One team, end to end</h3>
+          <p>Strategy and execution under one roof. No translation loss between the people who think and the people who make.</p>
+        </div>
+        <div class="approach-item reveal">
+          <h3><span class="dot"></span>Senior, small, present</h3>
+          <p>You work with senior practitioners, in small numbers, in the room. Less choreography, more thinking together.</p>
+        </div>
+        <div class="approach-item reveal">
+          <h3><span class="dot"></span>Made to last</h3>
+          <p>We design for organisations that take time seriously. The work should still feel right in five years.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Currently -->
+  <section class="block" id="currently">
+    <div class="wrap">
+      <div class="block-head reveal">
+        <h2>Quiet by design.</h2>
+      </div>
+
+      <p class="currently-body reveal">
+        Most of our work sits before launch: <span class="ink">early-stage, confidential, not yet ready to be named.</span> We keep our partners' identities private so they can move first.
+      </p>
+
+      <div class="sectors-block reveal">
+        <span class="sectors-label">Sectors we have worked in</span>
+        <ul class="sectors">
+          <li>Logistics</li>
+          <li>Medical</li>
+          <li>Telco</li>
+          <li>Energy</li>
+          <li>Banking</li>
+          <li class="more">and others</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="block" id="about">
+    <div class="wrap">
+      <div class="block-head reveal">
+        <h2>Behind the studio.</h2>
+      </div>
+
+      <div class="about-grid">
+        <figure class="about-portrait reveal" id="aboutPortrait">
+          <img src="portrait.jpg" alt="Raphael Hombroeck presenting his work" loading="lazy" />
+        </figure>
+
+        <div class="reveal">
+          <p class="about-body">
+            I am Raphael Hombroeck. Veracruz is the studio I built after close to twenty years designing across product, service, and physical for organisations in logistics, medical, telco, energy, and banking. <span class="ink">Small, senior, and undivided by discipline.</span>
+          </p>
+
+          <div class="about-meta">
+            <span class="signature">Raphael Hombroeck</span>
+            <span>Founder &amp; principal designer</span>
+            <a href="https://www.linkedin.com/in/rhombroeck/" rel="noopener" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="block" id="contact">
+    <div class="wrap">
+      <div class="block-head reveal">
+        <h2>Tell us what you are trying to build.</h2>
+      </div>
+
+      <div class="contact-card reveal">
+        <p class="contact-pitch">
+          A short note about your organisation and the question you are sitting with is enough to start.
+        </p>
+
+        <div class="contact-meta">
+          <div class="contact-line contact-line--lead">
+            <span class="k">Write</span>
+            <a class="v v--lead" href="mailto:info@veracruz.be?subject=Project enquiry">
+              info@veracruz.be <span class="arrow">↗</span>
+            </a>
+          </div>
+          <div class="contact-line">
+            <span class="k">Studio</span>
+            <span class="v">Brussels, Belgium</span>
+          </div>
+          <div class="contact-line">
+            <span class="k">For</span>
+            <span class="v">Mission-driven and established organisations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span>© 2026 VeraCruz <span class="dot"></span> Brussels</span>
+    <span>A design studio for what crosses disciplines.</span>
+  </div>
+</footer>
+
+<script>
+  // Sticky header border on scroll
+  const head = document.querySelector('header.site');
+  const onScroll = () => head.classList.toggle('scrolled', window.scrollY > 4);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Stagger children slightly inside practice-list and approach-grid
+  document.querySelectorAll('.practice-row, .approach-item').forEach((el, i) => {
+    el.style.transitionDelay = `${Math.min(i * 60, 240)}ms`;
+  });
+
+  // Scrollspy: highlight the nav link whose section is currently in view
+  (function () {
+    const navLinks = document.querySelectorAll('nav.primary a[href^="#"]');
+    if (!navLinks.length) return;
+
+    const linkByHash = new Map();
+    navLinks.forEach(a => linkByHash.set(a.getAttribute('href').slice(1), a));
+
+    const sections = Array.from(linkByHash.keys())
+      .map(id => document.getElementById(id))
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    let activeId = null;
+    const setActive = (id) => {
+      if (id === activeId) return;
+      activeId = id;
+      navLinks.forEach(a => {
+        a.classList.toggle('is-active', a.getAttribute('href') === '#' + id);
+      });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      // Among currently-intersecting sections, pick the topmost one.
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setActive(visible[0].target.id);
+    }, {
+      // Trigger band: upper portion of the viewport so the active link
+      // updates just as you reach a new section.
+      rootMargin: '-22% 0px -68% 0px',
+      threshold: 0,
+    });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Snap the active state immediately on click for tight feedback during smooth-scroll
+    navLinks.forEach(a => {
+      a.addEventListener('click', () => setActive(a.getAttribute('href').slice(1)));
+    });
+  })();
+
+  // Contact form removed — site uses a plain mailto. No JS needed here.
+</script>
+
+</body>
+</html>
