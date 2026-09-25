@@ -258,6 +258,7 @@
           <div class="adv" id="adv">
             <div class="row">
               <div class="f"><label for="f-site" data-i18n="s.site.l">Site web</label><input id="f-site" name="website_url" data-i18n-ph="s.site" placeholder="https://… (optionnel)"></div>
+              <div class="f"><label for="f-sector" data-i18n="s.sector.l">Secteur d'activité</label><input id="f-sector" name="sector" data-i18n-ph="s.sector" placeholder="Studio de design, solaire… (optionnel)"></div>
               <div class="f"><label for="f-zone" data-i18n="s.zone.l">Zone</label><input id="f-zone" name="zone" data-i18n-ph="s.zone" placeholder="Wallonie, Belgique, global…"></div>
             </div>
             <div class="row" style="padding-top: 10px;">
@@ -385,6 +386,7 @@
       "s.brand": "Your company name…", "s.go": "Measure",
       "s.email.l": "Where should we send your score?", "s.email": "Your email address",
       "s.site.l": "Website", "s.site": "https://… (optional)",
+      "s.sector.l": "Business sector", "s.sector": "Design studio, solar… (optional)",
       "s.zone.l": "Area", "s.zone": "Wallonia, Belgium, global…",
       "s.comp.l": "Known competitors", "s.comp": "Comma-separated (optional)",
       "s.send": "Send me my score", "s.adv": "Refine the measurement ↓", "s.advUp": "Collapse ↑",
@@ -526,6 +528,7 @@
           brand: document.getElementById("f-brand").value,
           email: document.getElementById("f-email").value,
           website_url: document.getElementById("f-site").value,
+          sector: document.getElementById("f-sector").value,
           zone: document.getElementById("f-zone").value,
           competitors: document.getElementById("f-comp").value,
           hp: document.getElementById("f-hp").value,
@@ -551,6 +554,7 @@
         brand: document.getElementById("f-brand").value,
         email: document.getElementById("f-email").value,
         website_url: document.getElementById("f-site").value,
+        sector: document.getElementById("f-sector").value,
         zone: document.getElementById("f-zone").value,
         competitors: document.getElementById("f-comp").value,
         lang: LANG
