@@ -113,7 +113,7 @@
   .hero .lede { margin-top: 20px; font-size: clamp(16px, 2vw, 18px); color: var(--sub); max-width: 46ch; }
 
   .search { margin-top: 44px; width: min(680px, 100%); }
-  .search .box { display: flex; align-items: center; gap: 6px; padding: 8px 8px 8px 26px; border-radius: 999px; transition: box-shadow .3s ease, transform .3s ease; }
+  .search .box { display: flex; align-items: center; gap: 6px; padding: 8px 8px 8px 26px; border-radius: 999px; transition: box-shadow .3s ease, transform .3s ease; background: var(--glass-strong); border-color: color-mix(in oklch, var(--petrol) 34%, var(--glass-edge)); }
   .search .box:focus-within { transform: translateY(-2px); box-shadow: 0 30px 80px -28px oklch(30% 0.06 190 / .6), inset 0 1px 0 var(--glass-edge); }
   .search input#f-brand { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 19px; padding: 15px 0; outline: none; }
   .search input::placeholder { color: var(--sub); }
