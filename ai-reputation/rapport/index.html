@@ -270,8 +270,11 @@
     if (bench.length > 1) {
       html += '<section class="card glass"><h2>Votre position face à la concurrence directe</h2><p class="caption">Acteurs mesurés dans les mêmes réponses, sur les mêmes questions.</p>';
       bench.forEach(function (b, i) {
-        html += '<div class="brow' + (b.you ? ' you' : '') + '"><span class="pos">' + (i + 1) + '</span><span>' + (b.you ? esc(b.name) : chip(b.name)) + '</span><span class="bar" aria-hidden="true"><i style="width:' + Math.max(4, b.score) + '%;"></i></span><span class="sc">' + esc(b.score) + '</span></div>';
+        var pos = b.rank || (i + 1);
+        var nm = b.you ? esc(b.name) + ' <span style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;">— vous</span>' : chip(b.name);
+        html += '<div class="brow' + (b.you ? ' you' : '') + '"><span class="pos">' + pos + '</span><span>' + nm + '</span><span class="bar" aria-hidden="true"><i style="width:' + Math.max(4, b.score) + '%;"></i></span><span class="sc">' + esc(b.score) + '</span></div>';
       });
+      if (bench.some(function (b) { return b.rank; })) html += '<p class="caption" style="margin-top:10px;margin-bottom:0;">Le rang affiché pour votre marque est sa position réelle parmi l\'ensemble des acteurs mesurés.</p>';
       html += '</section>';
     }
 
