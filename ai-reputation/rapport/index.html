@@ -71,8 +71,13 @@
   .head h1 { font-size: clamp(30px, 5vw, 46px); }
   .head .meta { color: var(--sub); font-size: 14.5px; margin-top: 6px; max-width: 52ch; }
   .dials { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; justify-content: center; }
-  .roundel { border-radius: 50%; border: 2px solid var(--petrol); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-4deg); background: var(--glass); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: var(--glass-shadow); width: 148px; height: 148px; }
-  .roundel.small { width: 96px; height: 96px; border-style: dashed; }
+  .roundel { position: relative; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-4deg); background: var(--glass); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: var(--glass-shadow); width: 148px; height: 148px; --ring: 7px; }
+  .roundel::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
+    background: conic-gradient(var(--petrol) calc(var(--val, 0) * 1%), color-mix(in oklch, var(--ink) 16%, transparent) 0);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--ring)), #000 calc(100% - var(--ring) + 0.5px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - var(--ring)), #000 calc(100% - var(--ring) + 0.5px)); }
+  .roundel.small { width: 96px; height: 96px; --ring: 5px; }
+  .roundel.small::before { opacity: .78; }
   .roundel .v { font-family: var(--display); font-size: 52px; color: var(--petrol); line-height: 1; }
   .roundel.small .v { font-size: 30px; }
   .roundel .l { font-size: 9.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--sub); font-weight: 700; margin-top: 4px; text-align: center; padding: 0 8px; }
@@ -153,6 +158,8 @@
     .ambient, .actions, .bundle, .modelgrid { display: none; }
     body { background: #fff; color: #1c2422; }
     .glass, section.card, .mast { background: none; border-color: #ccc; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .roundel { box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; border: 2px solid #1f4d4a; }
+    .roundel::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
 </head>
@@ -254,8 +261,8 @@
     html += '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span><span>Mesuré le ' + dateStr + '</span><span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>';
 
     html += '<div class="head"><div><h1>' + esc(r.brand) + '</h1><p class="meta">' + esc(verdictLine(r.score)) + '</p></div>';
-    html += '<div class="dials"><div class="roundel"><span class="v">' + esc(r.score) + '</span><span class="l">Score global</span></div>';
-    if (hasSub) html += '<div class="roundel small"><span class="v">' + esc(r.score_perception) + '</span><span class="l">Perception</span></div><div class="roundel small"><span class="v">' + esc(r.score_preparation) + '</span><span class="l">Préparation</span></div>';
+    html += '<div class="dials"><div class="roundel" style="--val:' + Number(r.score) + '" role="img" aria-label="Score global : ' + esc(r.score) + ' sur 100"><span class="v">' + esc(r.score) + '</span><span class="l">Score global</span></div>';
+    if (hasSub) html += '<div class="roundel small" style="--val:' + Number(r.score_perception) + '" role="img" aria-label="Perception : ' + esc(r.score_perception) + ' sur 100"><span class="v">' + esc(r.score_perception) + '</span><span class="l">Perception</span></div><div class="roundel small" style="--val:' + Number(r.score_preparation) + '" role="img" aria-label="Préparation : ' + esc(r.score_preparation) + ' sur 100"><span class="v">' + esc(r.score_preparation) + '</span><span class="l">Préparation</span></div>';
     html += '</div></div>';
 
     html += '<section class="card glass"><h2>Comment lire ce rapport</h2><p class="howto"><b>Le score</b> va de 0 à 100 : Perception mesure ce que les IA disent de vous ; Préparation, ce que votre site leur donne à lire. <b>L\'échelle</b> de chaque question compte 4 niveaux, d\'« absent » à « recommandé ». <b>Les cadenas 🔒</b> signalent une information réellement mesurée mais réservée au rapport complet : les compteurs affichés sont exacts.</p></section>';

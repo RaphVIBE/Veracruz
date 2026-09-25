@@ -171,7 +171,12 @@
   .final .bigstamp { display: inline-block; font-family: var(--display); font-size: 19px; letter-spacing: .14em; color: var(--sage); border: 2px solid var(--sage); border-radius: 6px; padding: 7px 20px; transform: rotate(-3deg); margin-bottom: 14px; }
   .final p { font-size: 15px; color: var(--sub); max-width: 40ch; margin: 0 auto; }
   .final b { color: var(--ink); }
-  .final .roundel { width: 132px; height: 132px; border-radius: 50%; border: 2px solid var(--petrol); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-4deg); margin: 4px auto 0; background: color-mix(in oklch, var(--paper) 40%, transparent); }
+  .final .roundel { position: relative; width: 132px; height: 132px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-4deg); margin: 4px auto 0; background: color-mix(in oklch, var(--paper) 40%, transparent); }
+  .final .roundel::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
+    background: conic-gradient(var(--petrol) calc(var(--val, 0) * 1%), color-mix(in oklch, var(--ink) 16%, transparent) 0);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5.5px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5.5px));
+    transition: background .5s ease; }
   .final .roundel .v { font-family: var(--display); font-size: 46px; color: var(--petrol); line-height: 1; }
   .final .roundel .l { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--sub); font-weight: 700; margin-top: 3px; }
   .finalbtns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -752,6 +757,12 @@
     document.getElementById("k-final").classList.add("on");
     if (MEASURE.state === "done") {
       document.getElementById("k-score").textContent = MEASURE.score;
+      var rd = document.querySelector("#k-scorewrap .roundel");
+      if (rd) {
+        rd.style.setProperty("--val", Number(MEASURE.score) || 0);
+        rd.setAttribute("role", "img");
+        rd.setAttribute("aria-label", (LANG === "fr" ? "Score de perception : " : "Perception score: ") + MEASURE.score + (LANG === "fr" ? " sur 100" : " out of 100"));
+      }
       document.getElementById("k-view").href = reportUrl();
       document.getElementById("k-scorewrap").hidden = false;
     } else {
