@@ -8,12 +8,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700&display=swap">
 <style>
   :root {
-    --paper: oklch(96.8% 0.007 185); --ink: oklch(23% 0.014 195); --sub: oklch(46% 0.016 192);
+    --paper: oklch(96.8% 0.007 185); --ink: oklch(23% 0.014 195); --sub: oklch(44% 0.016 192);
     --hairline: oklch(80% 0.012 185 / .7);
     --petrol: oklch(44% 0.078 190); --petrol-deep: oklch(31% 0.06 190);
-    --brick: oklch(51% 0.1 35); --sage: oklch(50% 0.07 140); --amber: oklch(58% 0.09 75);
-    --glass: oklch(98% 0.004 185 / .55); --glass-strong: oklch(98.5% 0.004 185 / .78);
-    --glass-edge: oklch(100% 0 0 / .65);
+    --brick: oklch(46% 0.1 35); --sage: oklch(46% 0.07 140); --amber: oklch(48% 0.1 70);
+    --glass: oklch(98% 0.004 185 / .55); --glass-edge: oklch(100% 0 0 / .65);
     --glass-shadow: 0 24px 70px -28px oklch(30% 0.05 190 / .5);
     --blob-a: oklch(82% 0.06 190 / .55); --blob-b: oklch(85% 0.055 45 / .4); --blob-c: oklch(84% 0.05 140 / .38);
     --display: "Libre Caslon Display", Georgia, serif;
@@ -22,31 +21,29 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: oklch(18% 0.012 195); --ink: oklch(93% 0.008 185); --sub: oklch(70% 0.014 188);
+      --paper: oklch(18% 0.012 195); --ink: oklch(93% 0.008 185); --sub: oklch(72% 0.014 188);
       --hairline: oklch(38% 0.016 188 / .8);
       --petrol: oklch(70% 0.085 186); --petrol-deep: oklch(80% 0.075 186);
-      --brick: oklch(68% 0.1 40); --sage: oklch(70% 0.08 140); --amber: oklch(75% 0.09 80);
-      --glass: oklch(26% 0.014 192 / .5); --glass-strong: oklch(27% 0.014 192 / .8);
-      --glass-edge: oklch(100% 0 0 / .14);
+      --brick: oklch(70% 0.1 40); --sage: oklch(72% 0.08 140); --amber: oklch(78% 0.09 80);
+      --glass: oklch(26% 0.014 192 / .5); --glass-edge: oklch(100% 0 0 / .14);
       --glass-shadow: 0 24px 70px -24px oklch(5% 0.02 190 / .8);
       --blob-a: oklch(45% 0.08 190 / .5); --blob-b: oklch(40% 0.07 45 / .4); --blob-c: oklch(42% 0.06 140 / .35);
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --paper: oklch(18% 0.012 195); --ink: oklch(93% 0.008 185); --sub: oklch(70% 0.014 188);
+    --paper: oklch(18% 0.012 195); --ink: oklch(93% 0.008 185); --sub: oklch(72% 0.014 188);
     --hairline: oklch(38% 0.016 188 / .8);
     --petrol: oklch(70% 0.085 186); --petrol-deep: oklch(80% 0.075 186);
-    --brick: oklch(68% 0.1 40); --sage: oklch(70% 0.08 140); --amber: oklch(75% 0.09 80);
-    --glass: oklch(26% 0.014 192 / .5); --glass-strong: oklch(27% 0.014 192 / .8);
-    --glass-edge: oklch(100% 0 0 / .14);
+    --brick: oklch(70% 0.1 40); --sage: oklch(72% 0.08 140); --amber: oklch(78% 0.09 80);
+    --glass: oklch(26% 0.014 192 / .5); --glass-edge: oklch(100% 0 0 / .14);
     --glass-shadow: 0 24px 70px -24px oklch(5% 0.02 190 / .8);
     --blob-a: oklch(45% 0.08 190 / .5); --blob-b: oklch(40% 0.07 45 / .4); --blob-c: oklch(42% 0.06 140 / .35);
     color-scheme: dark;
   }
   * { box-sizing: border-box; margin: 0; }
   body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
-  .wrap { max-width: 880px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 28px); }
+  .wrap { max-width: 900px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 28px); }
   h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.08; text-wrap: balance; }
   button { font: inherit; }
   button:focus-visible, a:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; border-radius: 6px; }
@@ -63,45 +60,99 @@
   .actions { display: flex; gap: 8px; flex-wrap: wrap; }
   .btn { border: 0; border-radius: 999px; padding: 9px 18px; font-size: 13.5px; font-weight: 700; cursor: pointer; background: var(--petrol); color: var(--paper); text-decoration: none; display: inline-block; }
   .btn:hover { background: var(--petrol-deep); }
-  .btn.quiet { background: color-mix(in oklch, var(--ink) 8%, transparent); color: var(--ink); }
-  main { padding: 34px 0 60px; }
+  .btn.quiet { background: color-mix(in oklch, var(--ink) 9%, transparent); color: var(--ink); }
+  main { padding: 26px 0 60px; }
   .state { text-align: center; color: var(--sub); padding: 80px 0; }
   .demoTag { display: inline-block; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--amber); border: 1.5px solid var(--amber); border-radius: 4px; padding: 2px 10px; margin-bottom: 14px; }
-  .dossier { display: flex; flex-wrap: wrap; gap: 4px 24px; padding: 10px 0; border-block: 1px solid var(--hairline); font-size: 12px; color: var(--sub); letter-spacing: .05em; font-variant-numeric: tabular-nums; margin-bottom: 30px; }
+  .dossier { display: flex; flex-wrap: wrap; gap: 4px 24px; padding: 10px 0; border-block: 1px solid var(--hairline); font-size: 12px; color: var(--sub); letter-spacing: .05em; font-variant-numeric: tabular-nums; margin-bottom: 24px; }
   .dossier b { color: var(--ink); font-weight: 600; }
-  .head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; margin-bottom: 34px; }
+  .head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; margin-bottom: 18px; }
   @media (max-width: 640px) { .head { grid-template-columns: 1fr; text-align: center; justify-items: center; } }
   .head h1 { font-size: clamp(30px, 5vw, 46px); }
-  .head .meta { color: var(--sub); font-size: 14.5px; margin-top: 6px; }
-  .roundel { width: 148px; height: 148px; border-radius: 50%; border: 2px solid var(--petrol); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-4deg); background: var(--glass); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: var(--glass-shadow); }
+  .head .meta { color: var(--sub); font-size: 14.5px; margin-top: 6px; max-width: 52ch; }
+  .dials { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .roundel { border-radius: 50%; border: 2px solid var(--petrol); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-4deg); background: var(--glass); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: var(--glass-shadow); width: 148px; height: 148px; }
+  .roundel.small { width: 96px; height: 96px; border-style: dashed; }
   .roundel .v { font-family: var(--display); font-size: 52px; color: var(--petrol); line-height: 1; }
-  .roundel .l { font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--sub); font-weight: 700; margin-top: 4px; }
-  section { margin-bottom: 30px; border-radius: 24px; padding: 24px 26px; }
-  section h2 { font-size: 21px; margin-bottom: 14px; }
-  .prow { display: grid; grid-template-columns: 1fr auto; gap: 6px 18px; padding: 11px 0; border-top: 1px solid var(--hairline); font-size: 14.5px; align-items: baseline; }
-  .prow .q { color: var(--ink); }
-  .prow .others { grid-column: 1 / -1; font-size: 12.5px; color: var(--sub); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .roundel.small .v { font-size: 30px; }
+  .roundel .l { font-size: 9.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--sub); font-weight: 700; margin-top: 4px; text-align: center; padding: 0 8px; }
+  section.card { border-radius: 24px; padding: 24px 26px; margin-bottom: 24px; }
+  section.card h2 { font-size: 21px; margin-bottom: 4px; }
+  .caption { font-size: 13.5px; color: var(--sub); margin-bottom: 14px; }
+  .howto { font-size: 14px; color: var(--sub); }
+  .howto b { color: var(--ink); }
+
+  /* ladder rows */
+  .lrow { display: grid; grid-template-columns: 1fr auto; gap: 6px 18px; padding: 12px 0; border-top: 1px solid var(--hairline); align-items: center; }
+  .lrow .q { font-size: 14px; }
+  .ladder { display: inline-flex; gap: 5px; align-items: center; }
+  .ladder i { width: 24px; height: 8px; border-radius: 999px; background: color-mix(in oklch, var(--ink) 10%, transparent); }
+  .ladder .lab { font-size: 11.5px; letter-spacing: .05em; font-weight: 700; margin-left: 8px; white-space: nowrap; }
+  .lv0 .lab { color: var(--brick); } .lv0 i.on { background: var(--brick); }
+  .lv1 .lab { color: var(--amber); } .lv1 i.on { background: var(--amber); }
+  .lv2 .lab { color: var(--petrol); } .lv2 i.on { background: var(--petrol); }
+  .lv3 .lab { color: var(--sage); } .lv3 i.on { background: var(--sage); }
+  .lrow .others { grid-column: 1 / -1; font-size: 12.5px; color: var(--sub); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   .lockchip { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--hairline); border-radius: 999px; padding: 1px 10px; font-size: 11.5px; color: var(--sub); }
   .lockchip i { font-style: normal; filter: blur(3px); letter-spacing: 2px; user-select: none; }
-  .lockchip::before { content: "\1F512"; font-size: 10px; filter: none; }
-  .unlock { grid-column: 1 / -1; margin-top: 10px; font-size: 13px; color: var(--sub); }
-  .unlock a { color: var(--petrol); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-  .badge { font-size: 12px; letter-spacing: .06em; font-weight: 700; white-space: nowrap; }
-  .badge.ok { color: var(--sage); }
-  .badge.abs { color: var(--brick); border: 1.5px solid var(--brick); border-radius: 4px; padding: 1px 8px; transform: rotate(-2deg); display: inline-block; font-family: var(--display); letter-spacing: .1em; }
+  .lockchip::before { content: "\1F512"; font-size: 10px; }
+  .legend { display: flex; gap: 8px 20px; flex-wrap: wrap; font-size: 12px; color: var(--sub); padding-top: 12px; }
+
+  /* benchmark */
+  .brow { display: grid; grid-template-columns: 30px minmax(120px, 170px) 1fr 46px; gap: 12px; align-items: center; font-size: 14px; padding: 7px 0; }
+  .brow .pos { font-family: var(--display); font-size: 18px; color: var(--sub); text-align: center; }
+  .brow .bar { height: 12px; border-radius: 999px; background: color-mix(in oklch, var(--ink) 8%, transparent); overflow: hidden; }
+  .brow .bar i { display: block; height: 100%; border-radius: 999px; background: var(--petrol); }
+  .brow .sc { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--sub); }
+  .brow.you { background: color-mix(in oklch, var(--brick) 10%, transparent); border-radius: 12px; padding: 7px 8px; margin: 0 -8px; }
+  .brow.you .pos, .brow.you .sc { color: var(--brick); }
+  .brow.you .bar i { background: var(--brick); }
+
+  /* tech checks */
+  .trow2 { display: grid; grid-template-columns: minmax(92px, auto) 1.1fr 1fr; gap: 8px 14px; padding: 12px 0; border-top: 1px solid var(--hairline); align-items: baseline; font-size: 14px; }
+  @media (max-width: 620px) { .trow2 { grid-template-columns: 1fr; gap: 4px; } }
+  .st { font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+  .st::before { content: "●"; margin-right: 6px; }
+  .st.ok { color: var(--sage); } .st.warn { color: var(--amber); } .st.fail { color: var(--brick); }
+  .trow2 .check b { display: block; font-weight: 700; }
+  .trow2 .check span { color: var(--sub); font-size: 12.5px; }
+  .lever { font-size: 12.5px; color: var(--sub); }
+  .lever b { display: block; font-weight: 700; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; }
+  .lever.ok b { color: var(--sage); } .lever.warn b { color: var(--amber); } .lever.fail b { color: var(--brick); }
+
+  /* framing / quote */
   .fchip { display: inline-block; border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 700; border: 1.5px solid var(--sub); color: var(--sub); }
   .fchip.warn { border-color: var(--brick); color: var(--brick); }
   .fchip.good { border-color: var(--sage); color: var(--sage); }
   blockquote { font-family: var(--displaytext); font-style: italic; font-size: 17px; line-height: 1.6; color: var(--ink); margin-top: 12px; }
-  .note { font-size: 12.5px; color: var(--sub); margin-top: 14px; }
-  .cta { text-align: center; padding: 30px 26px; }
-  .cta h2 { margin-bottom: 8px; }
-  .cta p { color: var(--sub); max-width: 44ch; margin: 0 auto 18px; }
+  .note { font-size: 12.5px; color: var(--sub); margin-top: 12px; }
+
+  /* model teaser */
+  .modelgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; }
+  .modelcard { border: 1px solid var(--hairline); border-radius: 14px; padding: 12px 14px; font-size: 13px; text-align: center; }
+  .modelcard b { display: block; font-size: 13.5px; }
+  .modelcard .sc { font-family: var(--display); font-size: 26px; color: var(--petrol); }
+  .modelcard.lock { color: var(--sub); }
+  .modelcard.lock .sc { color: var(--sub); letter-spacing: 3px; }
+  .modelcard.lock b::after { content: " \1F512"; font-size: 10px; }
+  .modelcard .tag { font-size: 11px; font-weight: 700; }
+  .modelcard .tag.on { color: var(--sage); }
+
+  /* bundle */
+  .bundle { display: grid; grid-template-columns: 1fr auto; gap: 14px 22px; align-items: center; border: 1.5px solid var(--petrol); border-radius: 18px; padding: 18px 22px; }
+  @media (max-width: 620px) { .bundle { grid-template-columns: 1fr; } }
+  .bundle ul { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--sub); columns: 2; column-gap: 26px; }
+  @media (max-width: 620px) { .bundle ul { columns: 1; } }
+  .bundle .price { text-align: center; }
+  .bundle .price .p { font-family: var(--display); font-size: 34px; color: var(--petrol); line-height: 1; }
+  .bundle .price .per { font-size: 11.5px; color: var(--sub); }
+  .bundle .cta { display: inline-block; background: var(--petrol); color: var(--paper); border-radius: 999px; padding: 10px 22px; font-size: 14px; font-weight: 700; margin-top: 10px; text-decoration: none; }
+  .bundle .cta:hover { background: var(--petrol-deep); }
   footer { padding: 22px 0 26px; border-top: 1px solid var(--hairline); font-size: 12.5px; color: var(--sub); display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; }
   @media print {
-    .ambient, .actions, .cta { display: none; }
+    .ambient, .actions, .bundle, .modelgrid { display: none; }
     body { background: #fff; color: #1c2422; }
-    .glass, section, .mast { background: none; border-color: #ccc; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    .glass, section.card, .mast { background: none; border-color: #ccc; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
 </style>
 </head>
@@ -116,13 +167,9 @@
       <a class="btn" href="../">Mesurer ma marque</a>
     </div>
   </header>
-
-  <main id="main">
-    <div class="state" id="state">Chargement du rapport…</div>
-  </main>
-
+  <main id="main"><div class="state" id="state">Chargement du rapport…</div></main>
   <footer>
-    <span>AI Réputation · score préliminaire automatisé</span>
+    <span>AI Réputation · score préliminaire automatisé, mesuré sur un modèle de frontière</span>
     <span>Mesure · Diagnostic · Amélioration continue · Consultance</span>
   </footer>
 </div>
@@ -130,7 +177,18 @@
 <script>
   var API = "https://ydqpevnmliopqrkuhrfu.supabase.co/functions/v1/ai-reputation-report";
   var KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkcXBldm5tbGlvcHFya3VocmZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzEwMjMsImV4cCI6MjA5NTQ0NzAyM30.mdbGH8r20tuGwA62G2r2OLJeeuk0XraRRi6pTtoGp-g";
+  var MASK = "••••••";
+  var CONTACT = "raph@veracruz.be";
 
+  var LEVELS = ["Absent", "Nommé", "Décrit", "Recommandé"];
+  var LEVERS = {
+    crawlers: { t: "Accès des robots IA", fix: "Autoriser GPTBot, ClaudeBot et consorts dans robots.txt : vos pages redeviennent des sources citables." },
+    schema: { t: "Données structurées", fix: "Ajouter les étiquettes schema.org — la fiche d'identité invisible que lisent les machines." },
+    nojs: { t: "Lisibilité sans JavaScript", fix: "Servir le contenu en HTML : les extracteurs ne cliquent pas et n'attendent pas." },
+    answers: { t: "Contenu-réponse", fix: "Publier FAQ et fourchettes de prix : la matière première des réponses d'IA." },
+    llms: { t: "llms.txt", fix: "Publier le fichier sommaire pour agents IA à la racine du site (standard émergent)." },
+    entity: { t: "Vérité d'entité", fix: "Créer l'entité Wikidata et aligner nom-adresse-téléphone partout : une seule vérité." }
+  };
   var FR_FRAMING = {
     LEADER: ["Référence du marché", "good"], PEER: ["Parmi les meilleurs", "good"],
     ALTERNATIVE: ["Présentée comme option secondaire", "warn"], NICHE: ["Acteur de niche", ""],
@@ -138,20 +196,23 @@
   };
 
   function esc(s) { var d = document.createElement("div"); d.textContent = String(s == null ? "" : s); return d.innerHTML; }
-
   function copyLink() {
     var b = document.getElementById("copyBtn");
-    function done(okMsg) { b.textContent = okMsg; setTimeout(function () { b.textContent = "Copier le lien"; }, 1800); }
-    try {
-      navigator.clipboard.writeText(location.href).then(function () { done("Lien copié ✓"); },
-        function () { window.prompt ? prompt("Copiez le lien :", location.href) : null; done("Copier le lien"); });
-    } catch (e) { done("Copier le lien"); }
+    try { navigator.clipboard.writeText(location.href).then(function () { b.textContent = "Lien copié ✓"; setTimeout(function () { b.textContent = "Copier le lien"; }, 1800); }, function () {}); } catch (e) {}
   }
-
   function verdictLine(score) {
     if (score >= 70) return "Votre marque tient sa place dans la couche de réponse. La question est maintenant de la défendre.";
     if (score >= 45) return "Votre marque existe dans les réponses des IA, mais laisse une large part du terrain à ses concurrents.";
     return "Quand vos futurs clients interrogent une IA, c'est le plus souvent un concurrent qui répond à votre place.";
+  }
+  function ladderHtml(level) {
+    var segs = "";
+    for (var k = 0; k < 4; k++) segs += '<i class="' + (k <= level ? "on" : "") + '"></i>';
+    return '<span class="ladder lv' + level + '" role="img" aria-label="niveau ' + level + ' sur 3 : ' + LEVELS[level] + '">' + segs + '<span class="lab">' + LEVELS[level].toUpperCase() + '</span></span>';
+  }
+  function chip(name) {
+    if (name === MASK) return '<span class="lockchip" role="img" aria-label="Nom masqué, visible dans le rapport complet"><i aria-hidden="true">■■■■■</i></span>';
+    return esc(name);
   }
 
   async function load() {
@@ -159,59 +220,86 @@
     var st = document.getElementById("state");
     if (!slug) { st.textContent = "Rapport introuvable : le lien est incomplet."; return; }
     try {
-      var res = await fetch(API + "?slug=" + encodeURIComponent(slug), {
-        headers: { "Authorization": "Bearer " + KEY, "apikey": KEY }
-      });
+      var res = await fetch(API + "?slug=" + encodeURIComponent(slug), { headers: { "Authorization": "Bearer " + KEY, "apikey": KEY } });
       var data = await res.json();
       if (!data.ok) { st.textContent = "Ce rapport n'existe pas ou n'est plus disponible."; return; }
       render(data.report);
-    } catch (e) {
-      st.textContent = "Le rapport n'a pas pu être chargé. Vérifiez votre connexion et rechargez la page.";
-    }
+    } catch (e) { st.textContent = "Le rapport n'a pas pu être chargé. Vérifiez votre connexion et rechargez la page."; }
   }
 
   function render(r) {
     var pres = Array.isArray(r.presence) ? r.presence : [];
-    var mentioned = pres.filter(function (x) { return x.mentioned; }).length;
+    // legacy rows: derive level
+    pres = pres.map(function (x) {
+      var lvl = typeof x.level === "number" ? x.level : (x.mentioned ? 1 : 0);
+      var actors = Array.isArray(x.actors) ? x.actors
+        : (Array.isArray(x.brands) ? x.brands.filter(function (b) { return b !== r.brand; }).map(function (b) { return { name: b, level: 1 }; }) : []);
+      return { q: x.q, level: Math.max(0, Math.min(3, lvl)), actors: actors };
+    });
     var fr = FR_FRAMING[r.framing] || FR_FRAMING.NICHE;
     var date = new Date(r.created_at);
     var dateStr = date.toLocaleDateString("fr-BE", { day: "2-digit", month: "2-digit", year: "numeric" });
     document.title = "Rapport · " + r.brand + " · AI Réputation";
+    var hasSub = typeof r.score_perception === "number" && typeof r.score_preparation === "number";
+    var bench = Array.isArray(r.benchmark) ? r.benchmark : [];
+    var checks = Array.isArray(r.prep) ? r.prep : [];
+    var maskedCount = 0;
+    bench.forEach(function (b) { if (!b.you && b.name === MASK) maskedCount++; });
+    pres.forEach(function (x) { x.actors.forEach(function (a) { if (a.name === MASK) maskedCount++; }); });
+    var leversTodo = checks.filter(function (c) { return c.status !== "ok"; }).length;
+    var mailto = "mailto:" + CONTACT + "?subject=" + encodeURIComponent("Rapport complet — " + r.brand + " (" + r.slug + ")");
 
-    var masked = false;
-    var rows = pres.map(function (x) {
-      var others = (x.brands || []).filter(function (b) { return b !== r.brand; }).slice(0, 4);
-      var chips = others.map(function (b) {
-        if (b === "\u2022\u2022\u2022\u2022\u2022\u2022") { masked = true; return '<span class="lockchip"><i>■■■■■</i></span>'; }
-        return esc(b);
-      }).join(" ");
-      return '<div class="prow"><span class="q">' + esc(x.q) + '</span>' +
-        (x.mentioned
-          ? '<span class="badge ok">cité ' + esc(x.rank) + 'ᵉ sur ' + esc(x.of) + '</span>'
-          : '<span class="badge abs">ABSENT</span>') +
-        (others.length ? '<span class="others">Cités : ' + chips + '</span>' : '') +
-        '</div>';
-    }).join("");
-    var unlockLine = "";
+    var html = "";
+    if (r.demo) html += '<div style="text-align:center;"><span class="demoTag">Spécimen de démonstration · marque fictive</span></div>';
+    html += '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span><span>Mesuré le ' + dateStr + '</span><span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>';
 
-    document.getElementById("main").innerHTML =
-      (r.demo ? '<div style="text-align:center;"><span class="demoTag">Spécimen de démonstration · marque fictive</span></div>' : '') +
-      '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span>' +
-      '<span>Mesuré le ' + dateStr + '</span><span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>' +
-      '<div class="head"><div><h1>' + esc(r.brand) + '</h1>' +
-      '<p class="meta">' + esc(verdictLine(r.score)) + '</p></div>' +
-      '<div class="roundel"><span class="v">' + esc(r.score) + '</span><span class="l">Score de perception</span></div></div>' +
-      '<section class="glass"><h2>Présence spontanée · citée dans ' + mentioned + ' réponse' + (mentioned > 1 ? 's' : '') + ' sur ' + pres.length + '</h2>' +
-      '<p style="font-size:13.5px;color:var(--sub);margin-bottom:4px;">Questions posées aux IA comme le ferait un acheteur, sans jamais souffler le nom de la marque.</p>' +
-      rows +
-      (masked ? '<div class="unlock">Qui occupe le terrain à votre place ? L&#39;identité des concurrents cités fait partie du <a href="../">rapport complet</a>.</div>' : '') +
-      '</section>' +
-      '<section class="glass"><h2>Cadrage</h2><span class="fchip ' + fr[1] + '">' + esc(fr[0]) + '</span>' +
-      (r.quote ? '<blockquote>' + esc(r.quote) + '</blockquote>' : '') +
-      '<p class="note">Score préliminaire automatisé : un modèle, une passe, ' + pres.length + ' questions. La mesure complète couvre plusieurs modèles, plusieurs passes et plusieurs langues, avec la carte des sources qui fabriquent chaque verdict.</p></section>' +
-      '<section class="glass cta"><h2>Passer du constat à la correction</h2>' +
-      '<p>Le rapport complet trace chaque erreur jusqu&#39;à sa source et livre le plan de correction priorisé.</p>' +
-      '<a class="btn" href="../">Demander le rapport complet</a></section>';
+    html += '<div class="head"><div><h1>' + esc(r.brand) + '</h1><p class="meta">' + esc(verdictLine(r.score)) + '</p></div>';
+    html += '<div class="dials"><div class="roundel"><span class="v">' + esc(r.score) + '</span><span class="l">Score global</span></div>';
+    if (hasSub) html += '<div class="roundel small"><span class="v">' + esc(r.score_perception) + '</span><span class="l">Perception</span></div><div class="roundel small"><span class="v">' + esc(r.score_preparation) + '</span><span class="l">Préparation</span></div>';
+    html += '</div></div>';
+
+    html += '<section class="card glass"><h2>Comment lire ce rapport</h2><p class="howto"><b>Le score</b> va de 0 à 100 : Perception mesure ce que les IA disent de vous ; Préparation, ce que votre site leur donne à lire. <b>L\'échelle</b> de chaque question compte 4 niveaux, d\'« absent » à « recommandé ». <b>Les cadenas 🔒</b> signalent une information réellement mesurée mais réservée au rapport complet : les compteurs affichés sont exacts.</p></section>';
+
+    if (bench.length > 1) {
+      html += '<section class="card glass"><h2>Votre position face à la concurrence directe</h2><p class="caption">Acteurs mesurés dans les mêmes réponses, sur les mêmes questions.</p>';
+      bench.forEach(function (b, i) {
+        html += '<div class="brow' + (b.you ? ' you' : '') + '"><span class="pos">' + (i + 1) + '</span><span>' + (b.you ? esc(b.name) : chip(b.name)) + '</span><span class="bar" aria-hidden="true"><i style="width:' + Math.max(4, b.score) + '%;"></i></span><span class="sc">' + esc(b.score) + '</span></div>';
+      });
+      html += '</section>';
+    }
+
+    var counts = [0, 0, 0, 0];
+    pres.forEach(function (x) { counts[x.level]++; });
+    html += '<section class="card glass"><h2>Présence spontanée</h2><p class="caption">Questions posées aux IA comme le ferait un acheteur, sans jamais souffler le nom de la marque. Niveau atteint : ' + pres.map(function (x) { return x.level; }).join(" · ") + '.</p>';
+    pres.forEach(function (x) {
+      html += '<div class="lrow"><span class="q">' + esc(x.q) + '</span>' + ladderHtml(x.level);
+      if (x.actors.length) html += '<span class="others">Cités : ' + x.actors.map(function (a) { return chip(a.name); }).join(" ") + '</span>';
+      html += '</div>';
+    });
+    html += '<div class="legend"><span>0 absent : l\'IA ne vous cite pas</span><span>1 nommé : cité dans une liste</span><span>2 décrit : l\'IA sait dire qui vous êtes</span><span>3 recommandé : l\'IA vous conseille</span></div></section>';
+
+    if (checks.length) {
+      html += '<section class="card glass"><h2>Préparation technique : les leviers</h2><p class="caption">Vérifications directes de votre site et de votre empreinte. Chaque ligne « Manquant » ou « À corriger » est une action du plan de correction.</p>';
+      checks.forEach(function (c) {
+        var meta = LEVERS[c.id] || { t: c.id, fix: "" };
+        var word = c.status === "ok" ? "Conforme" : c.status === "warn" ? "À corriger" : "Manquant";
+        html += '<div class="trow2"><span class="st ' + c.status + '">' + word + '</span><span class="check"><b>' + esc(meta.t) + '</b><span>' + esc(c.note) + '</span></span><span class="lever ' + c.status + '"><b>' + (c.status === "ok" ? "Conforme" : "Levier") + '</b>' + esc(c.status === "ok" ? "Rien à faire ici." : meta.fix) + '</span></div>';
+      });
+      html += '</section>';
+    }
+
+    html += '<section class="card glass"><h2>Cadrage</h2><span class="fchip ' + fr[1] + '">' + esc(fr[0]) + '</span>' + (r.quote ? '<blockquote>' + esc(r.quote) + '</blockquote>' : '') + '<p class="note">Score préliminaire automatisé : un modèle de frontière, une passe, ' + pres.length + ' questions. La mesure complète couvre plusieurs modèles, plusieurs passes et plusieurs langues.</p>';
+    html += '<div class="modelgrid"><div class="modelcard"><b>Claude</b><span class="sc">' + esc(r.score) + '</span><span class="tag on">MESURÉ</span></div><div class="modelcard lock"><b>ChatGPT</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Gemini</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Perplexity</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div></div></section>';
+
+    if (!r.premium && !r.demo) {
+      html += '<section class="bundle glass"><ul>' +
+        (maskedCount ? '<li>Identité des <b>' + maskedCount + ' acteurs</b> cités à votre place</li>' : '') +
+        (leversTodo ? '<li><b>' + leversTodo + ' leviers</b> techniques détaillés et priorisés</li>' : '') +
+        '<li>Scores <b>ChatGPT, Gemini, Perplexity</b></li><li>Passes multiples : la <b>stabilité</b> mesurée</li><li>Erreurs factuelles tracées aux <b>sources</b></li><li>Le <b>plan de correction</b> à 90 jours</li></ul>' +
+        '<div class="price"><div class="p">390&nbsp;€</div><div class="per">rapport complet · livré sous 5 jours</div><a class="cta" href="' + mailto + '">Débloquer mon rapport</a></div></section>';
+    }
+
+    document.getElementById("main").innerHTML = html;
   }
   load();
 </script>
