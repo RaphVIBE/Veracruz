@@ -99,7 +99,7 @@
 
   /* ——— masthead ——— */
   .mast { position: sticky; top: 12px; z-index: 5; }
-  .mast .inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px 10px 22px; border-radius: 999px; }
+  .mast .inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; }
   .mark { font-family: var(--display); font-size: 19px; }
   .mark b { font-weight: 400; color: var(--petrol); }
   .lang { display: flex; gap: 2px; border-radius: 999px; padding: 3px; background: color-mix(in oklch, var(--ink) 7%, transparent); }
@@ -228,7 +228,7 @@
 
 <div class="wrap">
   <header class="mast">
-    <div class="inner glass">
+    <div class="inner">
       <div class="mark">AI <b>Réputation</b></div>
       <div class="lang" role="group" aria-label="Langue / Language">
         <button id="btn-fr" aria-pressed="true" onclick="setLang('fr')">FR</button>
