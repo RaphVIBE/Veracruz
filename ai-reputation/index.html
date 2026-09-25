@@ -140,6 +140,38 @@
   .privacy { font-size: 12.5px; color: var(--sub); margin-top: 12px; }
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
+  /* ——— measurement console ——— */
+  .console { display: none; width: min(680px, 100%); margin-top: 40px; border-radius: 26px; text-align: left; }
+  .console.on { display: block; }
+  .console .head { display: flex; justify-content: space-between; gap: 10px; padding: 14px 24px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .console .body { padding: 20px 24px 22px; }
+  .master { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+  .master .pct { font-family: var(--display); font-size: 42px; color: var(--petrol); font-variant-numeric: tabular-nums; min-width: 2.6ch; }
+  .master .bar { flex: 1; height: 10px; border-radius: 999px; background: color-mix(in oklch, var(--ink) 10%, transparent); overflow: hidden; }
+  .master .bar i { display: block; height: 100%; width: 0%; border-radius: 999px; background: var(--petrol); transition: width .6s cubic-bezier(.16,1,.3,1); }
+  .reassure { min-height: 22px; font-size: 13.5px; color: var(--sub); margin-bottom: 14px; }
+  .steps { display: grid; gap: 9px; }
+  .step { display: grid; grid-template-columns: 22px 1fr auto; gap: 12px; align-items: center; font-size: 14.5px; color: var(--sub); border-radius: 14px; padding: 9px 12px; }
+  .step .dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--hairline); justify-self: center; }
+  .step.run { color: var(--ink); background: color-mix(in oklch, var(--petrol) 9%, transparent); }
+  .step.run .dot { border-color: var(--petrol); background: var(--petrol); }
+  @media (prefers-reduced-motion: no-preference) {
+    .step.run .dot { animation: pulse 1.1s ease-in-out infinite; }
+    @keyframes pulse { 50% { box-shadow: 0 0 0 5px color-mix(in oklch, var(--petrol) 25%, transparent); } }
+  }
+  .step.done { color: var(--ink); }
+  .step.done .dot { border-color: var(--sage); background: var(--sage); }
+  .step .meta { font-size: 12.5px; color: var(--sub); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .step.done .meta { color: var(--sage); font-weight: 600; }
+  .step .sbar { grid-column: 2 / -1; height: 4px; border-radius: 999px; background: color-mix(in oklch, var(--ink) 8%, transparent); overflow: hidden; display: none; }
+  .step.run .sbar { display: block; }
+  .step .sbar i { display: block; height: 100%; width: 0%; background: var(--petrol); border-radius: 999px; transition: width .5s ease; }
+  .final { display: none; text-align: center; padding: 10px 0 4px; }
+  .final.on { display: block; }
+  .final .bigstamp { display: inline-block; font-family: var(--display); font-size: 19px; letter-spacing: .14em; color: var(--sage); border: 2px solid var(--sage); border-radius: 6px; padding: 7px 20px; transform: rotate(-3deg); margin-bottom: 14px; }
+  .final p { font-size: 15px; color: var(--sub); max-width: 40ch; margin: 0 auto; }
+  .final b { color: var(--ink); }
+
   /* proof line */
   .proofline { position: absolute; bottom: 18px; left: 0; right: 0; display: flex; gap: 6px 24px; flex-wrap: wrap; justify-content: center; font-size: 13px; color: var(--sub); padding-inline: 16px; }
   .proofline b { color: var(--ink); font-weight: 600; }
@@ -233,6 +265,22 @@
       </div>
       <div class="hint" id="underHint"><span data-i18n="s.hint">Gratuit · 2 minutes · sans engagement</span></div>
     </form>
+
+    <div class="console glass" id="console" role="status" aria-live="polite">
+      <div class="head"><span data-i18n="k.head">Mesure en cours</span><span id="k-file">Dossier Nº AR-2026-···</span></div>
+      <div class="body">
+        <div class="master">
+          <span class="pct" id="k-pct">0%</span>
+          <span class="bar"><i id="k-bar"></i></span>
+        </div>
+        <div class="reassure" id="k-reassure"></div>
+        <div class="steps" id="k-steps"></div>
+        <div class="final" id="k-final">
+          <div class="bigstamp" data-i18n="k.stamp">DOSSIER TRANSMIS</div>
+          <p><span data-i18n="k.final1">Votre demande est au bureau de mesure. Le score et les premiers constats arrivent à</span> <b id="k-email"></b>.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="proofline">
       <span data-i18n="p.q"><b>« Quel installateur de panneaux solaires recommandes-tu en Wallonie ? »</b></span>
@@ -348,6 +396,18 @@
       "t.2t": "Report", "t.2d": "Full multi-model, multi-language battery, competitive benchmark, inventory of errors and the sources responsible, prioritised correction plan.", "t.2f": "On request",
       "t.3t": "Continuous improvement", "t.3d": "Measuring without correcting changes nothing; correcting without measuring cannot be proven. The subscription does both: monthly interventions, re-measurement with every model evolution, and the before-and-after delta as sole judge.", "t.3f": "Subscription",
       "t.4t": "Consulting", "t.4d": "Executing the correction plan with your teams: content strategy for the answer layer, agentic commerce readiness, training.", "t.4f": "Bespoke",
+      "k.head": "Measurement in progress", "k.stamp": "FILE SUBMITTED",
+      "k.final1": "Your request is with the measurement bureau. Your score and first findings will arrive at",
+      "k.r1": "Don't worry: your score will be sent to your address.",
+      "k.r2": "This takes less than two minutes.",
+      "k.r3": "We are querying every major AI tool out there. It can take a moment ;)",
+      "k.r4": "You can close this page: nothing will be lost.",
+      "k.s1": "Opening the file", "k.s1m": "registered",
+      "k.s2": "Profiling the business", "k.s2m": "site · sector · area",
+      "k.s3": "Generating the question battery", "k.s3m": "35 buyer questions · 2 languages",
+      "k.s4": "Queueing the models", "k.s4m": "ChatGPT · Claude · Gemini · Perplexity",
+      "k.s5": "Scheduling measurement passes", "k.s5m": "3 passes per question",
+      "k.s6": "Compiling the file", "k.s6m": "sent to the bureau",
       "c.title": "Start with the measurement",
       "c.sub": "Two minutes, free, and you will know what the machines are saying in your place.",
       "c.cta": "Get my score",
@@ -355,6 +415,16 @@
       "f.chain": "Measurement · Diagnosis · Continuous improvement · Consulting"
     }
   };
+  I18N.fr["k.r1"] = "Ne vous inquiétez pas : votre score sera envoyé à votre adresse.";
+  I18N.fr["k.r2"] = "Cela prend moins de deux minutes.";
+  I18N.fr["k.r3"] = "Nous interrogeons l'ensemble des outils IA existants, cela peut prendre un peu de temps ;)";
+  I18N.fr["k.r4"] = "Vous pouvez fermer cette page : rien ne sera perdu.";
+  I18N.fr["k.s1"] = "Ouverture du dossier"; I18N.fr["k.s1m"] = "enregistré";
+  I18N.fr["k.s2"] = "Profilage de l'activité"; I18N.fr["k.s2m"] = "site · secteur · zone";
+  I18N.fr["k.s3"] = "Génération de la batterie de questions"; I18N.fr["k.s3m"] = "35 questions d'acheteur · 2 langues";
+  I18N.fr["k.s4"] = "Mise en file des modèles"; I18N.fr["k.s4m"] = "ChatGPT · Claude · Gemini · Perplexity";
+  I18N.fr["k.s5"] = "Programmation des passes de mesure"; I18N.fr["k.s5m"] = "3 passes par question";
+  I18N.fr["k.s6"] = "Compilation du dossier"; I18N.fr["k.s6m"] = "transmis au bureau";
   I18N.fr["s.ok"] = "Bien reçu. Votre demande est au dossier ; votre score arrive.";
   I18N.fr["s.err"] = "L'enregistrement n'a pas abouti. Vérifiez votre connexion et réessayez.";
   I18N.fr["s.need"] = "Indiquez d'abord le nom de votre entreprise.";
@@ -437,12 +507,83 @@
         })
       });
       var data = await res.json().catch(function () { return {}; });
-      if (res.ok && data.ok) { flash(t("s.ok"), "ok"); }
+      if (res.ok && data.ok) { startConsole(); }
       else { flash(t("s.err"), "err"); btn.disabled = false; }
     } catch (ex) {
       flash(t("s.err"), "err"); btn.disabled = false;
     }
   });
+
+  /* ——— measurement console (theater over a captured lead) ——— */
+  var STEPS = [
+    { n: "k.s1", m: "k.s1m", dur: 2500 },
+    { n: "k.s2", m: "k.s2m", dur: 14000 },
+    { n: "k.s3", m: "k.s3m", dur: 17000 },
+    { n: "k.s4", m: "k.s4m", dur: 24000 },
+    { n: "k.s5", m: "k.s5m", dur: 15000 },
+    { n: "k.s6", m: "k.s6m", dur: 11000 }
+  ];
+  function startConsole() {
+    document.querySelector(".search .box").style.display = "none";
+    document.getElementById("sheet").classList.remove("open");
+    document.getElementById("sheet").style.display = "none";
+    document.getElementById("k-email").textContent = document.getElementById("f-email").value.trim();
+    document.getElementById("k-file").textContent = "Dossier Nº AR-2026-" + String(Math.floor(100 + Math.random() * 900));
+    var box = document.getElementById("console");
+    box.classList.add("on");
+    box.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    var host = document.getElementById("k-steps");
+    host.innerHTML = "";
+    var els = STEPS.map(function (s) {
+      var d = document.createElement("div");
+      d.className = "step";
+      d.innerHTML = '<span class="dot"></span><span class="nm">' + t(s.n) + '</span><span class="meta"></span><span class="sbar"><i></i></span>';
+      host.appendChild(d);
+      return d;
+    });
+
+    var total = STEPS.reduce(function (a, s) { return a + s.dur; }, 0);
+    var reassure = ["k.r1", "k.r2", "k.r3", "k.r4"];
+    var ri = 0;
+    var rEl = document.getElementById("k-reassure");
+    rEl.textContent = t(reassure[0]);
+    var rTimer = setInterval(function () { ri = (ri + 1) % reassure.length; rEl.textContent = t(reassure[ri]); }, 9000);
+
+    var elapsed = 0;
+    var pctEl = document.getElementById("k-pct");
+    var barEl = document.getElementById("k-bar");
+    var start = Date.now();
+    var master = setInterval(function () {
+      var p = Math.min(99, Math.round((Date.now() - start) / total * 100));
+      pctEl.textContent = p + "%";
+      barEl.style.width = p + "%";
+    }, 400);
+
+    (function runStep(i) {
+      if (i >= STEPS.length) {
+        clearInterval(master); clearInterval(rTimer);
+        pctEl.textContent = "100%"; barEl.style.width = "100%";
+        rEl.textContent = "";
+        document.getElementById("k-final").classList.add("on");
+        return;
+      }
+      var el = els[i], s = STEPS[i];
+      el.classList.add("run");
+      var sb = el.querySelector(".sbar i");
+      var st = Date.now();
+      var sub = setInterval(function () {
+        sb.style.width = Math.min(96, (Date.now() - st) / s.dur * 100) + "%";
+      }, 300);
+      setTimeout(function () {
+        clearInterval(sub);
+        el.classList.remove("run");
+        el.classList.add("done");
+        el.querySelector(".meta").textContent = t(s.m);
+        runStep(i + 1);
+      }, s.dur);
+    })(0);
+  }
 </script>
 </body>
 </html>
