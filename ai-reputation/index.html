@@ -278,14 +278,18 @@
       <div class="sheet glass" id="sheet" aria-hidden="true">
         <div class="in">
           <div class="row">
-            <div class="f" style="flex: 2 1 300px;">
-              <label for="f-email" data-i18n="s.email.l">Où envoyer votre score ?</label>
-              <input id="f-email" name="email" type="email" required data-i18n-ph="s.email" placeholder="Votre adresse e-mail" autocomplete="email">
+            <div class="f" style="flex: 1 1 240px;">
+              <label for="f-email" data-i18n="s.email.l">Votre e-mail professionnel</label>
+              <input id="f-email" name="email" type="email" required data-i18n-ph="s.email" placeholder="prenom@votre-domaine.be" autocomplete="email">
+            </div>
+            <div class="f" style="flex: 1 1 240px;">
+              <label for="f-site" data-i18n="s.site.l">Le site de votre marque</label>
+              <input id="f-site" name="website_url" required data-i18n-ph="s.site" placeholder="votre-domaine.be">
             </div>
           </div>
+          <p class="privacy" id="ownNote" data-i18n="s.own" style="margin-top: 8px;">Le score gratuit mesure votre propre marque : l'e-mail doit appartenir au domaine du site. Mesurer d'autres marques relève de l'offre Pro.</p>
           <div class="adv" id="adv">
             <div class="row">
-              <div class="f"><label for="f-site" data-i18n="s.site.l">Site web</label><input id="f-site" name="website_url" data-i18n-ph="s.site" placeholder="https://… (optionnel)"></div>
               <div class="f"><label for="f-sector" data-i18n="s.sector.l">Secteur d'activité</label><input id="f-sector" name="sector" data-i18n-ph="s.sector" placeholder="Studio de design, solaire… (optionnel)"></div>
               <div class="f"><label for="f-zone" data-i18n="s.zone.l">Zone</label><input id="f-zone" name="zone" data-i18n-ph="s.zone" placeholder="Wallonie, Belgique, global…"></div>
             </div>
@@ -409,8 +413,10 @@
       "h.1": "What do AIs say", "h.2": "about your brand?",
       "h.lede": "ChatGPT, Claude, Gemini and Perplexity describe you, compare you, recommend you, or leave you out. Measure it.",
       "s.brand": "Your company name…", "s.go": "Measure",
-      "s.email.l": "Where should we send your score?", "s.email": "Your email address",
-      "s.site.l": "Website", "s.site": "https://… (optional)",
+      "s.email.l": "Your work email", "s.email": "name@your-domain.com",
+      "s.site.l": "Your brand's website", "s.site": "your-domain.com",
+      "s.own": "The free score measures your own brand: the email must belong to the site's domain. Measuring other brands is part of the Pro plan.",
+      "s.mismatch": "This email does not belong to the site's domain. The free score is for your own brand; for other brands, ask us about Pro.",
       "s.sector.l": "Business sector", "s.sector": "Design studio, solar… (optional)",
       "s.zone.l": "Area", "s.zone": "Wallonia, Belgium, global…",
       "s.comp.l": "Known competitors", "s.comp": "Comma-separated (optional)",
@@ -481,6 +487,7 @@
   I18N.fr["s.ok"] = "Bien reçu. Votre demande est au dossier ; votre score arrive.";
   I18N.fr["s.err"] = "L'enregistrement n'a pas abouti. Vérifiez votre connexion et réessayez.";
   I18N.fr["s.need"] = "Indiquez d'abord le nom de votre entreprise.";
+  I18N.fr["s.mismatch"] = "Cet e-mail n'appartient pas au domaine du site. Le score gratuit mesure votre propre marque ; pour d'autres marques, parlons de l'offre Pro.";
   I18N.fr["s.advUp"] = "Réduire ↑";
   document.querySelectorAll("[data-i18n]").forEach(function (el) { var k = el.getAttribute("data-i18n"); if (I18N.fr[k] === undefined) I18N.fr[k] = el.innerHTML; });
   document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { I18N.fr[el.getAttribute("data-i18n-ph")] = el.getAttribute("placeholder"); });
@@ -670,11 +677,23 @@
     key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkcXBldm5tbGlvcHFya3VocmZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzEwMjMsImV4cCI6MjA5NTQ0NzAyM30.mdbGH8r20tuGwA62G2r2OLJeeuk0XraRRi6pTtoGp-g",
     fn: "ai-reputation-lead-intake"
   };
+  function domainsMatch(site, email) {
+    try {
+      if (!/^https?:\/\//i.test(site)) site = "https://" + site;
+      var host = new URL(site).hostname.toLowerCase().replace(/^www\./, "");
+      var ed = (email.split("@")[1] || "").toLowerCase();
+      return !!host && !!ed && (host === ed || host.endsWith("." + ed) || ed.endsWith("." + host));
+    } catch (ex) { return false; }
+  }
   document.getElementById("askForm").addEventListener("submit", async function (e) {
     e.preventDefault();
     var btn = document.getElementById("sendBtn");
-    btn.disabled = true;
     document.getElementById("status").hidden = true;
+    if (!domainsMatch(document.getElementById("f-site").value, document.getElementById("f-email").value)) {
+      flash(t("s.mismatch"), "err");
+      return;
+    }
+    btn.disabled = true;
     try {
       var res = await fetch(CFG.url + "/functions/v1/" + CFG.fn, {
         method: "POST",
