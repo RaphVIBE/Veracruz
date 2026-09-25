@@ -1,0 +1,346 @@
+<title>AI Réputation</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper: oklch(96.4% 0.006 180);
+    --panel: oklch(98.5% 0.004 180);
+    --ink: oklch(24% 0.012 190);
+    --sub: oklch(48% 0.014 190);
+    --line: oklch(87% 0.008 180);
+    --hairline: oklch(80% 0.01 180);
+    --petrol: oklch(44% 0.075 190);
+    --petrol-deep: oklch(34% 0.06 190);
+    --petrol-wash: oklch(93% 0.02 190);
+    --brick: oklch(50% 0.1 35);
+    --brick-wash: oklch(93.5% 0.02 35);
+    --sage: oklch(50% 0.07 140);
+    --display: "Libre Caslon Display", Georgia, "Times New Roman", serif;
+    --displaytext: "Libre Caslon Text", Georgia, serif;
+    --sans: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: oklch(20% 0.01 180); --panel: oklch(24% 0.01 180);
+      --ink: oklch(92% 0.008 180); --sub: oklch(68% 0.012 185);
+      --line: oklch(32% 0.012 180); --hairline: oklch(38% 0.014 180);
+      --petrol: oklch(68% 0.08 185); --petrol-deep: oklch(78% 0.07 185);
+      --petrol-wash: oklch(28% 0.03 190);
+      --brick: oklch(66% 0.1 40); --brick-wash: oklch(28% 0.035 35);
+      --sage: oklch(68% 0.08 140);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: oklch(20% 0.01 180); --panel: oklch(24% 0.01 180);
+    --ink: oklch(92% 0.008 180); --sub: oklch(68% 0.012 185);
+    --line: oklch(32% 0.012 180); --hairline: oklch(38% 0.014 180);
+    --petrol: oklch(68% 0.08 185); --petrol-deep: oklch(78% 0.07 185);
+    --petrol-wash: oklch(28% 0.03 190);
+    --brick: oklch(66% 0.1 40); --brick-wash: oklch(28% 0.035 35);
+    --sage: oklch(68% 0.08 140);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.62;
+    padding-inline: clamp(16px, 4vw, 28px);
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.08; text-wrap: balance; letter-spacing: .002em; }
+  ::selection { background: var(--petrol-wash); }
+  button { font: inherit; }
+
+  /* ——— masthead + dossier line ——— */
+  .mast { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 26px 0 14px; }
+  .mark { font-family: var(--display); font-size: 21px; }
+  .mark b { font-weight: 400; color: var(--petrol); }
+  .lang { display: flex; gap: 2px; border: 1px solid var(--hairline); border-radius: 3px; overflow: hidden; }
+  .lang button { border: 0; background: transparent; color: var(--sub); padding: 4px 11px; font-size: 12.5px; font-weight: 600; letter-spacing: .06em; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--petrol); color: var(--paper); }
+  .dossier {
+    border-block: 1px solid var(--hairline);
+    display: flex; flex-wrap: wrap; gap: 6px 28px;
+    padding: 9px 0; font-size: 12px; color: var(--sub);
+    letter-spacing: .05em; font-variant-numeric: tabular-nums;
+  }
+  .dossier b { color: var(--ink); font-weight: 600; letter-spacing: .08em; }
+
+  /* ——— hero ——— */
+  .hero { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(28px, 5vw, 56px); align-items: center; padding: clamp(48px, 8vw, 88px) 0 clamp(40px, 6vw, 72px); }
+  @media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+  .hero h1 { font-size: clamp(36px, 5.8vw, 56px); }
+  .hero h1 .ask { font-family: var(--displaytext); font-style: italic; color: var(--petrol); }
+  .lede { margin-top: 20px; font-size: 17px; color: var(--sub); max-width: 34em; }
+  .cta-row { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { font-size: 15px; font-weight: 600; border-radius: 3px; padding: 12px 22px; cursor: pointer; border: 1px solid var(--petrol); }
+  .btn.solid { background: var(--petrol); color: var(--paper); }
+  .btn.solid:hover { background: var(--petrol-deep); border-color: var(--petrol-deep); }
+  .btn.quiet { background: transparent; color: var(--petrol); }
+  .btn:focus-visible, .lang button:focus-visible, input:focus-visible { outline: 2px solid var(--petrol); outline-offset: 2px; }
+
+  /* ——— the specimen ——— */
+  .specimen { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; position: relative; }
+  .specimen .shead { display: flex; justify-content: space-between; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--line); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); font-weight: 600; }
+  .specimen .q { padding: 14px 16px 4px; font-size: 14px; color: var(--sub); }
+  .specimen .q em { font-family: var(--displaytext); font-style: italic; color: var(--ink); font-size: 15px; }
+  .specimen ol { list-style: none; padding: 8px 0 2px; margin: 0; counter-reset: rank; }
+  .specimen li { counter-increment: rank; display: flex; gap: 12px; align-items: baseline; padding: 7px 16px; font-size: 14.5px; }
+  .specimen li::before { content: counter(rank, decimal-leading-zero); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--sub); }
+  .specimen li + li { border-top: 1px dashed var(--line); }
+  .specimen li.you { background: var(--brick-wash); border-top: 1px solid var(--line); color: var(--brick); font-weight: 600; position: relative; }
+  .specimen .sfoot { padding: 11px 16px 13px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--sub); }
+  .stamp {
+    position: absolute; right: 12px; bottom: 54px; transform: rotate(-5deg);
+    border: 1.5px solid var(--brick); color: var(--brick); border-radius: 3px;
+    font-family: var(--display); font-size: 15px; letter-spacing: .14em;
+    padding: 4px 12px 3px; background: color-mix(in oklch, var(--panel) 82%, transparent);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .stamp { animation: press .55s cubic-bezier(.16,1,.3,1) .5s backwards; }
+    @keyframes press { from { transform: rotate(-5deg) scale(1.5); opacity: 0; } to { transform: rotate(-5deg) scale(1); opacity: 1; } }
+  }
+
+  /* ——— sections ——— */
+  section { padding: clamp(40px, 7vw, 72px) 0; border-top: 1px solid var(--hairline); }
+  section h2 { font-size: clamp(26px, 3.6vw, 34px); margin-bottom: 10px; }
+  .sub { color: var(--sub); max-width: 42em; }
+
+  .measures { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 44px; }
+  @media (max-width: 700px) { .measures { grid-template-columns: 1fr; } }
+  .m { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .m b { font-weight: 600; }
+  .m span { color: var(--sub); }
+  @media (max-width: 460px) { .m { grid-template-columns: 1fr; gap: 3px; } }
+
+  .sectors { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: var(--sub); }
+  .sectors i { font-style: normal; padding: 2px 0; border-bottom: 1px solid var(--hairline); }
+
+  /* ——— tariff (procedure) table ——— */
+  .tariff { margin-top: 30px; border-top: 1px solid var(--ink); }
+  .trow { display: grid; grid-template-columns: 52px 170px 1fr 160px; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .trow .no { font-family: var(--display); font-size: 21px; color: var(--petrol); }
+  .trow h3 { font-family: var(--display); font-weight: 400; font-size: 21px; }
+  .trow p { font-size: 14.5px; color: var(--sub); }
+  .trow .fee { font-size: 13px; letter-spacing: .07em; text-transform: uppercase; font-weight: 600; color: var(--petrol); text-align: right; font-variant-numeric: tabular-nums; }
+  @media (max-width: 760px) {
+    .trow { grid-template-columns: 40px 1fr; }
+    .trow p { grid-column: 2; }
+    .trow .fee { grid-column: 2; text-align: left; }
+  }
+
+  /* ——— request ——— */
+  form.ask { margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap; max-width: 640px; }
+  form.ask input { flex: 1 1 210px; padding: 12px 14px; border: 1px solid var(--hairline); border-radius: 3px; background: var(--panel); color: var(--ink); font: inherit; }
+  form.ask input::placeholder { color: var(--sub); }
+  .ok-note { margin-top: 16px; color: var(--sage); font-weight: 600; }
+  .proto { margin-top: 10px; font-size: 13px; color: var(--sub); }
+
+  footer { padding: 30px 0 22px; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; font-size: 12.5px; color: var(--sub); letter-spacing: .04em; }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="mark">AI <b>Réputation</b></div>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button id="btn-fr" aria-pressed="true" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
+    </div>
+  </header>
+  <div class="dossier">
+    <span><b data-i18n="d.file">Dossier</b> Nº AR-2026-000</span>
+    <span data-i18n="d.measured">Mesuré le 25.09.2026</span>
+    <span data-i18n="d.proto">Prototype · marque blanche</span>
+  </div>
+
+  <div class="hero">
+    <div>
+      <h1><span data-i18n="hero.l1">Votre prochain client ne cherche plus.</span> <span class="ask" data-i18n="hero.l2">Il demande.</span></h1>
+      <p class="lede" data-i18n="hero.lede">ChatGPT, Claude, Gemini et Perplexity décrivent votre entreprise, la comparent et la recommandent, ou l'oublient, à partir de sources que vous ne contrôlez pas. Nous mesurons ce qu'ils disent, retraçons pourquoi, et le corrigeons.</p>
+      <div class="cta-row">
+        <button class="btn solid" data-i18n="hero.cta1" onclick="document.getElementById('score').scrollIntoView({behavior:'smooth'})">Obtenir mon score</button>
+        <button class="btn quiet" data-i18n="hero.cta2" onclick="document.getElementById('methode').scrollIntoView({behavior:'smooth'})">Voir la méthode</button>
+      </div>
+    </div>
+    <div>
+      <div class="specimen" aria-label="Spécimen de mesure">
+        <div class="shead"><span data-i18n="sp.head">Spécimen de mesure</span><span>A-07</span></div>
+        <div class="q"><span data-i18n="sp.q">Question posée à une IA :</span> <em data-i18n="sp.qtext">« Quel installateur de panneaux solaires recommandes-tu en Wallonie ? »</em></div>
+        <ol>
+          <li data-i18n="sp.r1">Concurrent A, « réputé, bien noté »</li>
+          <li data-i18n="sp.r2">Concurrent B, « bon rapport qualité-prix »</li>
+          <li data-i18n="sp.r3">Concurrent C, « couvre toute la région »</li>
+          <li class="you" data-i18n="sp.you">Votre entreprise</li>
+        </ol>
+        <div class="sfoot" data-i18n="sp.foot">Réponse composée à partir de blogs, d'annuaires et de forums. Pas de votre site. Notre batterie met ce constat en chiffres.</div>
+        <div class="stamp" aria-hidden="true" data-i18n="sp.stamp">ABSENT</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="methode">
+    <h2 data-i18n="m.title">Un prompt est une anecdote. Nous produisons une mesure.</h2>
+    <p class="sub" data-i18n="m.sub">Le test interroge les modèles des centaines de fois, comme le feraient vos clients : sans jamais souffler votre nom, en plusieurs formulations, plusieurs passes et plusieurs langues. Il en sort une mesure défendable, pas une capture d'écran.</p>
+    <div class="measures">
+      <div class="m"><b data-i18n="m.1t">Présence spontanée</b><span data-i18n="m.1d">Apparaissez-vous quand un acheteur demande « le meilleur… » sans vous nommer, et à quel rang ?</span></div>
+      <div class="m"><b data-i18n="m.2t">Cadrage</b><span data-i18n="m.2d">Référence, égal des meilleurs, « option moins chère » ou acteur de niche : comment les IA vous racontent.</span></div>
+      <div class="m"><b data-i18n="m.3t">Exactitude</b><span data-i18n="m.3d">Prix, adresses, direction, certifications : chaque fait faux, tracé jusqu'à la page qui l'enseigne aux modèles.</span></div>
+      <div class="m"><b data-i18n="m.4t">Part de voix</b><span data-i18n="m.4d">Les concurrents cités quand vous êtes absent : qui occupe le terrain dans la couche de réponse.</span></div>
+      <div class="m"><b data-i18n="m.5t">Questions du secteur</b><span data-i18n="m.5d">Les vraies questions que vos acheteurs posent aux IA : le keyword research de l'ère conversationnelle.</span></div>
+      <div class="m"><b data-i18n="m.6t">Stabilité</b><span data-i18n="m.6d">Les réponses changent d'une passe et d'un modèle à l'autre ; nous mesurons la dérive dans le temps.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-i18n="s.title">Étalonné pour votre métier, quel qu'il soit</h2>
+    <p class="sub" data-i18n="s.sub">L'outil situe d'abord votre activité : secteur, zone de chalandise, gamme, concurrents. Puis il génère une batterie de questions propre à votre marché. Un installateur wallon n'est pas mesuré comme une maison de luxe internationale.</p>
+    <div class="sectors">
+      <i data-i18n="s.1">Panneaux solaires</i><i data-i18n="s.2">Machines de jardin</i><i data-i18n="s.3">Maisons de luxe</i><i data-i18n="s.4">Hôtellerie</i>
+      <i data-i18n="s.5">Professions libérales</i><i data-i18n="s.6">E-commerce</i><i data-i18n="s.7">Construction</i><i>SaaS</i>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-i18n="t.title">Procédure et tarification</h2>
+    <div class="tariff">
+      <div class="trow">
+        <div class="no">I</div><h3 data-i18n="t.1t">Score</h3>
+        <p data-i18n="t.1d">Votre nom, votre site : l'outil comprend votre activité, lance une première batterie et rend un score de perception IA avec les constats clés.</p>
+        <div class="fee" data-i18n="t.1f">Gratuit</div>
+      </div>
+      <div class="trow">
+        <div class="no">II</div><h3 data-i18n="t.2t">Rapport</h3>
+        <p data-i18n="t.2d">Batterie intégrale multi-modèles et multi-langues, benchmark concurrentiel, inventaire des erreurs et des sources responsables, plan de correction priorisé.</p>
+        <div class="fee" data-i18n="t.2f">À la demande</div>
+      </div>
+      <div class="trow">
+        <div class="no">III</div><h3 data-i18n="t.3t">Amélioration continue</h3>
+        <p data-i18n="t.3d">Mesurer sans corriger ne change rien ; corriger sans mesurer ne se prouve pas. L'abonnement fait les deux : interventions chaque mois (données d'entité, contenus d'autorité, flux agentiques), re-mesure à chaque évolution des modèles, et le delta avant / après comme seul juge.</p>
+        <div class="fee" data-i18n="t.3f">Abonnement</div>
+      </div>
+      <div class="trow">
+        <div class="no">IV</div><h3 data-i18n="t.4t">Consultance</h3>
+        <p data-i18n="t.4d">Exécution du plan de correction avec vos équipes : stratégie de contenu pour la couche de réponse, préparation au commerce agentique, formation marketing et communication.</p>
+        <div class="fee" data-i18n="t.4f">Sur mesure</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="score">
+    <h2 data-i18n="a.title">Demandez votre score</h2>
+    <p class="sub" data-i18n="a.sub">Laissez le nom de votre entreprise et une adresse : vous recevrez votre score de perception IA et un aperçu de ce que les modèles disent de vous.</p>
+    <form class="ask" id="askForm">
+      <input required name="brand" id="f-brand" data-i18n-ph="a.brand" placeholder="Nom de votre entreprise" aria-label="Entreprise">
+      <input required type="email" name="email" id="f-email" data-i18n-ph="a.email" placeholder="Votre adresse e-mail" aria-label="E-mail">
+      <input type="text" name="website" id="f-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
+      <button class="btn solid" type="submit" data-i18n="a.cta">Recevoir mon score</button>
+    </form>
+    <div class="ok-note" id="okNote" hidden data-i18n="a.ok">Bien reçu. Votre demande est enregistrée au dossier ; vous serez recontacté avec votre score.</div>
+    <div class="ok-note" id="errNote" hidden style="color: var(--brick);" data-i18n="a.err">L'enregistrement n'a pas abouti. Vérifiez votre connexion et réessayez.</div>
+    <p class="proto" data-i18n="a.proto">Vos coordonnées ne servent qu'à vous transmettre votre score. Rien d'autre.</p>
+  </section>
+
+  <footer>
+    <span>AI Réputation · <span data-i18n="f.wl">nom de code, marque blanche</span></span>
+    <span data-i18n="f.chain">Mesure · Diagnostic · Amélioration continue · Consultance</span>
+  </footer>
+</div>
+
+<script>
+  var I18N = {
+    fr: {}, // French is authored in the markup; fr entries restore it after a switch
+    en: {
+      "d.file": "File", "d.measured": "Measured on 25 Sep 2026", "d.proto": "Prototype · white label",
+      "hero.l1": "Your next customer no longer searches.", "hero.l2": "They ask.",
+      "hero.lede": "ChatGPT, Claude, Gemini and Perplexity describe your business, compare it and recommend it, or leave it out, based on sources you do not control. We measure what they say, trace why, and correct it.",
+      "hero.cta1": "Get my score", "hero.cta2": "See the method",
+      "sp.head": "Measurement specimen", "sp.q": "Question put to an AI:",
+      "sp.qtext": "“Which solar panel installer would you recommend in Wallonia?”",
+      "sp.r1": "Competitor A, “well established, highly rated”",
+      "sp.r2": "Competitor B, “good value for money”",
+      "sp.r3": "Competitor C, “covers the whole region”",
+      "sp.you": "Your business",
+      "sp.foot": "Answer assembled from blogs, directories and forums. Not from your site. Our battery turns this finding into figures.",
+      "sp.stamp": "ABSENT",
+      "m.title": "A prompt is an anecdote. We produce a measurement.",
+      "m.sub": "The test queries the models hundreds of times, the way your customers would: never feeding them your name, across phrasings, passes and languages. What comes out is a defensible measurement, not a screenshot.",
+      "m.1t": "Unprompted presence", "m.1d": "Do you appear when a buyer asks for “the best…” without naming you, and at what rank?",
+      "m.2t": "Framing", "m.2d": "Reference, peer of the best, “cheaper option” or niche player: how the AIs tell your story.",
+      "m.3t": "Accuracy", "m.3d": "Prices, addresses, leadership, certifications: every false fact, traced to the page teaching it to the models.",
+      "m.4t": "Share of voice", "m.4d": "The competitors cited when you are absent: who holds the ground in the answer layer.",
+      "m.5t": "Sector questions", "m.5d": "The real questions your buyers put to AIs: keyword research for the conversational era.",
+      "m.6t": "Stability", "m.6d": "Answers shift between passes and models; we measure the drift over time.",
+      "s.title": "Calibrated to your trade, whatever it is",
+      "s.sub": "The tool first situates your business: sector, catchment area, price range, competitors. It then generates a question battery specific to your market. A Walloon installer is not measured like an international luxury house.",
+      "s.1": "Solar panels", "s.2": "Garden machinery", "s.3": "Luxury houses", "s.4": "Hospitality",
+      "s.5": "Professional practices", "s.6": "E-commerce", "s.7": "Construction",
+      "t.title": "Procedure and fees",
+      "t.1t": "Score", "t.1d": "Your name, your site: the tool situates your business, runs a first battery and returns an AI perception score with the key findings.", "t.1f": "Free",
+      "t.2t": "Report", "t.2d": "Full multi-model, multi-language battery, competitive benchmark, inventory of errors and the sources responsible, prioritised correction plan.", "t.2f": "On request",
+      "t.3t": "Continuous improvement", "t.3d": "Measuring without correcting changes nothing; correcting without measuring cannot be proven. The subscription does both: monthly interventions (entity data, authoritative content, agentic feeds), re-measurement with every model evolution, and the before-and-after delta as sole judge.", "t.3f": "Subscription",
+      "t.4t": "Consulting", "t.4d": "Executing the correction plan with your teams: content strategy for the answer layer, agentic commerce readiness, marketing and communications training.", "t.4f": "Bespoke",
+      "a.title": "Request your score",
+      "a.sub": "Leave your company name and an address: you will receive your AI perception score and a preview of what the models say about you.",
+      "a.brand": "Your company name", "a.email": "Your email address", "a.cta": "Send me my score",
+      "a.ok": "Received. Your request is on file; you will be contacted with your score.",
+      "a.err": "The request could not be recorded. Check your connection and try again.",
+      "a.proto": "Your details are used only to send you your score. Nothing else.",
+      "f.wl": "code name, white label",
+      "f.chain": "Measurement · Diagnosis · Continuous improvement · Consulting"
+    }
+  };
+  // capture authored French as the fr dictionary
+  document.querySelectorAll("[data-i18n]").forEach(function (el) { I18N.fr[el.getAttribute("data-i18n")] = el.innerHTML; });
+  document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { I18N.fr[el.getAttribute("data-i18n-ph")] = el.getAttribute("placeholder"); });
+
+  function setLang(l) {
+    var d = I18N[l] || {};
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var k = el.getAttribute("data-i18n");
+      if (d[k] !== undefined) el.innerHTML = d[k];
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) {
+      var k = el.getAttribute("data-i18n-ph");
+      if (d[k] !== undefined) el.setAttribute("placeholder", d[k]);
+    });
+    document.documentElement.lang = l;
+    document.getElementById("btn-fr").setAttribute("aria-pressed", String(l === "fr"));
+    document.getElementById("btn-en").setAttribute("aria-pressed", String(l === "en"));
+    try { localStorage.setItem("ar-lang", l); } catch (e) {}
+  }
+  try { var saved = localStorage.getItem("ar-lang"); if (saved === "en") setLang("en"); } catch (e) {}
+
+  var CFG = {
+    url: "https://ydqpevnmliopqrkuhrfu.supabase.co",
+    key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkcXBldm5tbGlvcHFya3VocmZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzEwMjMsImV4cCI6MjA5NTQ0NzAyM30.mdbGH8r20tuGwA62G2r2OLJeeuk0XraRRi6pTtoGp-g",
+    fn: "ai-reputation-lead-intake"
+  };
+  document.getElementById("askForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var btn = this.querySelector("button");
+    var ok = document.getElementById("okNote");
+    var err = document.getElementById("errNote");
+    ok.hidden = true; err.hidden = true; btn.disabled = true;
+    try {
+      var res = await fetch(CFG.url + "/functions/v1/" + CFG.fn, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + CFG.key,
+          "apikey": CFG.key
+        },
+        body: JSON.stringify({
+          brand: document.getElementById("f-brand").value,
+          email: document.getElementById("f-email").value,
+          website: document.getElementById("f-website").value,
+          lang: document.documentElement.lang || "fr"
+        })
+      });
+      var data = await res.json().catch(function () { return {}; });
+      if (res.ok && data.ok) { ok.hidden = false; }
+      else { err.hidden = false; btn.disabled = false; }
+    } catch (ex) {
+      err.hidden = false; btn.disabled = false;
+    }
+  });
+</script>
