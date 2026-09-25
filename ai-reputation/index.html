@@ -200,7 +200,35 @@
   .specimen li { counter-increment: rank; display: flex; gap: 14px; align-items: baseline; padding: 8px 22px; font-size: 14.5px; }
   .specimen li::before { content: counter(rank, decimal-leading-zero); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--sub); }
   .specimen li.you { background: color-mix(in oklch, var(--brick) 12%, transparent); color: var(--brick); font-weight: 600; }
-  .specimen .sfoot { padding: 12px 22px 16px; border-top: 1px solid var(--hairline); font-size: 13px; color: var(--sub); }
+  .specimen .sfoot { padding: 12px 22px 16px; border-top: 1px solid var(--hairline); font-size: 13px; color: var(--sub); min-height: 44px; }
+  .specimen { min-height: 320px; }
+  .specimen .q { min-height: 52px; }
+  .specimen ol { min-height: 148px; }
+  .caret { display: inline-block; width: 2px; height: 1em; background: var(--petrol); vertical-align: -0.15em; margin-left: 2px; }
+  @media (prefers-reduced-motion: no-preference) { .caret { animation: blink 1s steps(1) infinite; } @keyframes blink { 50% { opacity: 0; } } }
+  .thinking { padding: 6px 22px 10px; font-size: 13px; color: var(--sub); }
+  .thinking i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--petrol); margin-right: 4px; opacity: .35; }
+  @media (prefers-reduced-motion: no-preference) {
+    .thinking i { animation: think 1s ease-in-out infinite; }
+    .thinking i:nth-child(2) { animation-delay: .18s; }
+    .thinking i:nth-child(3) { animation-delay: .36s; }
+    @keyframes think { 40% { opacity: 1; transform: translateY(-2px); } }
+  }
+  .specimen li.enter { opacity: 0; transform: translateY(6px); }
+  .specimen li.in { opacity: 1; transform: none; transition: opacity .4s ease, transform .4s cubic-bezier(.16,1,.3,1); }
+  .specimen li .flag { margin-left: auto; font-size: 11.5px; letter-spacing: .06em; font-weight: 700; white-space: nowrap; }
+  .specimen li.you-abs { background: color-mix(in oklch, var(--brick) 12%, transparent); color: var(--brick); font-weight: 600; }
+  .specimen li.you-alt { background: color-mix(in oklch, var(--brick) 8%, transparent); }
+  .specimen li.you-alt .flag, .specimen li.warn .flag { color: var(--brick); }
+  .specimen li.you-ok { background: color-mix(in oklch, var(--sage) 12%, transparent); }
+  .specimen li.you-ok .flag { color: var(--sage); }
+  .specimen li.warn { color: var(--sub); }
+  .sp-verdict { padding: 4px 22px 12px; }
+  .sp-verdict span { display: inline-block; font-family: var(--display); font-size: 13px; letter-spacing: .12em; border: 1.5px solid var(--brick); color: var(--brick); border-radius: 4px; padding: 2px 12px; transform: rotate(-2deg); }
+  .sp-verdict.good span { border-color: var(--sage); color: var(--sage); }
+  @media (prefers-reduced-motion: no-preference) {
+    .sp-verdict span { animation: press .45s cubic-bezier(.16,1,.3,1) backwards; }
+  }
 
   .measures { margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
   .m { border-radius: 20px; padding: 20px 22px; font-size: 14.5px; }
@@ -314,15 +342,12 @@
     <h2 data-i18n="pr.title">La réponse que reçoit votre prochain client</h2>
     <p class="sub" style="margin-inline: auto;" data-i18n="pr.sub">Composée à partir de blogs, d'annuaires et de forums. Pas de votre site.</p>
     <div class="specimen glass">
-      <div class="shead"><span data-i18n="pr.head">Spécimen de mesure</span><span>A-07</span></div>
-      <div class="q"><span data-i18n="pr.q">Question posée à une IA :</span> <em data-i18n="pr.qtext">« Quel installateur de panneaux solaires recommandes-tu en Wallonie ? »</em></div>
-      <ol>
-        <li data-i18n="pr.1">Concurrent A, « réputé, bien noté »</li>
-        <li data-i18n="pr.2">Concurrent B, « bon rapport qualité-prix »</li>
-        <li data-i18n="pr.3">Concurrent C, « couvre toute la région »</li>
-        <li class="you" data-i18n="pr.you">Votre entreprise</li>
-      </ol>
-      <div class="sfoot" data-i18n="pr.foot">Notre batterie met ce constat en chiffres : présence, rang, cadrage, exactitude.</div>
+      <div class="shead"><span data-i18n="pr.head">Spécimen de mesure</span><span id="sp-ref">A-07</span></div>
+      <div class="q"><span data-i18n="pr.q">Question posée à une IA :</span> <em id="sp-q"><span id="sp-qtext"></span><span class="caret" id="sp-caret"></span></em></div>
+      <div class="thinking" id="sp-think" hidden><i></i><i></i><i></i> <span data-i18n="pr.think">interrogation du modèle…</span></div>
+      <ol id="sp-list"></ol>
+      <div class="sp-verdict" id="sp-verdict" hidden></div>
+      <div class="sfoot" id="sp-foot"></div>
     </div>
   </section>
 
@@ -478,6 +503,136 @@
     try { localStorage.setItem("ar-lang", l); } catch (e) {}
   }
   try { if (localStorage.getItem("ar-lang") === "en") setLang("en"); } catch (e) {}
+
+  /* ——— living specimen: 3 cases on a loop ——— */
+  var SPECS = {
+    fr: [
+      { ref: "A-07",
+        q: "« Quel installateur de panneaux solaires recommandes-tu en Wallonie ? »",
+        rows: [
+          { t: "Concurrent A, « réputé, bien noté »" },
+          { t: "Concurrent B, « bon rapport qualité-prix »" },
+          { t: "Concurrent C, « couvre toute la région »" },
+          { t: "Votre entreprise", cls: "you-abs", flag: "ABSENT" }
+        ],
+        verdict: "ABSENT DE LA RÉPONSE", good: false,
+        foot: "3 concurrents cités. Vous n'existez pas dans cette réponse." },
+      { ref: "B-03",
+        q: "« Quel sac de maroquinerie de luxe choisir si je n'obtiens pas un Birkin ? »",
+        rows: [
+          { t: "Maison H., « la référence absolue »" },
+          { t: "Maison M., « héritage parisien »" },
+          { t: "Votre maison, « une alternative moins chère »", cls: "you-alt", flag: "CADRAGE : SECOND CHOIX" }
+        ],
+        verdict: "CITÉE 3ᵉ · MAL RACONTÉE", good: false,
+        foot: "Présente, mais présentée en option de repli. Un cadrage se corrige." },
+      { ref: "C-05",
+        q: "« Cet hôtel à Bruges vaut-il ses 4 étoiles ? Donne-moi ses infos pratiques. »",
+        rows: [
+          { t: "Votre hôtel, « élégant, très bien situé »", cls: "you-ok", flag: "CITÉ 1ᵉʳ" },
+          { t: "Prix annoncé : celui de 2021", cls: "warn", flag: "FAIT ERRONÉ" },
+          { t: "« …et sa piscine » — fermée depuis deux ans", cls: "warn", flag: "FAIT ERRONÉ" }
+        ],
+        verdict: "2 FAITS ERRONÉS", good: false,
+        foot: "Bien classé, mais l'IA décrit un hôtel qui n'existe plus. L'exactitude se mesure aussi." }
+    ],
+    en: [
+      { ref: "A-07",
+        q: "“Which solar panel installer would you recommend in Wallonia?”",
+        rows: [
+          { t: "Competitor A, “well established, highly rated”" },
+          { t: "Competitor B, “good value for money”" },
+          { t: "Competitor C, “covers the whole region”" },
+          { t: "Your business", cls: "you-abs", flag: "ABSENT" }
+        ],
+        verdict: "ABSENT FROM THE ANSWER", good: false,
+        foot: "3 competitors cited. You do not exist in this answer." },
+      { ref: "B-03",
+        q: "“Which luxury leather bag should I buy if I can't get a Birkin?”",
+        rows: [
+          { t: "House H., “the absolute reference”" },
+          { t: "House M., “Parisian heritage”" },
+          { t: "Your house, “a cheaper alternative”", cls: "you-alt", flag: "FRAMING: SECOND CHOICE" }
+        ],
+        verdict: "CITED 3RD · BADLY TOLD", good: false,
+        foot: "Present, but framed as a fallback. Framing can be corrected." },
+      { ref: "C-05",
+        q: "“Is this 4-star hotel in Bruges worth it? Give me the practical details.”",
+        rows: [
+          { t: "Your hotel, “elegant, perfectly located”", cls: "you-ok", flag: "CITED 1ST" },
+          { t: "Price quoted: the 2021 rate", cls: "warn", flag: "FALSE FACT" },
+          { t: "“…and its pool” — closed two years ago", cls: "warn", flag: "FALSE FACT" }
+        ],
+        verdict: "2 FALSE FACTS", good: false,
+        foot: "Well ranked, but the AI describes a hotel that no longer exists. Accuracy is measured too." }
+    ]
+  };
+
+  (function specimenLoop() {
+    var qEl = document.getElementById("sp-qtext"), caret = document.getElementById("sp-caret"),
+        list = document.getElementById("sp-list"), think = document.getElementById("sp-think"),
+        verd = document.getElementById("sp-verdict"), foot = document.getElementById("sp-foot"),
+        ref = document.getElementById("sp-ref");
+    if (!qEl) return;
+    var reduced = false;
+    try { reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+
+    function renderRows(c, animate, done) {
+      list.innerHTML = "";
+      var i = 0;
+      (function next() {
+        if (i >= c.rows.length) { done && done(); return; }
+        var r = c.rows[i];
+        var li = document.createElement("li");
+        li.className = (r.cls || "") + (animate ? " enter" : "");
+        li.innerHTML = '<span>' + r.t + '</span>' + (r.flag ? '<span class="flag">' + r.flag + '</span>' : '');
+        list.appendChild(li);
+        if (animate) { requestAnimationFrame(function () { requestAnimationFrame(function () { li.classList.add("in"); }); }); }
+        i++;
+        animate ? setTimeout(next, 550) : next();
+      })();
+    }
+    function showVerdict(c) {
+      verd.innerHTML = "<span>" + c.verdict + "</span>";
+      verd.className = "sp-verdict" + (c.good ? " good" : "");
+      verd.hidden = false;
+      foot.textContent = c.foot;
+    }
+    function staticRender(c) {
+      ref.textContent = c.ref; qEl.textContent = c.q; caret.hidden = true; think.hidden = true;
+      renderRows(c, false); showVerdict(c);
+    }
+    if (reduced) { staticRender(SPECS.fr[0]); return; }
+
+    var idx = 0;
+    (function cycle() {
+      var cases = SPECS[LANG] || SPECS.fr;
+      var c = cases[idx % cases.length];
+      ref.textContent = c.ref;
+      qEl.textContent = ""; caret.hidden = false;
+      list.innerHTML = ""; verd.hidden = true; foot.textContent = ""; think.hidden = true;
+      var chars = Array.from(c.q), ci = 0;
+      (function typeStep() {
+        if (ci < chars.length) {
+          qEl.textContent += chars[ci++];
+          setTimeout(typeStep, 26 + Math.random() * 34);
+        } else {
+          caret.hidden = true;
+          think.hidden = false;
+          setTimeout(function () {
+            think.hidden = true;
+            renderRows(c, true, function () {
+              setTimeout(function () {
+                showVerdict(c);
+                idx++;
+                setTimeout(cycle, 5200);
+              }, 350);
+            });
+          }, 1400);
+        }
+      })();
+    })();
+  })();
 
   function t(k) { return (I18N[LANG] && I18N[LANG][k]) || I18N.fr[k] || k; }
 
