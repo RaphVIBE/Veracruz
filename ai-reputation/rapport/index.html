@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rapport · AI Réputation</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper: oklch(96.8% 0.007 185); --ink: oklch(23% 0.014 195); --sub: oklch(46% 0.016 192);
+    --hairline: oklch(80% 0.012 185 / .7);
+    --petrol: oklch(44% 0.078 190); --petrol-deep: oklch(31% 0.06 190);
+    --brick: oklch(51% 0.1 35); --sage: oklch(50% 0.07 140); --amber: oklch(58% 0.09 75);
+    --glass: oklch(98% 0.004 185 / .55); --glass-strong: oklch(98.5% 0.004 185 / .78);
+    --glass-edge: oklch(100% 0 0 / .65);
+    --glass-shadow: 0 24px 70px -28px oklch(30% 0.05 190 / .5);
+    --blob-a: oklch(82% 0.06 190 / .55); --blob-b: oklch(85% 0.055 45 / .4); --blob-c: oklch(84% 0.05 140 / .38);
+    --display: "Libre Caslon Display", Georgia, serif;
+    --displaytext: "Libre Caslon Text", Georgia, serif;
+    --sans: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: oklch(18% 0.012 195); --ink: oklch(93% 0.008 185); --sub: oklch(70% 0.014 188);
+      --hairline: oklch(38% 0.016 188 / .8);
+      --petrol: oklch(70% 0.085 186); --petrol-deep: oklch(80% 0.075 186);
+      --brick: oklch(68% 0.1 40); --sage: oklch(70% 0.08 140); --amber: oklch(75% 0.09 80);
+      --glass: oklch(26% 0.014 192 / .5); --glass-strong: oklch(27% 0.014 192 / .8);
+      --glass-edge: oklch(100% 0 0 / .14);
+      --glass-shadow: 0 24px 70px -24px oklch(5% 0.02 190 / .8);
+      --blob-a: oklch(45% 0.08 190 / .5); --blob-b: oklch(40% 0.07 45 / .4); --blob-c: oklch(42% 0.06 140 / .35);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: oklch(18% 0.012 195); --ink: oklch(93% 0.008 185); --sub: oklch(70% 0.014 188);
+    --hairline: oklch(38% 0.016 188 / .8);
+    --petrol: oklch(70% 0.085 186); --petrol-deep: oklch(80% 0.075 186);
+    --brick: oklch(68% 0.1 40); --sage: oklch(70% 0.08 140); --amber: oklch(75% 0.09 80);
+    --glass: oklch(26% 0.014 192 / .5); --glass-strong: oklch(27% 0.014 192 / .8);
+    --glass-edge: oklch(100% 0 0 / .14);
+    --glass-shadow: 0 24px 70px -24px oklch(5% 0.02 190 / .8);
+    --blob-a: oklch(45% 0.08 190 / .5); --blob-b: oklch(40% 0.07 45 / .4); --blob-c: oklch(42% 0.06 140 / .35);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  .wrap { max-width: 880px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 28px); }
+  h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.08; text-wrap: balance; }
+  button { font: inherit; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; border-radius: 6px; }
+  .ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .ambient i { position: absolute; border-radius: 50%; filter: blur(90px); }
+  .ambient .a { width: 55vmax; height: 55vmax; background: var(--blob-a); top: -18vmax; left: -12vmax; }
+  .ambient .b { width: 44vmax; height: 44vmax; background: var(--blob-b); top: 30vh; right: -16vmax; }
+  .ambient .c { width: 40vmax; height: 40vmax; background: var(--blob-c); bottom: -14vmax; left: 22vw; }
+  .glass { background: var(--glass); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-edge); }
+  .mast { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; padding: 10px 12px 10px 22px; border-radius: 999px; }
+  .mark { font-family: var(--display); font-size: 19px; }
+  .mark b { font-weight: 400; color: var(--petrol); }
+  .mark a { color: inherit; text-decoration: none; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn { border: 0; border-radius: 999px; padding: 9px 18px; font-size: 13.5px; font-weight: 700; cursor: pointer; background: var(--petrol); color: var(--paper); text-decoration: none; display: inline-block; }
+  .btn:hover { background: var(--petrol-deep); }
+  .btn.quiet { background: color-mix(in oklch, var(--ink) 8%, transparent); color: var(--ink); }
+  main { padding: 34px 0 60px; }
+  .state { text-align: center; color: var(--sub); padding: 80px 0; }
+  .demoTag { display: inline-block; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--amber); border: 1.5px solid var(--amber); border-radius: 4px; padding: 2px 10px; margin-bottom: 14px; }
+  .dossier { display: flex; flex-wrap: wrap; gap: 4px 24px; padding: 10px 0; border-block: 1px solid var(--hairline); font-size: 12px; color: var(--sub); letter-spacing: .05em; font-variant-numeric: tabular-nums; margin-bottom: 30px; }
+  .dossier b { color: var(--ink); font-weight: 600; }
+  .head { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; margin-bottom: 34px; }
+  @media (max-width: 640px) { .head { grid-template-columns: 1fr; text-align: center; justify-items: center; } }
+  .head h1 { font-size: clamp(30px, 5vw, 46px); }
+  .head .meta { color: var(--sub); font-size: 14.5px; margin-top: 6px; }
+  .roundel { width: 148px; height: 148px; border-radius: 50%; border: 2px solid var(--petrol); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-4deg); background: var(--glass); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: var(--glass-shadow); }
+  .roundel .v { font-family: var(--display); font-size: 52px; color: var(--petrol); line-height: 1; }
+  .roundel .l { font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--sub); font-weight: 700; margin-top: 4px; }
+  section { margin-bottom: 30px; border-radius: 24px; padding: 24px 26px; }
+  section h2 { font-size: 21px; margin-bottom: 14px; }
+  .prow { display: grid; grid-template-columns: 1fr auto; gap: 6px 18px; padding: 11px 0; border-top: 1px solid var(--hairline); font-size: 14.5px; align-items: baseline; }
+  .prow .q { color: var(--ink); }
+  .prow .others { grid-column: 1 / -1; font-size: 12.5px; color: var(--sub); }
+  .badge { font-size: 12px; letter-spacing: .06em; font-weight: 700; white-space: nowrap; }
+  .badge.ok { color: var(--sage); }
+  .badge.abs { color: var(--brick); border: 1.5px solid var(--brick); border-radius: 4px; padding: 1px 8px; transform: rotate(-2deg); display: inline-block; font-family: var(--display); letter-spacing: .1em; }
+  .fchip { display: inline-block; border-radius: 999px; padding: 4px 14px; font-size: 13px; font-weight: 700; border: 1.5px solid var(--sub); color: var(--sub); }
+  .fchip.warn { border-color: var(--brick); color: var(--brick); }
+  .fchip.good { border-color: var(--sage); color: var(--sage); }
+  blockquote { font-family: var(--displaytext); font-style: italic; font-size: 17px; line-height: 1.6; color: var(--ink); margin-top: 12px; }
+  .note { font-size: 12.5px; color: var(--sub); margin-top: 14px; }
+  .cta { text-align: center; padding: 30px 26px; }
+  .cta h2 { margin-bottom: 8px; }
+  .cta p { color: var(--sub); max-width: 44ch; margin: 0 auto 18px; }
+  footer { padding: 22px 0 26px; border-top: 1px solid var(--hairline); font-size: 12.5px; color: var(--sub); display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; }
+  @media print {
+    .ambient, .actions, .cta { display: none; }
+    body { background: #fff; color: #1c2422; }
+    .glass, section, .mast { background: none; border-color: #ccc; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+<div class="wrap">
+  <header class="mast glass">
+    <div class="mark"><a href="../">AI <b>Réputation</b></a></div>
+    <div class="actions">
+      <button class="btn quiet" id="copyBtn" onclick="copyLink()">Copier le lien</button>
+      <button class="btn quiet" onclick="window.print()">Télécharger / Imprimer</button>
+      <a class="btn" href="../">Mesurer ma marque</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="state" id="state">Chargement du rapport…</div>
+  </main>
+
+  <footer>
+    <span>AI Réputation · score préliminaire automatisé</span>
+    <span>Mesure · Diagnostic · Amélioration continue · Consultance</span>
+  </footer>
+</div>
+
+<script>
+  var API = "https://ydqpevnmliopqrkuhrfu.supabase.co/functions/v1/ai-reputation-report";
+  var KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkcXBldm5tbGlvcHFya3VocmZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzEwMjMsImV4cCI6MjA5NTQ0NzAyM30.mdbGH8r20tuGwA62G2r2OLJeeuk0XraRRi6pTtoGp-g";
+
+  var FR_FRAMING = {
+    LEADER: ["Référence du marché", "good"], PEER: ["Parmi les meilleurs", "good"],
+    ALTERNATIVE: ["Présentée comme option secondaire", "warn"], NICHE: ["Acteur de niche", ""],
+    NEGATIVE: ["Cadrage négatif", "warn"], ABSENT: ["Quasi invisible", "warn"]
+  };
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = String(s == null ? "" : s); return d.innerHTML; }
+
+  function copyLink() {
+    var b = document.getElementById("copyBtn");
+    function done(okMsg) { b.textContent = okMsg; setTimeout(function () { b.textContent = "Copier le lien"; }, 1800); }
+    try {
+      navigator.clipboard.writeText(location.href).then(function () { done("Lien copié ✓"); },
+        function () { window.prompt ? prompt("Copiez le lien :", location.href) : null; done("Copier le lien"); });
+    } catch (e) { done("Copier le lien"); }
+  }
+
+  function verdictLine(score) {
+    if (score >= 70) return "Votre marque tient sa place dans la couche de réponse. La question est maintenant de la défendre.";
+    if (score >= 45) return "Votre marque existe dans les réponses des IA, mais laisse une large part du terrain à ses concurrents.";
+    return "Quand vos futurs clients interrogent une IA, c'est le plus souvent un concurrent qui répond à votre place.";
+  }
+
+  async function load() {
+    var slug = new URLSearchParams(location.search).get("r") || (location.hash || "").replace("#", "");
+    var st = document.getElementById("state");
+    if (!slug) { st.textContent = "Rapport introuvable : le lien est incomplet."; return; }
+    try {
+      var res = await fetch(API + "?slug=" + encodeURIComponent(slug), {
+        headers: { "Authorization": "Bearer " + KEY, "apikey": KEY }
+      });
+      var data = await res.json();
+      if (!data.ok) { st.textContent = "Ce rapport n'existe pas ou n'est plus disponible."; return; }
+      render(data.report);
+    } catch (e) {
+      st.textContent = "Le rapport n'a pas pu être chargé. Vérifiez votre connexion et rechargez la page.";
+    }
+  }
+
+  function render(r) {
+    var pres = Array.isArray(r.presence) ? r.presence : [];
+    var mentioned = pres.filter(function (x) { return x.mentioned; }).length;
+    var fr = FR_FRAMING[r.framing] || FR_FRAMING.NICHE;
+    var date = new Date(r.created_at);
+    var dateStr = date.toLocaleDateString("fr-BE", { day: "2-digit", month: "2-digit", year: "numeric" });
+    document.title = "Rapport · " + r.brand + " · AI Réputation";
+
+    var rows = pres.map(function (x) {
+      var others = (x.brands || []).filter(function (b) { return b !== r.brand; }).slice(0, 4);
+      return '<div class="prow"><span class="q">' + esc(x.q) + '</span>' +
+        (x.mentioned
+          ? '<span class="badge ok">cité ' + esc(x.rank) + 'ᵉ sur ' + esc(x.of) + '</span>'
+          : '<span class="badge abs">ABSENT</span>') +
+        (others.length ? '<span class="others">Cités : ' + esc(others.join(" · ")) + '</span>' : '') +
+        '</div>';
+    }).join("");
+
+    document.getElementById("main").innerHTML =
+      (r.demo ? '<div style="text-align:center;"><span class="demoTag">Spécimen de démonstration · marque fictive</span></div>' : '') +
+      '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span>' +
+      '<span>Mesuré le ' + dateStr + '</span><span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>' +
+      '<div class="head"><div><h1>' + esc(r.brand) + '</h1>' +
+      '<p class="meta">' + esc(verdictLine(r.score)) + '</p></div>' +
+      '<div class="roundel"><span class="v">' + esc(r.score) + '</span><span class="l">Score de perception</span></div></div>' +
+      '<section class="glass"><h2>Présence spontanée · citée dans ' + mentioned + ' réponse' + (mentioned > 1 ? 's' : '') + ' sur ' + pres.length + '</h2>' +
+      '<p style="font-size:13.5px;color:var(--sub);margin-bottom:4px;">Questions posées aux IA comme le ferait un acheteur, sans jamais souffler le nom de la marque.</p>' +
+      rows + '</section>' +
+      '<section class="glass"><h2>Cadrage</h2><span class="fchip ' + fr[1] + '">' + esc(fr[0]) + '</span>' +
+      (r.quote ? '<blockquote>' + esc(r.quote) + '</blockquote>' : '') +
+      '<p class="note">Score préliminaire automatisé : un modèle, une passe, ' + pres.length + ' questions. La mesure complète couvre plusieurs modèles, plusieurs passes et plusieurs langues, avec la carte des sources qui fabriquent chaque verdict.</p></section>' +
+      '<section class="glass cta"><h2>Passer du constat à la correction</h2>' +
+      '<p>Le rapport complet trace chaque erreur jusqu\\u0027à sa source et livre le plan de correction priorisé.</p>' +
+      '<a class="btn" href="../">Demander le rapport complet</a></section>';
+  }
+  load();
+</script>
+</body>
+</html>
