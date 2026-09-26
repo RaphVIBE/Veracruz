@@ -11,6 +11,7 @@
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+<link rel="canonical" href="https://veracruz.be/" />
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 
 <!-- Social sharing -->
@@ -806,6 +807,47 @@
     .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
+<!-- Structured data: identity of the studio for search engines and AI assistants -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://veracruz.be/#studio",
+      "name": "VeraCruz",
+      "alternateName": ["VeraCruz Studio", "Veracruz design studio"],
+      "description": "VeraCruz is a senior design studio in Brussels for problems that cross product, service and physical design: digital products and design systems, service design and customer journeys, product design, packaging and retail spaces — designed as one project, from framing to execution.",
+      "url": "https://veracruz.be/",
+      "logo": "https://veracruz.be/veracruz-symbol.png",
+      "image": "https://veracruz.be/og-image.png",
+      "email": "info@veracruz.be",
+      "address": { "@type": "PostalAddress", "addressLocality": "Brussels", "addressCountry": "BE" },
+      "areaServed": [{ "@type": "Country", "name": "Belgium" }, { "@type": "Place", "name": "Europe" }],
+      "knowsAbout": ["Product design", "Interaction design", "Design systems", "Service design", "Service blueprints", "Customer journey design", "Industrial design", "Packaging design", "Retail and spatial design", "Design strategy"],
+      "slogan": "For problems that cross product, service, and physical.",
+      "founder": { "@id": "https://veracruz.be/#raphael" },
+      "sameAs": []
+    },
+    {
+      "@type": "Person",
+      "@id": "https://veracruz.be/#raphael",
+      "name": "Raphael Hombroeck",
+      "jobTitle": "Founder & principal designer",
+      "worksFor": { "@id": "https://veracruz.be/#studio" },
+      "sameAs": ["https://www.linkedin.com/in/rhombroeck/"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://veracruz.be/#website",
+      "url": "https://veracruz.be/",
+      "name": "VeraCruz",
+      "publisher": { "@id": "https://veracruz.be/#studio" },
+      "inLanguage": "en"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
