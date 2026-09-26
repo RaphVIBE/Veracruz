@@ -248,17 +248,16 @@
   .m b { display: block; font-weight: 700; margin-bottom: 4px; }
   .m span { color: var(--sub); }
 
-  .tariff { margin-top: 30px; display: grid; gap: 14px; }
-  .trow { display: grid; grid-template-columns: 54px 170px 1fr 150px; gap: 18px; align-items: baseline; border-radius: 20px; padding: 20px 24px; }
-  .trow .no { font-family: var(--display); font-size: 22px; color: var(--petrol); }
-  .trow h3 { font-family: var(--display); font-weight: 400; font-size: 21px; }
-  .trow p { font-size: 14.5px; color: var(--sub); }
-  .trow .fee { font-size: 12.5px; letter-spacing: .07em; text-transform: uppercase; font-weight: 700; color: var(--petrol); text-align: right; }
-  @media (max-width: 760px) {
-    .trow { grid-template-columns: 40px 1fr; }
-    .trow p { grid-column: 2; }
-    .trow .fee { grid-column: 2; text-align: left; }
-  }
+  .tariff { margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; align-items: stretch; }
+  .tcol { position: relative; display: flex; flex-direction: column; gap: 10px; border-radius: 22px; padding: 24px 24px 26px; }
+  .tcol .no { font-family: var(--display); font-size: 20px; color: var(--petrol); }
+  .tcol h3 { font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1.15; min-height: 2.3em; }
+  .tcol .fee { font-family: var(--display); font-size: 34px; color: var(--petrol); line-height: 1; }
+  .tcol .per { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--sub); min-height: 1.4em; }
+  .tcol p { font-size: 14px; color: var(--sub); }
+  .tcol.reco { border: 1.5px solid var(--petrol); }
+  .tcol .badge { position: absolute; top: -11px; right: 18px; background: var(--petrol); color: var(--paper); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; border-radius: 999px; padding: 3px 12px; transform: rotate(-2deg); }
+  @media (max-width: 560px) { .tcol h3 { min-height: 0; } .tcol .per { min-height: 0; } }
 
   .ctaband { text-align: center; }
   footer { padding: 30px 0 26px; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; font-size: 12.5px; color: var(--sub); letter-spacing: .04em; }
@@ -397,25 +396,30 @@
   <section id="tarifs">
     <h2 data-i18n="t.title">Procédure et tarification</h2>
     <div class="tariff">
-      <div class="trow glass">
+      <div class="tcol glass">
         <div class="no">I</div><h3 data-i18n="t.1t">Score</h3>
-        <p data-i18n="t.1d">Votre nom, votre site : l'outil comprend votre activité, lance une première batterie et rend un score de perception IA avec les constats clés.</p>
         <div class="fee" data-i18n="t.1f">Gratuit</div>
+        <div class="per" data-i18n="t.1p">votre marque, votre domaine</div>
+        <p data-i18n="t.1d">Votre nom, votre site : l'outil comprend votre activité, lance une première batterie et rend un score de perception IA avec les constats clés.</p>
       </div>
-      <div class="trow glass">
+      <div class="tcol glass">
         <div class="no">II</div><h3 data-i18n="t.2t">Rapport</h3>
+        <div class="fee" data-i18n="t.2f">390&nbsp;€</div>
+        <div class="per" data-i18n="t.2p">le dossier · livré sous 5 jours</div>
         <p data-i18n="t.2d">Batterie intégrale multi-modèles et multi-langues, benchmark concurrentiel, inventaire des erreurs et des sources responsables, plan de correction priorisé.</p>
-        <div class="fee" data-i18n="t.2f">À la demande</div>
       </div>
-      <div class="trow glass">
+      <div class="tcol glass reco">
+        <span class="badge" data-i18n="t.reco">Le cœur de l'offre</span>
         <div class="no">III</div><h3 data-i18n="t.3t">Amélioration continue</h3>
+        <div class="fee" data-i18n="t.3f">290&nbsp;€</div>
+        <div class="per" data-i18n="t.3p">par mois · rapport inclus à l'entrée</div>
         <p data-i18n="t.3d">Mesurer sans corriger ne change rien ; corriger sans mesurer ne se prouve pas. L'abonnement fait les deux : interventions chaque mois, re-mesure à chaque évolution des modèles, et le delta avant / après comme seul juge.</p>
-        <div class="fee" data-i18n="t.3f">Abonnement</div>
       </div>
-      <div class="trow glass">
+      <div class="tcol glass">
         <div class="no">IV</div><h3 data-i18n="t.4t">Consultance</h3>
+        <div class="fee" data-i18n="t.4f">1&nbsp;200&nbsp;€</div>
+        <div class="per" data-i18n="t.4p">par jour · sur devis</div>
         <p data-i18n="t.4d">Exécution du plan de correction avec vos équipes : stratégie de contenu pour la couche de réponse, préparation au commerce agentique, formation.</p>
-        <div class="fee" data-i18n="t.4f">Sur mesure</div>
       </div>
     </div>
   </section>
@@ -484,10 +488,10 @@
       "m.5t": "Sector questions", "m.5d": "The real questions your buyers put to AIs: keyword research for the conversational era.",
       "m.6t": "Stability", "m.6d": "Answers shift between passes and models; we measure the drift over time.",
       "t.title": "Procedure and fees",
-      "t.1t": "Score", "t.1d": "Your name, your site: the tool situates your business, runs a first battery and returns an AI perception score with the key findings.", "t.1f": "Free",
-      "t.2t": "Report", "t.2d": "Full multi-model, multi-language battery, competitive benchmark, inventory of errors and the sources responsible, prioritised correction plan.", "t.2f": "On request",
-      "t.3t": "Continuous improvement", "t.3d": "Measuring without correcting changes nothing; correcting without measuring cannot be proven. The subscription does both: monthly interventions, re-measurement with every model evolution, and the before-and-after delta as sole judge.", "t.3f": "Subscription",
-      "t.4t": "Consulting", "t.4d": "Executing the correction plan with your teams: content strategy for the answer layer, agentic commerce readiness, training.", "t.4f": "Bespoke",
+      "t.1t": "Score", "t.1d": "Your name, your site: the tool situates your business, runs a first battery and returns an AI perception score with the key findings.", "t.1f": "Free", "t.1p": "your brand, your domain",
+      "t.2t": "Report", "t.2d": "Full multi-model, multi-language battery, competitive benchmark, inventory of errors and the sources responsible, prioritised correction plan.", "t.2f": "€390", "t.2p": "per file · delivered within 5 days",
+      "t.3t": "Continuous improvement", "t.3d": "Measuring without correcting changes nothing; correcting without measuring cannot be proven. The subscription does both: monthly interventions, re-measurement with every model evolution, and the before-and-after delta as sole judge.", "t.3f": "€290", "t.3p": "per month · report included on entry", "t.reco": "The heart of the offer",
+      "t.4t": "Consulting", "t.4d": "Executing the correction plan with your teams: content strategy for the answer layer, agentic commerce readiness, training.", "t.4f": "€1,200", "t.4p": "per day · on quotation",
       "k.head": "Measurement in progress", "k.stamp": "FILE SUBMITTED",
       "k.final1": "Your request is with the measurement bureau. Your score and first findings will arrive at",
       "k.scorel": "Perception score",
