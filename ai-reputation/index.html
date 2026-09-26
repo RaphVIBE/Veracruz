@@ -726,7 +726,7 @@
   var MEASURE = { state: "idle", slug: null, score: null };
   function startMeasure() {
     MEASURE.state = "running";
-    fetch(CFG.url + "/functions/v1/ai-reputation-measure", {
+    fetch(CFG.url + "/functions/v1/ai-reputation-measure-v2", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": "Bearer " + CFG.key, "apikey": CFG.key },
       body: JSON.stringify({
