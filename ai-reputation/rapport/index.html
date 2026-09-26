@@ -161,6 +161,13 @@
     .roundel { box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; border: 2px solid #1f4d4a; }
     .roundel::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
+  .srcs { grid-column: 1 / -1; font-size: 12px; color: var(--sub); }
+  .srcs b.yes { color: var(--sage); font-weight: 700; }
+  .srcs b.no { color: var(--brick); font-weight: 700; }
+  .srcmeter { display: flex; align-items: center; gap: 16px; margin: 6px 0 12px; font-size: 14px; }
+  .srcmeter .big { font-family: var(--display); font-size: 48px; line-height: 1; color: var(--petrol); }
+  .srcmeter .big small { font-size: 20px; color: var(--sub); }
+  .srcmeter em { font-style: normal; font-size: 12.5px; color: var(--sub); }
 </style>
 </head>
 <body>
@@ -194,12 +201,13 @@
     nojs: { t: "Lisibilité sans JavaScript", fix: "Servir le contenu en HTML : les extracteurs ne cliquent pas et n'attendent pas." },
     answers: { t: "Contenu-réponse", fix: "Publier FAQ et fourchettes de prix : la matière première des réponses d'IA." },
     llms: { t: "llms.txt", fix: "Publier le fichier sommaire pour agents IA à la racine du site (standard émergent)." },
-    entity: { t: "Vérité d'entité", fix: "Créer l'entité Wikidata et aligner nom-adresse-téléphone partout : une seule vérité." }
+    entity: { t: "Vérité d'entité", fix: "Créer l'entité Wikidata liée à votre site officiel et aligner nom-adresse-téléphone partout : une seule vérité, distincte des homonymes." }
   };
   var FR_FRAMING = {
     LEADER: ["Référence du marché", "good"], PEER: ["Parmi les meilleurs", "good"],
     ALTERNATIVE: ["Présentée comme option secondaire", "warn"], NICHE: ["Acteur de niche", ""],
-    NEGATIVE: ["Cadrage négatif", "warn"], ABSENT: ["Quasi invisible", "warn"]
+    NEGATIVE: ["Cadrage négatif", "warn"], ABSENT: ["Quasi invisible", "warn"],
+    UNKNOWN: ["Inconnue ou confondue", "warn"]
   };
 
   function esc(s) { var d = document.createElement("div"); d.textContent = String(s == null ? "" : s); return d.innerHTML; }
@@ -241,7 +249,7 @@
       var lvl = typeof x.level === "number" ? x.level : (x.mentioned ? 1 : 0);
       var actors = Array.isArray(x.actors) ? x.actors
         : (Array.isArray(x.brands) ? x.brands.filter(function (b) { return b !== r.brand; }).map(function (b) { return { name: b, level: 1 }; }) : []);
-      return { q: x.q, level: Math.max(0, Math.min(3, lvl)), actors: actors };
+      return { q: x.q, level: Math.max(0, Math.min(3, lvl)), actors: actors, sources: Array.isArray(x.sources) ? x.sources : null, cited_self: !!x.cited_self };
     });
     var fr = FR_FRAMING[r.framing] || FR_FRAMING.NICHE;
     var date = new Date(r.created_at);
@@ -254,18 +262,21 @@
     bench.forEach(function (b) { if (!b.you && b.name === MASK) maskedCount++; });
     pres.forEach(function (x) { x.actors.forEach(function (a) { if (a.name === MASK) maskedCount++; }); });
     var leversTodo = checks.filter(function (c) { return c.status !== "ok"; }).length;
+    var connected = r.mode === "connectee";
+    var citedN = pres.filter(function (x) { return x.cited_self; }).length;
+    var searchedN = pres.filter(function (x) { return x.sources && x.sources.length; }).length;
     var mailto = "mailto:" + CONTACT + "?subject=" + encodeURIComponent("Rapport complet — " + r.brand + " (" + r.slug + ")");
 
     var html = "";
     if (r.demo) html += '<div style="text-align:center;"><span class="demoTag">Spécimen de démonstration · marque fictive</span></div>';
-    html += '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span><span>Mesuré le ' + dateStr + '</span><span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>';
+    html += '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span><span>Mesuré le ' + dateStr + '</span><span>' + (connected ? 'IA connectée · recherche web' : 'Mémoire du modèle') + '</span><span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>';
 
     html += '<div class="head"><div><h1>' + esc(r.brand) + '</h1><p class="meta">' + esc(verdictLine(r.score)) + '</p></div>';
     html += '<div class="dials"><div class="roundel" style="--val:' + Number(r.score) + '" role="img" aria-label="Score global : ' + esc(r.score) + ' sur 100"><span class="v">' + esc(r.score) + '</span><span class="l">Score global</span></div>';
     if (hasSub) html += '<div class="roundel small" style="--val:' + Number(r.score_perception) + '" role="img" aria-label="Perception : ' + esc(r.score_perception) + ' sur 100"><span class="v">' + esc(r.score_perception) + '</span><span class="l">Perception</span></div><div class="roundel small" style="--val:' + Number(r.score_preparation) + '" role="img" aria-label="Préparation : ' + esc(r.score_preparation) + ' sur 100"><span class="v">' + esc(r.score_preparation) + '</span><span class="l">Préparation</span></div>';
     html += '</div></div>';
 
-    html += '<section class="card glass"><h2>Comment lire ce rapport</h2><p class="howto"><b>Le score</b> va de 0 à 100 : Perception mesure ce que les IA disent de vous ; Préparation, ce que votre site leur donne à lire. <b>L\'échelle</b> de chaque question compte 4 niveaux, d\'« absent » à « recommandé ». <b>Les cadenas 🔒</b> signalent une information réellement mesurée mais réservée au rapport complet : les compteurs affichés sont exacts.</p></section>';
+    html += '<section class="card glass"><h2>Comment lire ce rapport</h2><p class="howto"><b>Le score</b> va de 0 à 100 : Perception mesure ce que les IA disent de vous ; Préparation, ce que votre site leur donne à lire.' + (connected ? ' <b>Mode IA connectée</b> : l\'assistant peut chercher sur le web avant de répondre, comme ChatGPT, Perplexity ou Claude le font aujourd\'hui ; vos améliorations y deviennent visibles en quelques semaines.' : '') + ' <b>L\'échelle</b> de chaque question compte 4 niveaux, d\'« absent » à « recommandé ». <b>Les cadenas 🔒</b> signalent une information réellement mesurée mais réservée au rapport complet : les compteurs affichés sont exacts.</p></section>';
 
     if (bench.length > 1) {
       html += '<section class="card glass"><h2>Votre position face à la concurrence directe</h2><p class="caption">Acteurs mesurés dans les mêmes réponses, sur les mêmes questions.</p>';
@@ -284,9 +295,16 @@
     pres.forEach(function (x) {
       html += '<div class="lrow"><span class="q">' + esc(x.q) + '</span>' + ladderHtml(x.level);
       if (x.actors.length) html += '<span class="others">Cités : ' + x.actors.map(function (a) { return chip(a.name); }).join(" ") + '</span>';
+      if (x.sources) html += '<span class="srcs">' + (x.sources.length ? 'Sources consultées : ' + x.sources.length + ' · ' + (x.cited_self ? '<b class="yes">votre site ✓</b>' : '<b class="no">votre site absent</b>') + (x.sources.some(function (s) { return s !== MASK; }) ? ' — ' + x.sources.map(esc).join(', ') : '') : 'Réponse de mémoire, sans recherche web') + '</span>';
       html += '</div>';
     });
     html += '<div class="legend"><span>0 absent : l\'IA ne vous cite pas</span><span>1 nommé : cité dans une liste</span><span>2 décrit : l\'IA sait dire qui vous êtes</span><span>3 recommandé : l\'IA vous conseille</span></div></section>';
+
+    if (connected && pres.length) {
+      html += '<section class="card glass"><h2>Votre site comme source</h2><p class="caption">Quand l\'IA cherche sur le web, qui lit-elle pour vous répondre ? Être la source consultée est le premier pas vers être la réponse.</p>';
+      html += '<div class="srcmeter"><span class="big">' + citedN + '<small>/' + pres.length + '</small></span><span>réponses où l\'IA a consulté votre site<br><em>' + searchedN + ' réponse(s) sur ' + pres.length + ' appuyée(s) sur une recherche web</em></span></div>';
+      html += '<p class="note">' + (citedN === 0 ? 'Votre site n\'est jamais consulté : les IA répondent à partir de pages concurrentes, d\'annuaires et de médias. Le levier : des pages qui répondent exactement aux questions ci-dessus, et une présence sur les sources qu\'elles lisent déjà.' : 'Votre site est déjà lu : chaque page-réponse supplémentaire augmente la part des questions où il sert de source.') + '</p></section>';
+    }
 
     if (checks.length) {
       html += '<section class="card glass"><h2>Préparation technique : les leviers</h2><p class="caption">Vérifications directes de votre site et de votre empreinte. Chaque ligne « Manquant » ou « À corriger » est une action du plan de correction.</p>';
@@ -298,7 +316,7 @@
       html += '</section>';
     }
 
-    html += '<section class="card glass"><h2>Cadrage</h2><span class="fchip ' + fr[1] + '">' + esc(fr[0]) + '</span>' + (r.quote ? '<blockquote>' + esc(r.quote) + '</blockquote>' : '') + '<p class="note">Score préliminaire automatisé : un modèle de frontière, une passe, ' + pres.length + ' questions. La mesure complète couvre plusieurs modèles, plusieurs passes et plusieurs langues.</p>';
+    html += '<section class="card glass"><h2>Cadrage</h2><span class="fchip ' + fr[1] + '">' + esc(fr[0]) + '</span>' + (r.quote ? '<blockquote>' + esc(r.quote) + '</blockquote>' : '') + '<p class="note">Score préliminaire automatisé : un modèle de frontière' + (connected ? ' connecté au web' : '') + ', une passe, ' + pres.length + ' questions. La mesure complète couvre plusieurs modèles, plusieurs passes et plusieurs langues.</p>';
     html += '<div class="modelgrid"><div class="modelcard"><b>Claude</b><span class="sc">' + esc(r.score) + '</span><span class="tag on">MESURÉ</span></div><div class="modelcard lock"><b>ChatGPT</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Gemini</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Perplexity</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div></div></section>';
 
     if (!r.premium && !r.demo) {
