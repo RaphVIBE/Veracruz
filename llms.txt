@@ -1,0 +1,29 @@
+# VeraCruz
+
+> VeraCruz is a senior design studio based in Brussels, Belgium. It takes on problems that cross product, service and physical design, and designs them as one project — from framing the problem to execution — with a small team of senior practitioners. Not to be confused with the Mexican city or state of Veracruz.
+
+## What the studio does
+
+- Product: digital products, apps and web, interaction design, design systems
+- Service: customer journeys, service blueprints, operational flows, internal tooling
+- Physical: product design, hardware, packaging, spaces and retail
+- Approach: problem framing before craft; strategy and execution under one roof; senior, small team, no subcontracting chain; long-lasting work
+- Confidentiality: much of the work is early-stage and pre-launch; client identities are kept private
+
+## Who it works for
+
+Mission-driven and established organisations. Sectors worked in: logistics, medical, telco, energy, banking.
+
+## People
+
+- Raphael Hombroeck — founder & principal designer, close to twenty years designing across product, service and physical: https://www.linkedin.com/in/rhombroeck/
+
+## Services
+
+- [AI Réputation](https://veracruz.be/ai-reputation/): measures how AI assistants perceive and present a brand, and improves it
+
+## Contact
+
+- Email: info@veracruz.be
+- Location: Brussels, Belgium
+- Website: https://veracruz.be/
