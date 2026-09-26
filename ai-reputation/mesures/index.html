@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mes mesures · AI Réputation</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper: oklch(96.8% 0.007 185); --ink: oklch(23% 0.014 195); --sub: oklch(44% 0.016 192);
+    --hairline: oklch(80% 0.012 185 / .7);
+    --petrol: oklch(44% 0.078 190); --petrol-deep: oklch(31% 0.06 190);
+    --brick: oklch(46% 0.1 35); --sage: oklch(46% 0.07 140); --amber: oklch(48% 0.1 70);
+    --glass: oklch(98% 0.004 185 / .55); --glass-edge: oklch(100% 0 0 / .65);
+    --glass-shadow: 0 24px 70px -28px oklch(30% 0.05 190 / .5);
+    --blob-a: oklch(82% 0.06 190 / .55); --blob-b: oklch(85% 0.055 45 / .4); --blob-c: oklch(84% 0.05 140 / .38);
+    --display: "Libre Caslon Display", Georgia, serif;
+    --displaytext: "Libre Caslon Text", Georgia, serif;
+    --sans: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: oklch(18% 0.012 195); --ink: oklch(93% 0.008 185); --sub: oklch(72% 0.014 188);
+      --hairline: oklch(38% 0.016 188 / .8);
+      --petrol: oklch(70% 0.085 186); --petrol-deep: oklch(80% 0.075 186);
+      --brick: oklch(70% 0.1 40); --sage: oklch(72% 0.08 140); --amber: oklch(78% 0.09 80);
+      --glass: oklch(26% 0.014 192 / .5); --glass-edge: oklch(100% 0 0 / .14);
+      --glass-shadow: 0 24px 70px -24px oklch(5% 0.02 190 / .8);
+      --blob-a: oklch(45% 0.08 190 / .5); --blob-b: oklch(40% 0.07 45 / .4); --blob-c: oklch(42% 0.06 140 / .35);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: oklch(18% 0.012 195); --ink: oklch(93% 0.008 185); --sub: oklch(72% 0.014 188);
+    --hairline: oklch(38% 0.016 188 / .8);
+    --petrol: oklch(70% 0.085 186); --petrol-deep: oklch(80% 0.075 186);
+    --brick: oklch(70% 0.1 40); --sage: oklch(72% 0.08 140); --amber: oklch(78% 0.09 80);
+    --glass: oklch(26% 0.014 192 / .5); --glass-edge: oklch(100% 0 0 / .14);
+    --glass-shadow: 0 24px 70px -24px oklch(5% 0.02 190 / .8);
+    --blob-a: oklch(45% 0.08 190 / .5); --blob-b: oklch(40% 0.07 45 / .4); --blob-c: oklch(42% 0.06 140 / .35);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  .wrap { max-width: 780px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 28px); }
+  h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.12; text-wrap: balance; }
+  button { font: inherit; cursor: pointer; }
+  button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; border-radius: 6px; }
+  .ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .ambient i { position: absolute; border-radius: 50%; filter: blur(90px); }
+  .ambient .a { width: 55vmax; height: 55vmax; background: var(--blob-a); top: -18vmax; left: -12vmax; }
+  .ambient .b { width: 44vmax; height: 44vmax; background: var(--blob-b); top: 34vh; right: -16vmax; }
+  .ambient .c { width: 40vmax; height: 40vmax; background: var(--blob-c); bottom: -14vmax; left: 22vw; }
+  .glass { background: var(--glass); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-edge); }
+  .mast { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; padding: 10px 12px 10px 22px; border-radius: 999px; }
+  .mark { font-family: var(--display); font-size: 19px; }
+  .mark b { font-weight: 400; color: var(--petrol); }
+  .mark a { color: inherit; text-decoration: none; }
+  .btn { border: 0; border-radius: 999px; padding: 9px 18px; font-size: 13.5px; font-weight: 700; background: var(--petrol); color: var(--paper); text-decoration: none; display: inline-block; }
+  .btn:hover { background: var(--petrol-deep); }
+  .btn.quiet { background: color-mix(in oklch, var(--ink) 9%, transparent); color: var(--ink); }
+  main { padding: 34px 0 60px; }
+  h1 { font-size: clamp(28px, 5vw, 40px); margin-bottom: 6px; }
+  .lede { color: var(--sub); font-size: 15px; max-width: 58ch; margin-bottom: 28px; }
+  section.card { border-radius: 24px; padding: 24px 26px; margin-bottom: 24px; }
+  section.card h2 { font-size: 20px; margin-bottom: 4px; }
+  .caption { font-size: 13.5px; color: var(--sub); margin-bottom: 14px; }
+  .hrow { display: grid; grid-template-columns: 96px 1fr auto auto; gap: 12px; align-items: center; padding: 12px 0; border-top: 1px solid var(--hairline); font-size: 14.5px; }
+  .hrow:first-of-type { border-top: 0; }
+  @media (max-width: 560px) { .hrow { grid-template-columns: 84px 1fr auto; } .hrow .score { display: none; } }
+  .tag { font-size: 9.5px; letter-spacing: .09em; text-transform: uppercase; font-weight: 700; border-radius: 999px; padding: 3px 0; text-align: center; }
+  .tag.m { color: var(--petrol); border: 1px solid color-mix(in oklch, var(--petrol) 45%, transparent); }
+  .tag.c { color: var(--amber); border: 1px solid color-mix(in oklch, var(--amber) 45%, transparent); }
+  .hrow .meta { color: var(--sub); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .hrow .score { font-family: var(--display); font-size: 24px; color: var(--petrol); text-align: right; min-width: 2ch; }
+  .hrow a.view { font-size: 13px; font-weight: 700; color: var(--petrol); text-decoration: none; white-space: nowrap; }
+  .hrow a.view:hover { text-decoration: underline; }
+  .trendline { font-size: 13.5px; color: var(--sub); border-left: 3px solid var(--sage); padding-left: 12px; margin-bottom: 14px; }
+  .trendline b { color: var(--sage); }
+  .empty { color: var(--sub); font-size: 14px; }
+  /* auth */
+  .authrow { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+  .authrow .f { flex: 1 1 220px; }
+  .authrow label { display: block; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); font-weight: 600; margin: 0 0 5px 4px; }
+  .authrow input { width: 100%; border: 1px solid var(--hairline); border-radius: 14px; background: color-mix(in oklch, var(--paper) 55%, transparent); color: var(--ink); font-size: 15.5px; padding: 12px 16px; }
+  #codeWrap input { letter-spacing: 8px; font-family: var(--display); font-size: 22px; text-align: center; max-width: 220px; }
+  .status { font-size: 13px; margin-top: 10px; }
+  .status.err { color: var(--brick); }
+  .status.ok { color: var(--sage); }
+  .who { display: flex; justify-content: space-between; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; font-size: 13.5px; color: var(--sub); }
+  .who b { color: var(--ink); }
+  .linkbtn { border: 0; background: none; color: var(--sub); font-size: 12.5px; text-decoration: underline; padding: 0; }
+  footer { padding: 22px 0 26px; border-top: 1px solid var(--hairline); font-size: 12.5px; color: var(--sub); display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+<div class="wrap">
+  <header class="mast glass">
+    <div class="mark"><a href="../">AI <b>Réputation</b></a></div>
+    <a class="btn" href="../" data-i18n="n.new">Nouvelle mesure</a>
+  </header>
+  <main>
+    <h1 data-i18n="h.title">Mes mesures</h1>
+    <p class="lede" data-i18n="h.lede">Chaque dossier est privé : seul son lien le partage. Mesurez, corrigez, re-mesurez — la courbe qui monte est la preuve.</p>
+
+    <section class="card glass" id="localCard" hidden>
+      <h2 data-i18n="l.title">Sur cet appareil</h2>
+      <p class="caption" data-i18n="l.sub">Les mesures lancées depuis ce navigateur, sans compte.</p>
+      <div id="localList"></div>
+    </section>
+
+    <section class="card glass">
+      <h2 data-i18n="a.title">Tous mes dossiers</h2>
+      <div id="authBox">
+        <p class="caption" data-i18n="a.sub">Recevez un code à 6 chiffres par e-mail — jamais de mot de passe. Vous retrouvez tous les dossiers liés à cette adresse, sur tous vos appareils.</p>
+        <div class="authrow" id="emailWrap">
+          <div class="f">
+            <label for="a-email" data-i18n="a.email.l">Votre e-mail</label>
+            <input id="a-email" type="email" autocomplete="email" placeholder="prenom@exemple.be">
+          </div>
+          <button class="btn" id="sendCode" data-i18n="a.send">Recevoir le code</button>
+        </div>
+        <div class="authrow" id="codeWrap" hidden style="margin-top: 14px;">
+          <div class="f">
+            <label for="a-code" data-i18n="a.code.l">Le code reçu par e-mail</label>
+            <input id="a-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="······">
+          </div>
+          <button class="btn" id="verifyCode" data-i18n="a.verify">Ouvrir mes dossiers</button>
+        </div>
+        <p class="status" id="aStatus" hidden></p>
+      </div>
+      <div id="listBox" hidden>
+        <div class="who"><span><span data-i18n="a.signed">Connecté :</span> <b id="whoEmail"></b></span><button class="linkbtn" id="signOut" data-i18n="a.out">Se déconnecter</button></div>
+        <div id="trends"></div>
+        <div id="fullList"></div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <span>AI Réputation</span>
+    <span data-i18n="f.chain">Mesure · Diagnostic · Amélioration continue · Consultance</span>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  var SB_URL = "https://ydqpevnmliopqrkuhrfu.supabase.co";
+  var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkcXBldm5tbGlvcHFya3VocmZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzEwMjMsImV4cCI6MjA5NTQ0NzAyM30.mdbGH8r20tuGwA62G2r2OLJeeuk0XraRRi6pTtoGp-g";
+
+  var I18N = {
+    fr: {},
+    en: {
+      "n.new": "New measurement",
+      "h.title": "My measurements",
+      "h.lede": "Each file is private: only its link shares it. Measure, fix, re-measure — the rising curve is the proof.",
+      "l.title": "On this device", "l.sub": "Measurements started from this browser, no account needed.",
+      "a.title": "All my files",
+      "a.sub": "Get a 6-digit code by email — never a password. You will find every file tied to that address, on all your devices.",
+      "a.email.l": "Your email", "a.send": "Send me the code",
+      "a.code.l": "The code from your email", "a.verify": "Open my files",
+      "a.signed": "Signed in:", "a.out": "Sign out",
+      "a.sent": "Code sent. Check your inbox (and spam).",
+      "a.badcode": "That code did not work. Check it, or request a new one.",
+      "a.senderr": "The code could not be sent. Wait a minute and try again.",
+      "a.loaderr": "Your files could not be loaded. Reload the page.",
+      "a.none": "No files yet for this address. Run your first measurement!",
+      "l.none": "No measurement from this device yet.",
+      "t.trend": "evolution", "t.view": "View", "t.cat": "Category", "t.brand": "Brand",
+      "f.chain": "Measure · Diagnosis · Continuous improvement · Consulting"
+    }
+  };
+  I18N.fr["a.sent"] = "Code envoyé. Regardez votre boîte mail (et les indésirables).";
+  I18N.fr["a.badcode"] = "Ce code n'a pas fonctionné. Vérifiez-le, ou demandez-en un nouveau.";
+  I18N.fr["a.senderr"] = "Le code n'a pas pu partir. Patientez une minute et réessayez.";
+  I18N.fr["a.loaderr"] = "Vos dossiers n'ont pas pu être chargés. Rechargez la page.";
+  I18N.fr["a.none"] = "Aucun dossier pour cette adresse pour l'instant. Lancez votre première mesure !";
+  I18N.fr["l.none"] = "Aucune mesure depuis cet appareil pour l'instant.";
+  I18N.fr["t.trend"] = "évolution"; I18N.fr["t.view"] = "Voir"; I18N.fr["t.cat"] = "Catégorie"; I18N.fr["t.brand"] = "Marque";
+  document.querySelectorAll("[data-i18n]").forEach(function (el) { var k = el.getAttribute("data-i18n"); if (I18N.fr[k] === undefined) I18N.fr[k] = el.innerHTML; });
+
+  var LANG = "fr";
+  try { if (localStorage.getItem("ar-lang") === "en") LANG = "en"; } catch (e) {}
+  function t(k) { return (I18N[LANG] && I18N[LANG][k]) || I18N.fr[k] || k; }
+  if (LANG !== "fr") {
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { var k = el.getAttribute("data-i18n"); if (I18N[LANG][k] !== undefined) el.innerHTML = I18N[LANG][k]; });
+    document.documentElement.lang = LANG;
+  }
+
+  function esc(s) { var d = document.createElement("div"); d.textContent = String(s == null ? "" : s); return d.innerHTML; }
+  function fmtDate(iso) {
+    try { return new Date(iso).toLocaleDateString(LANG === "fr" ? "fr-BE" : "en-GB", { day: "2-digit", month: "2-digit", year: "numeric" }); } catch (e) { return ""; }
+  }
+  function rowHtml(x) {
+    var isCat = x.kind === "category";
+    var label = isCat ? "« " + esc(x.label) + " »" : esc(x.label);
+    var score = (typeof x.score === "number") ? esc(x.score) : "—";
+    return '<div class="hrow"><span class="tag ' + (isCat ? "c" : "m") + '">' + t(isCat ? "t.cat" : "t.brand") + '</span>' +
+      '<span>' + label + '<br><span class="meta">' + fmtDate(x.date) + '</span></span>' +
+      '<span class="score">' + score + '</span>' +
+      '<a class="view" href="../rapport/?r=' + encodeURIComponent(x.slug) + '">' + t("t.view") + ' →</a></div>';
+  }
+
+  /* ——— local (this browser) ——— */
+  (function () {
+    var arr = [];
+    try { arr = JSON.parse(localStorage.getItem("ar_mesures") || "[]"); } catch (e) {}
+    if (!Array.isArray(arr) || !arr.length) return;
+    document.getElementById("localCard").hidden = false;
+    document.getElementById("localList").innerHTML = arr.map(rowHtml).join("");
+  })();
+
+  /* ——— account (email code) ——— */
+  var sb = window.supabase ? window.supabase.createClient(SB_URL, SB_KEY) : null;
+  var aStatus = document.getElementById("aStatus");
+  function say(msg, cls) { aStatus.textContent = msg; aStatus.className = "status " + cls; aStatus.hidden = false; }
+
+  function renderRows(rows, email) {
+    document.getElementById("authBox").hidden = true;
+    document.getElementById("listBox").hidden = false;
+    document.getElementById("whoEmail").textContent = email;
+    var list = document.getElementById("fullList");
+    if (!rows.length) { list.innerHTML = '<p class="empty">' + t("a.none") + '</p>'; return; }
+    // trend lines: brands measured more than once
+    var byBrand = {};
+    rows.filter(function (r) { return r.kind !== "category" && typeof r.score === "number"; }).forEach(function (r) {
+      (byBrand[r.brand] = byBrand[r.brand] || []).push(r);
+    });
+    var trends = "";
+    Object.keys(byBrand).forEach(function (b) {
+      var rs = byBrand[b];
+      if (rs.length >= 2) {
+        var last = rs[0].score, first = rs[rs.length - 1].score;
+        trends += '<p class="trendline"><b>' + esc(b) + '</b> — ' + t("t.trend") + ' : ' + esc(first) + ' → <b>' + esc(last) + '</b> (' + rs.length + ' mesures)</p>';
+      }
+    });
+    document.getElementById("trends").innerHTML = trends;
+    list.innerHTML = rows.map(function (r) {
+      return rowHtml({ slug: r.slug, label: r.kind === "category" ? (r.brand || r.keyword) : r.brand, kind: r.kind, score: r.score, date: r.created_at });
+    }).join("");
+  }
+
+  async function loadHistory(session) {
+    try {
+      var res = await fetch(SB_URL + "/functions/v1/ai-reputation-history", {
+        headers: { "Authorization": "Bearer " + session.access_token, "apikey": SB_KEY }
+      });
+      var d = await res.json();
+      if (d && d.ok) renderRows(d.rows || [], d.email || session.user.email);
+      else say(t("a.loaderr"), "err");
+    } catch (e) { say(t("a.loaderr"), "err"); }
+  }
+
+  if (sb) {
+    sb.auth.getSession().then(function (r) {
+      var s = r && r.data && r.data.session;
+      if (s) loadHistory(s);
+    });
+
+    document.getElementById("sendCode").addEventListener("click", async function () {
+      var email = document.getElementById("a-email").value.trim();
+      if (!/.+@.+\..+/.test(email)) { document.getElementById("a-email").focus(); return; }
+      this.disabled = true;
+      var btn = this;
+      try {
+        var r = await sb.auth.signInWithOtp({ email: email, options: { shouldCreateUser: true } });
+        if (r.error) { say(t("a.senderr"), "err"); btn.disabled = false; return; }
+        say(t("a.sent"), "ok");
+        document.getElementById("codeWrap").hidden = false;
+        document.getElementById("a-code").focus();
+        setTimeout(function () { btn.disabled = false; }, 30000);
+      } catch (e) { say(t("a.senderr"), "err"); btn.disabled = false; }
+    });
+
+    document.getElementById("verifyCode").addEventListener("click", async function () {
+      var email = document.getElementById("a-email").value.trim();
+      var code = document.getElementById("a-code").value.trim();
+      if (code.length < 6) { document.getElementById("a-code").focus(); return; }
+      this.disabled = true;
+      var btn = this;
+      try {
+        var r = await sb.auth.verifyOtp({ email: email, token: code, type: "email" });
+        if (r.error || !r.data || !r.data.session) { say(t("a.badcode"), "err"); btn.disabled = false; return; }
+        aStatus.hidden = true;
+        loadHistory(r.data.session);
+      } catch (e) { say(t("a.badcode"), "err"); btn.disabled = false; }
+    });
+
+    document.getElementById("signOut").addEventListener("click", async function () {
+      try { await sb.auth.signOut(); } catch (e) {}
+      location.reload();
+    });
+  }
+</script>
+</body>
+</html>

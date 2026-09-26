@@ -122,6 +122,14 @@
   .hint { margin-top: 14px; font-size: 13.5px; color: var(--sub); }
   .hint button { border: 0; background: none; color: var(--petrol); font-size: 13.5px; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
+  /* mode selector */
+  .seg { display: inline-flex; border: 1px solid var(--hairline); border-radius: 999px; overflow: hidden; margin-bottom: 14px; background: var(--glass); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+  .seg button { border: 0; background: transparent; color: var(--sub); font: inherit; font-size: 13.5px; font-weight: 700; padding: 8px 20px; cursor: pointer; border-radius: 999px; }
+  .seg button[aria-pressed="true"] { background: var(--petrol); color: var(--paper); }
+  .seg button:focus-visible { outline: 2px solid var(--petrol); outline-offset: 2px; }
+  .mylink { font-size: 13px; font-weight: 600; color: var(--sub); text-decoration: none; white-space: nowrap; margin-right: 10px; }
+  .mylink:hover { color: var(--ink); text-decoration: underline; }
+
   /* step 2 sheet */
   .sheet { overflow: hidden; max-height: 0; opacity: 0; transition: max-height .5s cubic-bezier(.16,1,.3,1), opacity .4s ease, margin .4s ease; margin-top: 0; text-align: left; border-radius: 26px; }
   .sheet.open { max-height: 560px; opacity: 1; margin-top: 16px; }
@@ -263,9 +271,12 @@
   <header class="mast">
     <div class="inner">
       <div class="mark">AI <b>Réputation</b></div>
+      <div style="display: flex; align-items: center;">
+      <a class="mylink" href="mesures/" data-i18n="n.mine">Mes mesures</a>
       <div class="lang" role="group" aria-label="Langue / Language">
         <button id="btn-fr" aria-pressed="true" onclick="setLang('fr')">FR</button>
         <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
+      </div>
       </div>
     </div>
   </header>
@@ -274,9 +285,14 @@
     <h1><span data-i18n="h.1">Que disent les IA</span> <em data-i18n="h.2">de votre marque&nbsp;?</em></h1>
     <p class="lede" data-i18n="h.lede">ChatGPT, Claude, Gemini et Perplexity vous décrivent, vous comparent, vous recommandent, ou vous oublient. <span style="white-space: nowrap;">Mesurez-le.</span></p>
 
+    <div class="seg" role="group" aria-label="Type de mesure">
+      <button type="button" id="seg-brand" aria-pressed="true" onclick="setMode('brand')" data-i18n="s.modeb">Ma marque</button>
+      <button type="button" id="seg-cat" aria-pressed="false" onclick="setMode('category')" data-i18n="s.modec">Une catégorie</button>
+    </div>
+
     <form class="search" id="askForm">
       <div class="box glass">
-        <input id="f-brand" name="brand" required data-i18n-ph="s.brand" placeholder="Le nom de votre entreprise…" aria-label="Nom de votre entreprise" autocomplete="organization">
+        <input id="f-brand" name="brand" required data-i18n-ph="s.brand" placeholder="Le nom de votre entreprise…" aria-label="Nom de votre entreprise ou catégorie" autocomplete="organization">
         <button type="button" class="go" id="goBtn" data-i18n="s.go" onclick="openSheet()">Mesurer</button>
       </div>
 
@@ -284,15 +300,20 @@
         <div class="in">
           <div class="row">
             <div class="f" style="flex: 1 1 240px;">
-              <label for="f-email" data-i18n="s.email.l">Votre e-mail professionnel</label>
+              <label for="f-email" id="l-email" data-i18n="s.email.l">Votre e-mail professionnel</label>
               <input id="f-email" name="email" type="email" required data-i18n-ph="s.email" placeholder="prenom@votre-domaine.be" autocomplete="email">
             </div>
-            <div class="f" style="flex: 1 1 240px;">
+            <div class="f" style="flex: 1 1 240px;" id="wrap-site">
               <label for="f-site" data-i18n="s.site.l">Le site de votre marque</label>
               <input id="f-site" name="website_url" required data-i18n-ph="s.site" placeholder="votre-domaine.be">
             </div>
+            <div class="f" style="flex: 1 1 240px;" id="wrap-catzone" hidden>
+              <label for="f-catzone" data-i18n="s.catzone.l">Zone</label>
+              <input id="f-catzone" name="catzone" data-i18n-ph="s.catzone" placeholder="Belgique, Wallonie, global…">
+            </div>
           </div>
           <p class="privacy" id="ownNote" data-i18n="s.own" style="margin-top: 8px;">Le score gratuit mesure votre propre marque : l'e-mail doit appartenir au domaine du site. Mesurer d'autres marques relève de l'offre Pro.</p>
+          <p class="privacy" id="catNote" data-i18n="s.catnote" style="margin-top: 8px;" hidden>Le radar mesure une catégorie de marché, pas une marque : n'importe quel e-mail convient. Une mesure fraîche gratuite par semaine ; un mot-clé déjà mesuré cette semaine renvoie le dossier existant.</p>
           <div class="adv" id="adv">
             <div class="row">
               <div class="f"><label for="f-sector" data-i18n="s.sector.l">Secteur d'activité</label><input id="f-sector" name="sector" data-i18n-ph="s.sector" placeholder="Studio de design, solaire… (optionnel)"></div>
@@ -428,6 +449,18 @@
       "s.send": "Send me my score", "s.adv": "Refine the measurement ↓", "s.advUp": "Collapse ↑",
       "s.privacy": "Free. Your details are used only to send you your score, nothing else.",
       "s.hint": "Free · 2 minutes · no commitment",
+      "n.mine": "My measurements",
+      "s.modeb": "My brand", "s.modec": "A category",
+      "s.cat": "“luxury handbags”, “Belgian chocolatier”, “web agency Liège”…",
+      "s.email2.l": "Your email",
+      "s.catzone.l": "Area", "s.catzone": "Belgium, Wallonia, global…",
+      "s.catnote": "The radar measures a market category, not a brand: any email works. One fresh free measurement per week; a keyword already measured this week returns the existing file.",
+      "s.sendc": "Run the radar",
+      "s.needc": "Type a category first, e.g. “luxury handbags”.",
+      "s.quota": "Your free category measurement for this week is already used. Try again in a few days — or ask us about the full report.",
+      "k.readyc": "The category radar is ready: who owns the answer, and how many players are cited.",
+      "k.cachedc": "Shared measurement: this keyword was already measured this week — same file for everyone.",
+      "k.viewc": "View the radar",
       "s.ok": "Received. Your request is on file; your score is on its way.",
       "s.err": "The request could not be recorded. Check your connection and try again.",
       "s.need": "Add your company name first.",
@@ -494,6 +527,14 @@
   I18N.fr["s.need"] = "Indiquez d'abord le nom de votre entreprise.";
   I18N.fr["s.mismatch"] = "Cet e-mail n'appartient pas au domaine du site. Le score gratuit mesure votre propre marque ; pour d'autres marques, parlons de l'offre Pro.";
   I18N.fr["s.advUp"] = "Réduire ↑";
+  I18N.fr["s.cat"] = "« sacs de luxe », « chocolatier belge », « agence web Liège »…";
+  I18N.fr["s.email2.l"] = "Votre e-mail";
+  I18N.fr["s.sendc"] = "Lancer le radar";
+  I18N.fr["s.needc"] = "Indiquez d'abord une catégorie, par exemple « sacs de luxe ».";
+  I18N.fr["s.quota"] = "Votre mesure de catégorie gratuite de la semaine est déjà utilisée. Réessayez dans quelques jours — ou parlons du rapport complet.";
+  I18N.fr["k.readyc"] = "Le radar de catégorie est prêt : qui possède la réponse, et combien d'acteurs sont cités.";
+  I18N.fr["k.cachedc"] = "Mesure partagée : ce mot-clé a déjà été mesuré cette semaine — même dossier pour tous.";
+  I18N.fr["k.viewc"] = "Voir le radar";
   document.querySelectorAll("[data-i18n]").forEach(function (el) { var k = el.getAttribute("data-i18n"); if (I18N.fr[k] === undefined) I18N.fr[k] = el.innerHTML; });
   document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { I18N.fr[el.getAttribute("data-i18n-ph")] = el.getAttribute("placeholder"); });
 
@@ -513,6 +554,7 @@
     document.getElementById("btn-fr").setAttribute("aria-pressed", String(l === "fr"));
     document.getElementById("btn-en").setAttribute("aria-pressed", String(l === "en"));
     try { localStorage.setItem("ar-lang", l); } catch (e) {}
+    if (typeof MODE === "string") { try { applyModeTexts(); } catch (e) {} }
   }
   try { if (localStorage.getItem("ar-lang") === "en") setLang("en"); } catch (e) {}
 
@@ -648,10 +690,33 @@
 
   function t(k) { return (I18N[LANG] && I18N[LANG][k]) || I18N.fr[k] || k; }
 
+  /* ——— two measurement modes: brand / category ——— */
+  var MODE = "brand";
+  function applyModeTexts() {
+    document.getElementById("f-brand").placeholder = t(MODE === "brand" ? "s.brand" : "s.cat");
+    document.getElementById("l-email").textContent = t(MODE === "brand" ? "s.email.l" : "s.email2.l");
+    document.getElementById("sendBtn").textContent = t(MODE === "brand" ? "s.send" : "s.sendc");
+  }
+  function setMode(m) {
+    MODE = m;
+    var b = m === "brand";
+    document.getElementById("seg-brand").setAttribute("aria-pressed", String(b));
+    document.getElementById("seg-cat").setAttribute("aria-pressed", String(!b));
+    document.getElementById("wrap-site").hidden = !b;
+    document.getElementById("f-site").required = b;
+    document.getElementById("wrap-catzone").hidden = b;
+    document.getElementById("ownNote").hidden = !b;
+    document.getElementById("catNote").hidden = b;
+    document.getElementById("adv").style.display = b ? "" : "none";
+    document.getElementById("advBtn").parentElement.style.display = b ? "" : "none";
+    applyModeTexts();
+    document.getElementById("f-brand").focus();
+  }
+
   function openSheet() {
     var brand = document.getElementById("f-brand");
     var st = document.getElementById("status");
-    if (!brand.value.trim()) { brand.focus(); flash(t("s.need"), "err"); return; }
+    if (!brand.value.trim()) { brand.focus(); flash(t(MODE === "brand" ? "s.need" : "s.needc"), "err"); return; }
     var sheet = document.getElementById("sheet");
     if (!sheet.classList.contains("open")) {
       sheet.classList.add("open");
@@ -694,6 +759,35 @@
     e.preventDefault();
     var btn = document.getElementById("sendBtn");
     document.getElementById("status").hidden = true;
+
+    if (MODE === "category") {
+      btn.disabled = true;
+      try {
+        // lead capture, non-blocking
+        fetch(CFG.url + "/functions/v1/" + CFG.fn, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": "Bearer " + CFG.key, "apikey": CFG.key },
+          body: JSON.stringify({
+            brand: document.getElementById("f-brand").value,
+            email: document.getElementById("f-email").value,
+            website_url: "",
+            sector: "",
+            zone: document.getElementById("f-catzone").value,
+            competitors: "",
+            hp: document.getElementById("f-hp").value,
+            lang: LANG
+          })
+        }).catch(function () {});
+        var pr = startMeasureCat();
+        // wait briefly: cache hits and quota refusals answer in under a second
+        await Promise.race([pr, new Promise(function (res) { setTimeout(res, 1800); })]);
+        if (MEASURE.state === "quota") { flash(t("s.quota"), "err"); btn.disabled = false; return; }
+        if (MEASURE.state === "failed") { flash(t("s.err"), "err"); btn.disabled = false; return; }
+        startConsole();
+      } catch (ex) { flash(t("s.err"), "err"); btn.disabled = false; }
+      return;
+    }
+
     if (!domainsMatch(document.getElementById("f-site").value, document.getElementById("f-email").value)) {
       flash(t("s.mismatch"), "err");
       return;
@@ -723,9 +817,28 @@
   });
 
   /* ——— real measurement (server-side battery) ——— */
-  var MEASURE = { state: "idle", slug: null, score: null };
+  var MEASURE = { state: "idle", slug: null, score: null, kind: "brand", cached: false };
+  function startMeasureCat() {
+    MEASURE = { state: "running", slug: null, score: null, kind: "category", cached: false };
+    return fetch(CFG.url + "/functions/v1/ai-reputation-measure", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + CFG.key, "apikey": CFG.key },
+      body: JSON.stringify({
+        kind: "category",
+        keyword: document.getElementById("f-brand").value,
+        zone: document.getElementById("f-catzone").value,
+        email: document.getElementById("f-email").value,
+        lang: LANG
+      })
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.ok && d.slug) { MEASURE.state = "done"; MEASURE.slug = d.slug; MEASURE.cached = !!d.cached; }
+      else if (d && d.error === "category_quota") { MEASURE.state = "quota"; }
+      else { MEASURE.state = "failed"; }
+      return MEASURE.state;
+    }).catch(function () { MEASURE.state = "failed"; return "failed"; });
+  }
   function startMeasure() {
-    MEASURE.state = "running";
+    MEASURE = { state: "running", slug: null, score: null, kind: "brand", cached: false };
     fetch(CFG.url + "/functions/v1/ai-reputation-measure-v3", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": "Bearer " + CFG.key, "apikey": CFG.key },
@@ -753,18 +866,41 @@
       }, function () {});
     } catch (e) {}
   }
+  function saveLocal() {
+    try {
+      var arr = JSON.parse(localStorage.getItem("ar_mesures") || "[]");
+      arr = arr.filter(function (x) { return x && x.slug !== MEASURE.slug; });
+      arr.unshift({
+        slug: MEASURE.slug,
+        label: document.getElementById("f-brand").value.trim(),
+        kind: MEASURE.kind || "brand",
+        score: typeof MEASURE.score === "number" ? MEASURE.score : null,
+        date: new Date().toISOString()
+      });
+      localStorage.setItem("ar_mesures", JSON.stringify(arr.slice(0, 50)));
+    } catch (e) {}
+  }
   function showFinal() {
     document.getElementById("k-final").classList.add("on");
     if (MEASURE.state === "done") {
-      document.getElementById("k-score").textContent = MEASURE.score;
       var rd = document.querySelector("#k-scorewrap .roundel");
-      if (rd) {
-        rd.style.setProperty("--val", Number(MEASURE.score) || 0);
-        rd.setAttribute("role", "img");
-        rd.setAttribute("aria-label", (LANG === "fr" ? "Score de perception : " : "Perception score: ") + MEASURE.score + (LANG === "fr" ? " sur 100" : " out of 100"));
+      if (MEASURE.kind === "category") {
+        if (rd) rd.style.display = "none";
+        var ready = document.querySelector('#k-scorewrap [data-i18n="k.ready"]');
+        if (ready) ready.textContent = t("k.readyc") + (MEASURE.cached ? " " + t("k.cachedc") : "");
+        document.getElementById("k-view").textContent = t("k.viewc");
+      } else {
+        document.getElementById("k-score").textContent = MEASURE.score;
+        if (rd) {
+          rd.style.display = "";
+          rd.style.setProperty("--val", Number(MEASURE.score) || 0);
+          rd.setAttribute("role", "img");
+          rd.setAttribute("aria-label", (LANG === "fr" ? "Score de perception : " : "Perception score: ") + MEASURE.score + (LANG === "fr" ? " sur 100" : " out of 100"));
+        }
       }
       document.getElementById("k-view").href = reportUrl();
       document.getElementById("k-scorewrap").hidden = false;
+      saveLocal();
     } else {
       document.getElementById("k-mailwrap").hidden = false;
     }
@@ -835,19 +971,21 @@
         return;
       }
       var el = els[i], s = STEPS[i];
+      // the measurement already answered (shared file from this week): play the console fast
+      var dur = MEASURE.state !== "running" ? Math.min(s.dur, 900) : s.dur;
       el.classList.add("run");
       var sb = el.querySelector(".sbar i");
       var st = Date.now();
       var sub = setInterval(function () {
-        sb.style.width = Math.min(96, (Date.now() - st) / s.dur * 100) + "%";
-      }, 300);
+        sb.style.width = Math.min(96, (Date.now() - st) / dur * 100) + "%";
+      }, 150);
       setTimeout(function () {
         clearInterval(sub);
         el.classList.remove("run");
         el.classList.add("done");
         el.querySelector(".meta").textContent = t(s.m);
         runStep(i + 1);
-      }, s.dur);
+      }, dur);
     })(0);
   }
 </script>
