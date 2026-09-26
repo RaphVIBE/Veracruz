@@ -204,6 +204,15 @@
   var KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkcXBldm5tbGlvcHFya3VocmZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzEwMjMsImV4cCI6MjA5NTQ0NzAyM30.mdbGH8r20tuGwA62G2r2OLJeeuk0XraRRi6pTtoGp-g";
   var MASK = "••••••";
   var CONTACT = "raph@veracruz.be";
+  // Liens de paiement Stripe — colle ici les URLs buy.stripe.com quand elles existent.
+  // Vide = repli sur l'e-mail. Le slug part en client_reference_id : le webhook
+  // déverrouille le dossier payé automatiquement.
+  var PAY = { report: "", category: "" };
+  function payHref(kind, slug, fallback) {
+    var l = PAY[kind];
+    if (!l) return fallback;
+    return l + (l.indexOf("?") >= 0 ? "&" : "?") + "client_reference_id=" + encodeURIComponent(slug);
+  }
 
   var LEVELS = ["Absent", "Nommé", "Décrit", "Recommandé"];
   var LEVERS = {
@@ -296,7 +305,7 @@
         '<li>Le détail <b>question par question</b> : qui est cité où, à quel niveau</li>' +
         '<li>Scores <b>ChatGPT, Gemini, Perplexity</b></li>' +
         '<li>Le <b>plan d\'entrée</b> dans la couche de réponse de cette catégorie</li></ul>' +
-        '<div class="price"><div class="p">390&nbsp;€</div><div class="per">rapport de catégorie · livré sous 5 jours</div><a class="cta" href="' + mailto + '">Débloquer le classement</a></div></section>';
+        '<div class="price"><div class="p">390&nbsp;€</div><div class="per">rapport de catégorie · livré sous 5 jours</div><a class="cta" href="' + payHref("category", r.slug, mailto) + '">Débloquer le classement</a>' + (PAY.category ? '<div class="per" style="margin-top:6px;">identités révélées dès le paiement</div>' : '') + '</div></section>';
     }
 
     document.getElementById("main").innerHTML = html;
@@ -395,7 +404,7 @@
         (maskedCount ? '<li>Identité des <b>' + maskedCount + ' acteurs</b> cités à votre place</li>' : '') +
         (leversTodo ? '<li><b>' + leversTodo + ' leviers</b> techniques détaillés et priorisés</li>' : '') +
         '<li>Scores <b>ChatGPT, Gemini, Perplexity</b></li><li>Passes multiples : la <b>stabilité</b> mesurée</li><li>Erreurs factuelles tracées aux <b>sources</b></li><li>Le <b>plan de correction</b> à 90 jours</li></ul>' +
-        '<div class="price"><div class="p">390&nbsp;€</div><div class="per">rapport complet · livré sous 5 jours</div><a class="cta" href="' + mailto + '">Débloquer mon rapport</a></div></section>';
+        '<div class="price"><div class="p">390&nbsp;€</div><div class="per">rapport complet · livré sous 5 jours</div><a class="cta" href="' + payHref("report", r.slug, mailto) + '">Débloquer mon rapport</a>' + (PAY.report ? '<div class="per" style="margin-top:6px;">identités révélées dès le paiement</div>' : '') + '</div></section>';
     }
 
     document.getElementById("main").innerHTML = html;
