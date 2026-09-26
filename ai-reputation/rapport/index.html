@@ -168,6 +168,8 @@
   .srcmeter .big { font-family: var(--display); font-size: 48px; line-height: 1; color: var(--petrol); }
   .srcmeter .big small { font-size: 20px; color: var(--sub); }
   .srcmeter em { font-style: normal; font-size: 12.5px; color: var(--sub); }
+  .passes { grid-column: 1 / -1; font-size: 12px; color: var(--sub); font-variant-numeric: tabular-nums; }
+  .head .noise { color: var(--sub); font-size: 12.5px; margin-top: 8px; max-width: 52ch; }
 </style>
 </head>
 <body>
@@ -249,7 +251,7 @@
       var lvl = typeof x.level === "number" ? x.level : (x.mentioned ? 1 : 0);
       var actors = Array.isArray(x.actors) ? x.actors
         : (Array.isArray(x.brands) ? x.brands.filter(function (b) { return b !== r.brand; }).map(function (b) { return { name: b, level: 1 }; }) : []);
-      return { q: x.q, level: Math.max(0, Math.min(3, lvl)), actors: actors, sources: Array.isArray(x.sources) ? x.sources : null, cited_self: !!x.cited_self };
+      return { q: x.q, level: Math.max(0, Math.min(3, lvl)), actors: actors, sources: Array.isArray(x.sources) ? x.sources : null, cited_self: !!x.cited_self, layer: x.layer || "core", mean: typeof x.level_mean === "number" ? x.level_mean : null, levels: Array.isArray(x.levels) ? x.levels : null };
     });
     var fr = FR_FRAMING[r.framing] || FR_FRAMING.NICHE;
     var date = new Date(r.created_at);
@@ -263,15 +265,18 @@
     pres.forEach(function (x) { x.actors.forEach(function (a) { if (a.name === MASK) maskedCount++; }); });
     var leversTodo = checks.filter(function (c) { return c.status !== "ok"; }).length;
     var connected = r.mode === "connectee";
-    var citedN = pres.filter(function (x) { return x.cited_self; }).length;
-    var searchedN = pres.filter(function (x) { return x.sources && x.sources.length; }).length;
+    var coreP = pres.filter(function (x) { return x.layer === "core"; });
+    var rotP = pres.filter(function (x) { return x.layer === "rotating"; });
+    var multi = Number(r.passes) > 1;
+    var citedN = coreP.filter(function (x) { return x.cited_self; }).length;
+    var searchedN = coreP.filter(function (x) { return x.sources && x.sources.length; }).length;
     var mailto = "mailto:" + CONTACT + "?subject=" + encodeURIComponent("Rapport complet — " + r.brand + " (" + r.slug + ")");
 
     var html = "";
     if (r.demo) html += '<div style="text-align:center;"><span class="demoTag">Spécimen de démonstration · marque fictive</span></div>';
-    html += '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span><span>Mesuré le ' + dateStr + '</span><span>' + (connected ? 'IA connectée · recherche web' : 'Mémoire du modèle') + '</span><span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>';
+    html += '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span><span>Mesuré le ' + dateStr + '</span><span>' + (connected ? 'IA connectée · recherche web' : 'Mémoire du modèle') + '</span>' + (r.protocol ? '<span>Protocole ' + esc(r.protocol) + ' · panel v' + esc(r.panel_version || 1) + ' · ' + esc(r.passes || 1) + (Number(r.passes) > 1 ? ' passes' : ' passe') + '</span>' : '') + '<span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>';
 
-    html += '<div class="head"><div><h1>' + esc(r.brand) + '</h1><p class="meta">' + esc(verdictLine(r.score)) + '</p></div>';
+    html += '<div class="head"><div><h1>' + esc(r.brand) + '</h1><p class="meta">' + esc(verdictLine(r.score)) + '</p>' + (typeof r.noise === "number" ? '<p class="noise">' + (coreP.some(function (x) { return x.level > 0 || (x.levels && x.levels.some(function (l) { return l > 0; })); }) ? 'Marge de bruit mesurée : ± ' + esc(r.noise) + ' pts sur la perception. Un écart plus petit entre deux mesures signifie « stable ».' : 'Marge de bruit : pas encore mesurable, la marque est absente de toutes les passes. Elle le deviendra dès les premières citations.') + '</p>' : '') + '</div>';
     html += '<div class="dials"><div class="roundel" style="--val:' + Number(r.score) + '" role="img" aria-label="Score global : ' + esc(r.score) + ' sur 100"><span class="v">' + esc(r.score) + '</span><span class="l">Score global</span></div>';
     if (hasSub) html += '<div class="roundel small" style="--val:' + Number(r.score_perception) + '" role="img" aria-label="Perception : ' + esc(r.score_perception) + ' sur 100"><span class="v">' + esc(r.score_perception) + '</span><span class="l">Perception</span></div><div class="roundel small" style="--val:' + Number(r.score_preparation) + '" role="img" aria-label="Préparation : ' + esc(r.score_preparation) + ' sur 100"><span class="v">' + esc(r.score_preparation) + '</span><span class="l">Préparation</span></div>';
     html += '</div></div>';
@@ -289,20 +294,27 @@
       html += '</section>';
     }
 
-    var counts = [0, 0, 0, 0];
-    pres.forEach(function (x) { counts[x.level]++; });
-    html += '<section class="card glass"><h2>Présence spontanée</h2><p class="caption">Questions posées aux IA comme le ferait un acheteur, sans jamais souffler le nom de la marque. Niveau atteint : ' + pres.map(function (x) { return x.level; }).join(" · ") + '.</p>';
-    pres.forEach(function (x) {
-      html += '<div class="lrow"><span class="q">' + esc(x.q) + '</span>' + ladderHtml(x.level);
-      if (x.actors.length) html += '<span class="others">Cités : ' + x.actors.map(function (a) { return chip(a.name); }).join(" ") + '</span>';
-      if (x.sources) html += '<span class="srcs">' + (x.sources.length ? 'Sources consultées : ' + x.sources.length + ' · ' + (x.cited_self ? '<b class="yes">votre site ✓</b>' : '<b class="no">votre site absent</b>') + (x.sources.some(function (s) { return s !== MASK; }) ? ' — ' + x.sources.map(esc).join(', ') : '') : 'Réponse de mémoire, sans recherche web') + '</span>';
-      html += '</div>';
-    });
-    html += '<div class="legend"><span>0 absent : l\'IA ne vous cite pas</span><span>1 nommé : cité dans une liste</span><span>2 décrit : l\'IA sait dire qui vous êtes</span><span>3 recommandé : l\'IA vous conseille</span></div></section>';
+    function rowHtml(x) {
+      var s = '<div class="lrow"><span class="q">' + esc(x.q) + '</span>' + ladderHtml(x.level);
+      if (multi && x.levels && x.levels.length > 1) s += '<span class="passes">Passes : ' + x.levels.join(' · ') + ' — moyenne ' + String(x.mean).replace('.', ',') + '</span>';
+      if (x.actors.length) s += '<span class="others">Cités : ' + x.actors.map(function (a) { return chip(a.name); }).join(" ") + '</span>';
+      if (x.sources) s += '<span class="srcs">' + (x.sources.length ? 'Sources consultées : ' + x.sources.length + ' · ' + (x.cited_self ? '<b class="yes">votre site ✓</b>' : '<b class="no">votre site absent</b>') + (x.sources.some(function (s2) { return s2 !== MASK; }) ? ' — ' + x.sources.map(esc).join(', ') : '') : 'Réponse de mémoire, sans recherche web') + '</span>';
+      return s + '</div>';
+    }
+    var legend = '<div class="legend"><span>0 absent : l\'IA ne vous cite pas</span><span>1 nommé : cité dans une liste</span><span>2 décrit : l\'IA sait dire qui vous êtes</span><span>3 recommandé : l\'IA vous conseille</span></div>';
+    var isPanel = !!r.protocol;
+    html += '<section class="card glass"><h2>' + (isPanel ? 'Noyau d\'ancrage' : 'Présence spontanée') + '</h2><p class="caption">' + (isPanel ? 'Les ' + coreP.length + ' questions suivies dans le temps pour votre marque : base du score et de toutes les comparaisons d\'un mois à l\'autre. ' : '') + 'Posées aux IA comme le ferait un acheteur, sans jamais souffler le nom de la marque. Niveau atteint : ' + coreP.map(function (x) { return x.level; }).join(" · ") + '.</p>';
+    coreP.forEach(function (x) { html += rowHtml(x); });
+    html += legend + '</section>';
+    if (rotP.length) {
+      html += '<section class="card glass"><h2>Questions du mois</h2><p class="caption">Nouvelles façons de demander, renouvelées à chaque mesure. Hors score : elles servent à repérer ce qui émerge. Les plus pertinentes peuvent rejoindre le noyau lors de la révision trimestrielle.</p>';
+      rotP.forEach(function (x) { html += rowHtml(x); });
+      html += '</section>';
+    }
 
-    if (connected && pres.length) {
+    if (connected && coreP.length) {
       html += '<section class="card glass"><h2>Votre site comme source</h2><p class="caption">Quand l\'IA cherche sur le web, qui lit-elle pour vous répondre ? Être la source consultée est le premier pas vers être la réponse.</p>';
-      html += '<div class="srcmeter"><span class="big">' + citedN + '<small>/' + pres.length + '</small></span><span>réponses où l\'IA a consulté votre site<br><em>' + searchedN + ' réponse(s) sur ' + pres.length + ' appuyée(s) sur une recherche web</em></span></div>';
+      html += '<div class="srcmeter"><span class="big">' + citedN + '<small>/' + coreP.length + '</small></span><span>questions d\'ancrage où l\'IA a consulté votre site<br><em>' + searchedN + ' réponse(s) sur ' + coreP.length + ' appuyée(s) sur une recherche web</em></span></div>';
       html += '<p class="note">' + (citedN === 0 ? 'Votre site n\'est jamais consulté : les IA répondent à partir de pages concurrentes, d\'annuaires et de médias. Le levier : des pages qui répondent exactement aux questions ci-dessus, et une présence sur les sources qu\'elles lisent déjà.' : 'Votre site est déjà lu : chaque page-réponse supplémentaire augmente la part des questions où il sert de source.') + '</p></section>';
     }
 
@@ -316,7 +328,7 @@
       html += '</section>';
     }
 
-    html += '<section class="card glass"><h2>Cadrage</h2><span class="fchip ' + fr[1] + '">' + esc(fr[0]) + '</span>' + (r.quote ? '<blockquote>' + esc(r.quote) + '</blockquote>' : '') + '<p class="note">Score préliminaire automatisé : un modèle de frontière' + (connected ? ' connecté au web' : '') + ', une passe, ' + pres.length + ' questions. La mesure complète couvre plusieurs modèles, plusieurs passes et plusieurs langues.</p>';
+    html += '<section class="card glass"><h2>Cadrage</h2><span class="fchip ' + fr[1] + '">' + esc(fr[0]) + '</span>' + (r.quote ? '<blockquote>' + esc(r.quote) + '</blockquote>' : '') + '<p class="note">Score ' + (multi ? 'automatisé' : 'préliminaire automatisé') + ' : un modèle de frontière' + (connected ? ' connecté au web' : '') + ', ' + (multi ? esc(r.passes) + ' passes' : 'une passe') + ', ' + coreP.length + ' questions d\'ancrage. La mesure complète couvre plusieurs modèles, plusieurs passes et plusieurs langues.</p>';
     html += '<div class="modelgrid"><div class="modelcard"><b>Claude</b><span class="sc">' + esc(r.score) + '</span><span class="tag on">MESURÉ</span></div><div class="modelcard lock"><b>ChatGPT</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Gemini</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Perplexity</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div></div></section>';
 
     if (!r.premium && !r.demo) {
