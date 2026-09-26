@@ -207,7 +207,7 @@
   // Liens de paiement Stripe — colle ici les URLs buy.stripe.com quand elles existent.
   // Vide = repli sur l'e-mail. Le slug part en client_reference_id : le webhook
   // déverrouille le dossier payé automatiquement.
-  var PAY = { report: "", category: "" };
+  var PAY = { report: "https://buy.stripe.com/test_aFa6oIey634G6e82vSbII00", category: "https://buy.stripe.com/test_aFa6oIey634G6e82vSbII00" };
   function payHref(kind, slug, fallback) {
     var l = PAY[kind];
     if (!l) return fallback;
