@@ -438,6 +438,20 @@
       html += '</section>';
     }
 
+    var acc = r.accuracy && r.accuracy.status === "done" ? r.accuracy : null;
+    if (acc && Array.isArray(acc.claims) && acc.claims.length) {
+      var TYPES = { coordonnees: "Coordonnées", personnes: "Personnes", dates: "Dates", offre: "Offre", prix: "Prix", certification: "Certification", autre: "Autre" };
+      var c0 = acc.counts || {};
+      html += '<section class="card glass"><h2>Exactitude des faits</h2><p class="caption">Ce que les IA affirment sur vous, confronté à votre propre site — le site fait foi. ' + acc.claims.length + ' affirmations vérifiées : <b>' + (c0.exact || 0) + ' exactes</b>, <b style="color:var(--brick);">' + (c0.faux || 0) + ' fausses</b>, ' + (c0.inverifiable || 0) + ' invérifiables.</p>';
+      acc.claims.forEach(function (c) {
+        var word = c.verdict === "exact" ? "Exact" : c.verdict === "faux" ? "Faux" : "Invérifiable";
+        var cls = c.verdict === "exact" ? "ok" : c.verdict === "faux" ? "fail" : "warn";
+        var claim = c.claim === MASK ? chip(MASK) : esc(c.claim);
+        html += '<div class="trow2"><span class="st ' + cls + '">' + word + '</span><span class="check"><b>' + (TYPES[c.type] || "Autre") + '</b><span>' + claim + '</span></span><span class="lever ' + cls + '">' + (c.correction ? '<b>Le site dit</b>' + esc(c.correction) : (c.verdict === "inverifiable" && c.claim !== MASK ? "Rien sur votre site ne permet de confirmer — publier l\'information reprend la main." : "")) + '</span></div>';
+      });
+      html += '<p class="note">Vérité terrain : ' + esc((acc.ground && acc.ground.host) || "votre site") + (acc.ground && acc.ground.pages ? ', ' + acc.ground.pages + ' pages lues' : '') + '. Une affirmation fausse se corrige à la source : votre site d\'abord, puis les pages que les IA consultent.</p></section>';
+    }
+
     if (checks.length) {
       html += '<section class="card glass"><h2>Préparation technique : les leviers</h2><p class="caption">Vérifications directes de votre site et de votre empreinte. Chaque ligne « Manquant » ou « À corriger » est une action du plan de correction.</p>';
       checks.forEach(function (c) {
@@ -457,7 +471,9 @@
         (maskedCount ? '<li>Identité des <b>' + maskedCount + ' acteurs</b> cités à votre place</li>' : '') +
         (fpLocked ? '<li>Votre présence sur les <b>' + fpLocked + ' sources</b> que lisent les IA</li>' : '') +
         (leversTodo ? '<li><b>' + leversTodo + ' leviers</b> techniques détaillés et priorisés</li>' : '') +
-        '<li>Scores <b>ChatGPT, Gemini, Perplexity</b></li><li>Passes multiples : la <b>stabilité</b> mesurée</li><li>Erreurs factuelles tracées aux <b>sources</b></li><li>Le <b>plan de correction</b> à 90 jours</li></ul>' +
+        '<li>Scores <b>ChatGPT, Gemini, Perplexity</b></li><li>Passes multiples : la <b>stabilité</b> mesurée</li>' +
+        (r.accuracy && r.accuracy.status === "done" && r.accuracy.counts && r.accuracy.counts.faux ? '<li>Le détail des <b>' + r.accuracy.counts.faux + ' faits faux</b> et leur correction</li>' : '<li>Erreurs factuelles tracées aux <b>sources</b></li>') +
+        '<li>Le <b>plan de correction</b> à 90 jours</li></ul>' +
         '<div class="price"><div class="p">390&nbsp;€</div><div class="per">rapport complet · livré sous 5 jours</div><a class="cta" href="' + payHref("report", r.slug, mailto) + '">Débloquer mon rapport</a>' + (PAY.report ? '<div class="per" style="margin-top:6px;">identités révélées dès le paiement</div>' : '') + '</div></section>';
     }
 

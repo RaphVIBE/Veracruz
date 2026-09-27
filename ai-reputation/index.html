@@ -894,7 +894,15 @@
         lang: LANG
       })
     }).then(function (r) { return r.json(); }).then(function (d) {
-      if (d && d.ok && d.slug) { MEASURE.state = "done"; MEASURE.slug = d.slug; MEASURE.score = d.score; }
+      if (d && d.ok && d.slug) {
+        MEASURE.state = "done"; MEASURE.slug = d.slug; MEASURE.score = d.score;
+        // moteur d'exactitude, en arrière-plan : le rapport se complète tout seul
+        fetch(CFG.url + "/functions/v1/ai-reputation-verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": "Bearer " + CFG.key, "apikey": CFG.key },
+          body: JSON.stringify({ slug: d.slug })
+        }).catch(function () {});
+      }
       else { MEASURE.state = "failed"; }
     }).catch(function () { MEASURE.state = "failed"; });
   }
