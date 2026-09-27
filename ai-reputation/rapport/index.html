@@ -162,7 +162,13 @@
   .bundle .price .per { font-size: 11.5px; color: var(--sub); }
   .bundle .cta { display: inline-block; background: var(--petrol); color: var(--paper); border-radius: 999px; padding: 10px 22px; font-size: 14px; font-weight: 700; margin-top: 10px; text-decoration: none; }
   .bundle .cta:hover { background: var(--petrol-deep); }
-  footer { padding: 22px 0 26px; border-top: 1px solid var(--hairline); font-size: 12.5px; color: var(--sub); display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; }
+  footer { padding: 22px 0 26px; border-top: 1px solid var(--hairline); font-size: 12.5px; color: var(--sub); }
+  footer .fcols { display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; }
+  footer .fmark { font-family: var(--display); font-weight: 400; font-size: 14px; color: var(--ink); }
+  footer .fmark i { font-family: var(--displaytext); color: var(--petrol); }
+  footer .flink { color: var(--petrol); text-decoration: none; font-weight: 600; }
+  footer .flink:hover { text-decoration: underline; }
+  footer .legal { margin-top: 10px; font-size: 11.5px; line-height: 1.6; max-width: 88ch; }
   @media print {
     .ambient, .actions, .bundle, .modelgrid { display: none; }
     body { background: #fff; color: #1c2422; }
@@ -195,8 +201,11 @@
   </header>
   <main id="main"><div class="state" id="state">Chargement du rapport…</div></main>
   <footer>
-    <span>AI Réputation · score préliminaire automatisé, mesuré sur un modèle de frontière</span>
-    <span>Mesure · Diagnostic · Amélioration continue · Consultance</span>
+    <div class="fcols">
+      <span><b class="fmark">AI <i>Réputation</i></b> — un service du studio <a href="https://veracruz.be" class="flink">Veracruz</a></span>
+      <span>Mesure · Diagnostic · Amélioration continue · Consultance</span>
+    </div>
+    <p class="legal">© <span id="fy">2026</span> Veracruz, Belgique. Rapport confidentiel établi pour le titulaire du dossier — le lien vaut autorisation de lecture ; reproduction ou diffusion publique soumises à accord écrit. Méthodologie, batterie de questions et échelles de mesure : propriété de Veracruz.</p>
   </footer>
 </div>
 
@@ -454,6 +463,7 @@
 
     document.getElementById("main").innerHTML = html;
   }
+  try { document.getElementById("fy").textContent = String(new Date().getFullYear()); } catch (e) {}
   load();
 </script>
 </body>

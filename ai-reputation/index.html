@@ -452,7 +452,7 @@
   </section>
 
   <footer>
-    <span>AI Réputation · <span data-i18n="f.wl">nom de code, marque blanche</span></span>
+    <span>AI Réputation — <span data-i18n="f.by">un service du studio</span> <a href="https://veracruz.be" style="color: var(--petrol); font-weight: 600; text-decoration: none;">Veracruz</a> · © <span id="fy">2026</span> Veracruz</span>
     <span data-i18n="f.chain">Mesure · Diagnostic · Amélioration continue · Consultance</span>
   </footer>
 </div>
@@ -534,7 +534,7 @@
       "c.title": "Start with the measurement",
       "c.sub": "Two minutes, free, and you will know what the machines are saying in your place.",
       "c.cta": "Get my score",
-      "f.wl": "code name, white label",
+      "f.by": "a service by studio",
       "f.chain": "Measurement · Diagnosis · Continuous improvement · Consulting"
     }
   };
@@ -753,6 +753,7 @@
     document.getElementById("f-brand").focus();
   }
   applyModeTexts();
+  try { document.getElementById("fy").textContent = String(new Date().getFullYear()); } catch (e) {}
 
   function openSheet() {
     var brand = document.getElementById("f-brand");
