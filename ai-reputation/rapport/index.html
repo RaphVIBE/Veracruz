@@ -415,6 +415,20 @@
       html += '<p class="note">' + (citedN === 0 ? 'Votre site n\'est jamais consulté : les IA répondent à partir de pages concurrentes, d\'annuaires et de médias. Le levier : des pages qui répondent exactement aux questions ci-dessus, et une présence sur les sources qu\'elles lisent déjà.' : 'Votre site est déjà lu : chaque page-réponse supplémentaire augmente la part des questions où il sert de source.') + '</p></section>';
     }
 
+    var fp = Array.isArray(r.footprint) ? r.footprint : [];
+    if (fp.length) {
+      var fpPres = fp.filter(function (x) { return x.status === "present"; }).length;
+      var fpAbs = fp.filter(function (x) { return x.status === "absent"; }).length;
+      html += '<section class="card glass"><h2>Votre empreinte sur les sources des IA</h2><p class="caption">Les sites que les IA ont réellement consultés pour répondre — y être présent est le chemin le plus court vers leurs réponses. ' + fp.length + ' sources vérifiées : <b>' + fpPres + ' où vous êtes présent</b>, ' + fpAbs + ' où vous êtes absent.</p>';
+      fp.forEach(function (f) {
+        var word = f.status === "present" ? "Présent" : f.status === "absent" ? "Absent" : "À vérifier";
+        var cls = f.status === "present" ? "ok" : f.status === "absent" ? "fail" : "warn";
+        var dom = f.domain === MASK ? chip(MASK) : '<b>' + esc(f.domain) + '</b>';
+        html += '<div class="trow2"><span class="st ' + cls + '">' + word + '</span><span class="check">' + dom + '<span>' + (f.freq > 1 ? 'consultée par l\'IA sur ' + f.freq + ' questions' : 'consultée par l\'IA') + '</span></span><span class="lever ' + cls + '">' + (f.note ? esc(f.note) : (f.status === "absent" ? "Créer ou compléter votre fiche ici est une action du plan de correction." : "")) + '</span></div>';
+      });
+      html += '</section>';
+    }
+
     if (checks.length) {
       html += '<section class="card glass"><h2>Préparation technique : les leviers</h2><p class="caption">Vérifications directes de votre site et de votre empreinte. Chaque ligne « Manquant » ou « À corriger » est une action du plan de correction.</p>';
       checks.forEach(function (c) {
@@ -429,8 +443,10 @@
     html += '<div class="modelgrid"><div class="modelcard"><b>Claude</b><span class="sc">' + esc(r.score) + '</span><span class="tag on">MESURÉ</span></div><div class="modelcard lock"><b>ChatGPT</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Gemini</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Perplexity</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div></div></section>';
 
     if (!r.premium && !r.demo) {
+      var fpLocked = Array.isArray(r.footprint) ? r.footprint.filter(function (x) { return x.domain === MASK; }).length : 0;
       html += '<section class="bundle glass"><ul>' +
         (maskedCount ? '<li>Identité des <b>' + maskedCount + ' acteurs</b> cités à votre place</li>' : '') +
+        (fpLocked ? '<li>Votre présence sur les <b>' + fpLocked + ' sources</b> que lisent les IA</li>' : '') +
         (leversTodo ? '<li><b>' + leversTodo + ' leviers</b> techniques détaillés et priorisés</li>' : '') +
         '<li>Scores <b>ChatGPT, Gemini, Perplexity</b></li><li>Passes multiples : la <b>stabilité</b> mesurée</li><li>Erreurs factuelles tracées aux <b>sources</b></li><li>Le <b>plan de correction</b> à 90 jours</li></ul>' +
         '<div class="price"><div class="p">390&nbsp;€</div><div class="per">rapport complet · livré sous 5 jours</div><a class="cta" href="' + payHref("report", r.slug, mailto) + '">Débloquer mon rapport</a>' + (PAY.report ? '<div class="per" style="margin-top:6px;">identités révélées dès le paiement</div>' : '') + '</div></section>';
