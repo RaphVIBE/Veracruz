@@ -113,7 +113,7 @@
   .hero .lede { margin-top: 20px; font-size: clamp(16px, 2vw, 18px); color: var(--sub); max-width: 46ch; }
 
   .search { margin-top: 44px; width: min(680px, 100%); }
-  .search .box { display: flex; align-items: center; gap: 6px; padding: 8px 8px 8px 26px; border-radius: 999px; transition: box-shadow .3s ease, transform .3s ease; background: var(--glass-strong); border-color: color-mix(in oklch, var(--petrol) 34%, var(--glass-edge)); }
+  .search .box { display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 12px; border-radius: 999px; transition: box-shadow .3s ease, transform .3s ease; background: var(--glass-strong); border-color: color-mix(in oklch, var(--petrol) 34%, var(--glass-edge)); }
   .search .box:focus-within { transform: translateY(-2px); box-shadow: 0 30px 80px -28px oklch(30% 0.06 190 / .6), inset 0 1px 0 var(--glass-edge); }
   .search input#f-brand { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 19px; padding: 15px 0; outline: none; }
   .search input::placeholder { color: var(--sub); }
@@ -123,10 +123,16 @@
   .hint button { border: 0; background: none; color: var(--petrol); font-size: 13.5px; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
   /* mode selector */
-  .seg { display: inline-flex; border: 1px solid var(--hairline); border-radius: 999px; overflow: hidden; margin-bottom: 14px; background: var(--glass); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
-  .seg button { border: 0; background: transparent; color: var(--sub); font: inherit; font-size: 13.5px; font-weight: 700; padding: 8px 20px; cursor: pointer; border-radius: 999px; }
-  .seg button[aria-pressed="true"] { background: var(--petrol); color: var(--paper); }
-  .seg button:focus-visible { outline: 2px solid var(--petrol); outline-offset: 2px; }
+  .modewrap { position: relative; flex: none; }
+  .modechip { display: inline-flex; align-items: center; gap: 7px; border: 0; border-radius: 999px; padding: 10px 15px; background: color-mix(in oklch, var(--ink) 7%, transparent); color: var(--sub); font: inherit; font-size: 12.5px; font-weight: 700; letter-spacing: .02em; cursor: pointer; white-space: nowrap; transition: color .2s ease, background .2s ease; }
+  .modechip:hover { color: var(--ink); background: color-mix(in oklch, var(--ink) 11%, transparent); }
+  .modechip:focus-visible { outline: 2px solid var(--petrol); outline-offset: 2px; }
+  .modechip .chev { font-size: 10px; line-height: 1; transform: translateY(-1px); opacity: .8; }
+  .modemenu { position: absolute; top: calc(100% + 12px); left: -4px; min-width: 300px; border-radius: 18px; padding: 6px; z-index: 6; display: grid; gap: 2px; text-align: left; }
+  .modemenu button { border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 14px; padding: 11px 14px; border-radius: 13px; cursor: pointer; text-align: left; }
+  .modemenu button:hover { background: color-mix(in oklch, var(--ink) 8%, transparent); }
+  .modemenu button:focus-visible { outline: 2px solid var(--petrol); outline-offset: -2px; }
+  .modemenu button[aria-selected="true"]::after { content: " ✓"; color: var(--petrol); font-weight: 700; }
   .mylink { font-size: 13px; font-weight: 600; color: var(--sub); text-decoration: none; white-space: nowrap; margin-right: 10px; }
   .mylink:hover { color: var(--ink); text-decoration: underline; }
 
@@ -284,13 +290,17 @@
     <h1><span data-i18n="h.1">Que disent les IA</span> <em data-i18n="h.2">de votre marque&nbsp;?</em></h1>
     <p class="lede" data-i18n="h.lede">ChatGPT, Claude, Gemini et Perplexity vous décrivent, vous comparent, vous recommandent, ou vous oublient. <span style="white-space: nowrap;">Mesurez-le.</span></p>
 
-    <div class="seg" role="group" aria-label="Type de mesure">
-      <button type="button" id="seg-brand" aria-pressed="true" onclick="setMode('brand')" data-i18n="s.modeb">Ma marque</button>
-      <button type="button" id="seg-cat" aria-pressed="false" onclick="setMode('category')" data-i18n="s.modec">Une catégorie</button>
-    </div>
-
     <form class="search" id="askForm">
       <div class="box glass">
+        <div class="modewrap">
+          <button type="button" class="modechip" id="modeChip" aria-haspopup="listbox" aria-expanded="false" onclick="toggleModeMenu()" aria-label="Type de mesure">
+            <span id="modeChipLabel">Marque</span> <span class="chev" aria-hidden="true">▾</span>
+          </button>
+          <div class="modemenu glass" id="modeMenu" role="listbox" hidden>
+            <button type="button" role="option" id="opt-brand" aria-selected="true" onclick="chooseMode('brand')" data-i18n="s.modebL">Ma marque — score de perception</button>
+            <button type="button" role="option" id="opt-cat" aria-selected="false" onclick="chooseMode('category')" data-i18n="s.modecL">Une catégorie — radar de marché</button>
+          </div>
+        </div>
         <input id="f-brand" name="brand" required data-i18n-ph="s.brand" placeholder="Le nom de votre entreprise…" aria-label="Nom de votre entreprise ou catégorie" autocomplete="organization">
         <button type="button" class="go" id="goBtn" data-i18n="s.go" onclick="openSheet()">Mesurer</button>
       </div>
@@ -454,7 +464,8 @@
       "s.privacy": "Free. Your details are used only to send you your score, nothing else.",
       "s.hint": "Free · 2 minutes · no commitment",
       "n.mine": "My measurements",
-      "s.modeb": "My brand", "s.modec": "A category",
+      "s.modeb": "Brand", "s.modec": "Category",
+      "s.modebL": "My brand — perception score", "s.modecL": "A category — market radar",
       "s.cat": "“luxury handbags”, “Belgian chocolatier”, “web agency Liège”…",
       "s.email2.l": "Your email",
       "s.catzone.l": "Area", "s.catzone": "Belgium, Wallonia, global…",
@@ -531,6 +542,7 @@
   I18N.fr["s.need"] = "Indiquez d'abord le nom de votre entreprise.";
   I18N.fr["s.mismatch"] = "Cet e-mail n'appartient pas au domaine du site. Le score gratuit mesure votre propre marque ; pour d'autres marques, parlons de l'offre Pro.";
   I18N.fr["s.advUp"] = "Réduire ↑";
+  I18N.fr["s.modeb"] = "Marque"; I18N.fr["s.modec"] = "Catégorie";
   I18N.fr["s.cat"] = "« sacs de luxe », « chocolatier belge », « agence web Liège »…";
   I18N.fr["s.email2.l"] = "Votre e-mail";
   I18N.fr["s.sendc"] = "Lancer le radar";
@@ -697,15 +709,27 @@
   /* ——— two measurement modes: brand / category ——— */
   var MODE = "brand";
   function applyModeTexts() {
-    document.getElementById("f-brand").placeholder = t(MODE === "brand" ? "s.brand" : "s.cat");
-    document.getElementById("l-email").textContent = t(MODE === "brand" ? "s.email.l" : "s.email2.l");
-    document.getElementById("sendBtn").textContent = t(MODE === "brand" ? "s.send" : "s.sendc");
+    var b = MODE === "brand";
+    document.getElementById("modeChipLabel").textContent = t(b ? "s.modeb" : "s.modec");
+    document.getElementById("f-brand").placeholder = t(b ? "s.brand" : "s.cat");
+    document.getElementById("l-email").textContent = t(b ? "s.email.l" : "s.email2.l");
+    document.getElementById("sendBtn").textContent = t(b ? "s.send" : "s.sendc");
   }
+  function toggleModeMenu(force) {
+    var m = document.getElementById("modeMenu");
+    var open = typeof force === "boolean" ? force : m.hidden;
+    m.hidden = !open;
+    document.getElementById("modeChip").setAttribute("aria-expanded", String(open));
+  }
+  function chooseMode(m) { toggleModeMenu(false); setMode(m); }
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest || !e.target.closest(".modewrap")) toggleModeMenu(false);
+  });
   function setMode(m) {
     MODE = m;
     var b = m === "brand";
-    document.getElementById("seg-brand").setAttribute("aria-pressed", String(b));
-    document.getElementById("seg-cat").setAttribute("aria-pressed", String(!b));
+    document.getElementById("opt-brand").setAttribute("aria-selected", String(b));
+    document.getElementById("opt-cat").setAttribute("aria-selected", String(!b));
     document.getElementById("wrap-site").hidden = !b;
     document.getElementById("f-site").required = b;
     document.getElementById("wrap-catzone").hidden = b;
@@ -716,6 +740,7 @@
     applyModeTexts();
     document.getElementById("f-brand").focus();
   }
+  applyModeTexts();
 
   function openSheet() {
     var brand = document.getElementById("f-brand");

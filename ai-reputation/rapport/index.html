@@ -117,6 +117,7 @@
   .brow.win .bar i { background: var(--sage); }
   .stampw { display: inline-block; border: 1.5px solid var(--sage); color: var(--sage); border-radius: 999px; padding: 1px 10px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; transform: rotate(-3deg); margin-left: 8px; white-space: nowrap; }
   .catlede { font-family: var(--displaytext); font-size: 19px; line-height: 1.5; margin-bottom: 14px; }
+  .unlockband { border: 1.5px solid var(--sage); color: var(--sage); border-radius: 16px; padding: 12px 18px; margin-bottom: 20px; font-size: 14px; font-weight: 600; text-align: center; }
   .ctaband { display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; border: 1.5px solid color-mix(in oklch, var(--brick) 45%, var(--hairline)); border-radius: 18px; padding: 16px 20px; margin-bottom: 24px; }
   .ctaband b { font-family: var(--displaytext); font-weight: 400; font-size: 17px; }
   .ctaband .btn2 { background: var(--brick); color: var(--paper); border-radius: 999px; padding: 9px 20px; font-weight: 700; font-size: 13.5px; text-decoration: none; white-space: nowrap; }
@@ -252,9 +253,33 @@
     return esc(name);
   }
 
+  var UNLOCKED = false;
   async function load() {
-    var slug = new URLSearchParams(location.search).get("r") || (location.hash || "").replace("#", "");
+    var params = new URLSearchParams(location.search);
+    var slug = params.get("r") || (location.hash || "").replace("#", "");
+    var paid = params.get("paid") || "";
     var st = document.getElementById("state");
+
+    // retour de Stripe : on retrouve et déverrouille le dossier sans rien demander au client
+    if (!slug && /^cs_/.test(paid)) {
+      st.textContent = "Paiement confirmé — déverrouillage de votre dossier…";
+      for (var i = 0; i < 16; i++) {
+        try {
+          var r0 = await fetch(API + "?session=" + encodeURIComponent(paid), { headers: { "Authorization": "Bearer " + KEY, "apikey": KEY } });
+          var d0 = await r0.json();
+          if (d0.ok && d0.report) {
+            UNLOCKED = true;
+            try { history.replaceState(null, "", "?r=" + encodeURIComponent(d0.report.slug)); } catch (e) {}
+            render(d0.report);
+            return;
+          }
+        } catch (e) {}
+        await new Promise(function (res) { setTimeout(res, 2500); });
+      }
+      st.textContent = "Le paiement est confirmé, le déverrouillage prend un instant de plus que prévu. Rechargez cette page dans une minute.";
+      return;
+    }
+
     if (!slug) { st.textContent = "Rapport introuvable : le lien est incomplet."; return; }
     try {
       var res = await fetch(API + "?slug=" + encodeURIComponent(slug), { headers: { "Authorization": "Bearer " + KEY, "apikey": KEY } });
@@ -275,6 +300,7 @@
     var mailto = "mailto:" + CONTACT + "?subject=" + encodeURIComponent("Rapport de catégorie — " + r.brand + " (" + r.slug + ")");
 
     var html = "";
+    if (UNLOCKED) html += '<div class="unlockband">Dossier déverrouillé — merci. Les identités sont visibles ci-dessous ; le rapport complet suit sous 5 jours ouvrés.</div>';
     html += '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span><span>Mesuré le ' + dateStr + '</span><span>Radar de catégorie</span><span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>';
 
     html += '<div class="head"><div><h1>« ' + esc(r.brand) + ' »</h1><p class="meta">Qui possède la réponse des IA sur cette catégorie' + (r.zone ? ', ' + esc(r.zone) : '') + ' ? ' + total + ' acteurs mesurés dans les mêmes réponses, sur les mêmes questions d\'acheteur.</p></div></div>';
@@ -343,6 +369,7 @@
     var mailto = "mailto:" + CONTACT + "?subject=" + encodeURIComponent("Rapport complet — " + r.brand + " (" + r.slug + ")");
 
     var html = "";
+    if (UNLOCKED) html += '<div class="unlockband">Dossier déverrouillé — merci. Les identités sont visibles ci-dessous ; le rapport complet suit sous 5 jours ouvrés.</div>';
     if (r.demo) html += '<div style="text-align:center;"><span class="demoTag">Spécimen de démonstration · marque fictive</span></div>';
     html += '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span><span>Mesuré le ' + dateStr + '</span><span>' + (connected ? 'IA connectée · recherche web' : 'Mémoire du modèle') + '</span>' + (r.protocol ? '<span>Protocole ' + esc(r.protocol) + ' · panel v' + esc(r.panel_version || 1) + ' · ' + esc(r.passes || 1) + (Number(r.passes) > 1 ? ' passes' : ' passe') + '</span>' : '') + '<span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>';
 
