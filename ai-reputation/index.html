@@ -114,6 +114,10 @@
 
   .search { margin-top: 0; width: min(740px, 100%); }
   .search input#f-brand { font-size: 20px; }
+  .box .lens { flex: none; width: 21px; height: 21px; color: var(--sub); margin-left: 4px; }
+  .hintbits { display: flex; gap: 10px 26px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .hintbits > span { display: inline-flex; align-items: center; gap: 7px; }
+  .hintbits svg { width: 15px; height: 15px; opacity: .85; }
   .search .box { display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 12px; border-radius: 999px; transition: box-shadow .3s ease, transform .3s ease; background: var(--glass-strong); border-color: color-mix(in oklch, var(--petrol) 34%, var(--glass-edge)); }
   .search .box:focus-within { transform: translateY(-2px); box-shadow: 0 30px 80px -28px oklch(30% 0.06 190 / .6), inset 0 1px 0 var(--glass-edge); }
   .search input#f-brand { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 19px; padding: 15px 0; outline: none; }
@@ -300,6 +304,7 @@
             <button type="button" role="option" id="opt-cat" aria-selected="false" onclick="chooseMode('category')" data-i18n="s.modecL">Une catégorie — radar de marché</button>
           </div>
         </div>
+        <svg class="lens" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
         <input id="f-brand" name="brand" required data-i18n-ph="s.brand" placeholder="Le nom de votre entreprise…" aria-label="Nom de votre entreprise ou catégorie" autocomplete="organization">
         <button type="button" class="go" id="goBtn" data-i18n="s.go" onclick="openSheet()">Mesurer</button>
       </div>
@@ -340,7 +345,11 @@
           <p class="privacy" data-i18n="s.privacy">Gratuit. Vos coordonnées ne servent qu'à vous transmettre votre score, rien d'autre.</p>
         </div>
       </div>
-      <div class="hint" id="underHint"><span data-i18n="s.hint">Gratuit · 2 minutes · sans engagement</span></div>
+      <div class="hint" id="underHint"><span class="hintbits">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3h6a1 1 0 0 1 1 1v6l-9 9-7-7 9-9z"/><circle cx="15.5" cy="8.5" r="1.3"/></svg> <span data-i18n="s.h1">Gratuit</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13.5" r="7"/><path d="M12 13.5V10M10 3h4"/></svg> <span data-i18n="s.h2">2 minutes</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14V4m0 0L8.5 7.5M12 4l3.5 3.5"/><path d="M5 13v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/></svg> <span data-i18n="s.h3">Rapport partageable</span></span>
+      </span></div>
     </form>
 
     <div class="console glass" id="console" role="status" aria-live="polite">
@@ -465,6 +474,7 @@
       "s.send": "Send me my score", "s.adv": "Refine the measurement ↓", "s.advUp": "Collapse ↑",
       "s.privacy": "Free. Your details are used only to send you your score, nothing else.",
       "s.hint": "Free · 2 minutes · no commitment",
+      "s.h1": "Free", "s.h2": "2 minutes", "s.h3": "Shareable report",
       "n.mine": "My measurements",
       "s.modeb": "Brand", "s.modec": "Category",
       "s.modebL": "My brand — perception score", "s.modecL": "A category — market radar",
