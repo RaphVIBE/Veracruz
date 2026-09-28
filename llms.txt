@@ -22,6 +22,10 @@ Mission-driven and established organisations. Sectors worked in: logistics, medi
 
 - [AI Réputation](https://veracruz.be/ai-reputation/): measures how AI assistants perceive and present a brand, and improves it
 
+## Facts
+
+- Verifiable facts about the studio (identity, size, rates, name): https://veracruz.be/facts/
+
 ## Profiles
 
 - Sortlist: https://www.sortlist.be/fr/agency/veracruz
