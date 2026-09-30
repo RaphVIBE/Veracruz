@@ -200,8 +200,6 @@
   .docbar { display: flex; align-items: center; gap: 12px; padding: 16px 0 14px; }
   .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); white-space: nowrap; }
   .brand svg { width: 28px; height: 28px; flex: none; }
-  .brand .mk { position: relative; display: inline-grid; flex: none; }
-  .brand .mk::after { content: "AI"; position: absolute; inset: 0; display: grid; place-items: center; padding-top: 7%; font-family: Fraunces, Georgia, serif; font-weight: 900; font-size: 10.5px; line-height: 1; }
   .brand .wm { font-family: var(--display); font-size: 18px; line-height: 1; }
   .brand .wm b { font-weight: 400; color: var(--petrol); }
   .doclabel { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--sub); padding-left: 12px; border-left: 1px solid var(--hairline); }
@@ -331,6 +329,44 @@
   .prio { margin-top: 22px; padding: 16px 18px; border-radius: 12px; border: 1.5px solid var(--petrol); background: color-mix(in oklch, var(--petrol) 6%, transparent); }
   .prio span { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 800; color: var(--petrol); }
   .prio p { margin-top: 4px; font-size: 15.5px; }
+  /* ——— evolution: month over month, verdicts carried by word + colour ——— */
+  .sc-delta { font-size: 13px; color: var(--sub); }
+  .sc-delta b { font-weight: 700; }
+  .sc-delta .up { color: var(--sage); } .sc-delta .down { color: var(--brick); }
+  .trend { display: grid; margin-top: 4px; }
+  .trow { display: grid; grid-template-columns: minmax(110px, 1fr) 110px 1fr 1fr; gap: 6px 16px; align-items: center; padding: 12px 0; border-top: 1px solid var(--hairline); }
+  .trow.th { border-top: 0; padding: 0 0 8px; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; color: var(--sub); }
+  .trow .tl { font-weight: 700; font-size: 15px; }
+  .trow .tf { font-family: var(--sans); font-weight: 600; font-size: 20px; font-variant-numeric: tabular-nums; }
+  .trow .tf small { font-size: 12px; color: var(--sub); font-weight: 600; margin-right: 6px; }
+  .mv { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; border: 1px solid var(--hairline); border-radius: 999px; padding: 3px 11px; font-variant-numeric: tabular-nums; }
+  .mv i { width: 8px; height: 8px; border-radius: 50%; background: var(--sub); flex: none; }
+  .mv.up i { background: var(--sage); } .mv.down i { background: var(--brick); } .mv.absent i { background: var(--brick); }
+  .mv.unqualified { color: var(--sub); font-weight: 600; }
+  .mv .ml { display: none; font-weight: 600; color: var(--sub); }
+  .tstart { display: grid; grid-template-columns: 12px 1fr; gap: 14px; padding: 14px 16px; border-radius: 12px; background: color-mix(in oklch, var(--ink) 4%, transparent); }
+  .tstart > i { width: 12px; height: 12px; border-radius: 50%; margin-top: 5px; border: 2px solid var(--petrol); }
+  .tstart b { display: block; font-size: 16.5px; }
+  .tstart span { display: block; font-size: 14px; color: var(--sub); margin-top: 2px; }
+  .tchart { margin-top: 20px; }
+  .tchart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .tchart .ax { stroke: var(--hairline); stroke-width: 1; }
+  .tchart .band { fill: color-mix(in oklch, var(--petrol) 16%, transparent); }
+  .evolution .tcap a { color: var(--petrol); }
+  .trow .tf small { white-space: nowrap; }
+  .tchart .ln { fill: none; stroke: var(--petrol); stroke-width: 2; }
+  .tchart .dot { fill: var(--petrol); }
+  .tchart text { font-family: var(--sans); font-size: 11px; fill: var(--sub); }
+  .tchart text.val { fill: var(--ink); font-weight: 700; font-size: 12px; }
+  @media (max-width: 640px) {
+    .trow { grid-template-columns: 1fr auto; }
+    .trow.th { display: none; }
+    .trow .tl { grid-column: 1; } .trow .tf { grid-column: 2; text-align: right; }
+    .trow > span[role="cell"]:nth-child(n+3) { grid-column: 1 / -1; }
+    .trow > span[role="cell"]:empty { display: none; }
+    .mv { white-space: nowrap; } .mv .ml { display: inline; }
+  }
+  @media print { .trow, .tstart, .tchart { break-inside: avoid; } }
   /* ——— detail: folded sections ——— */
   .dsec { border-top: 1px solid var(--hairline); }
   .dsec:last-child { border-bottom: 1px solid var(--hairline); }
@@ -348,7 +384,7 @@
 <body>
 <div class="wrap">
   <header class="docbar">
-    <a class="brand" href="../" aria-label="AI Réputation, accueil"><span class="mk" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/></svg></span><span class="wm">AI <b>Réputation</b></span></a>
+    <a class="brand" href="../" aria-label="AI Réputation, accueil"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg><span class="wm">AI <b>Réputation</b></span></a>
     <span class="doclabel">Rapport de mesure</span>
     <div class="actions">
       <button class="ibtn" id="copyBtn" onclick="copyLink()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span id="copyLbl">Copier le lien</span></button>
@@ -543,14 +579,20 @@
     if (r.demo) html += '<div style="text-align:center;"><span class="demoTag">Spécimen de démonstration · marque fictive</span></div>';
     html += '<div class="dossier"><span><b>Dossier</b> Nº AR-' + date.getFullYear() + '-' + esc(r.slug.slice(0, 4).toUpperCase()) + '</span><span>Mesuré le ' + dateStr + '</span><span>' + (connected ? 'IA connectée · recherche web' : 'Mémoire du modèle') + '</span>' + (r.protocol ? '<span>Protocole ' + esc(r.protocol) + ' · panel v' + esc(r.panel_version || 1) + ' · ' + esc(r.passes || 1) + (Number(r.passes) > 1 ? ' passes' : ' passe') + '</span>' : '') + '<span>' + esc(r.sector || "") + (r.zone ? ' · ' + esc(r.zone) : '') + '</span></div>';
 
-    html += '<div class="head"><div><h1>' + esc(r.brand) + '</h1><p class="meta">' + esc(verdictLine(r.score)) + '</p>' + (typeof r.noise === "number" ? '<p class="noise">' + (coreP.some(function (x) { return x.level > 0 || (x.levels && x.levels.some(function (l) { return l > 0; })); }) ? 'Marge de bruit mesurée : ± ' + esc(r.noise) + ' pts sur la perception. Un écart plus petit entre deux mesures signifie « stable ».' : 'Marge de bruit : pas encore mesurable, la marque est absente de toutes les passes. Elle le deviendra dès les premières citations.') + '</p>' : '') + '</div>';
+    html += '<div class="head"><div><h1>' + esc(r.brand) + '</h1><p class="meta">' + esc(verdictLine(r.score)) + '</p>' + (typeof r.noise === "number" ? '<p class="noise">' + (coreP.some(function (x) { return x.level > 0 || (x.levels && x.levels.some(function (l) { return l > 0; })); }) ? 'Marge de bruit : ± ' + esc(Math.max(3, Number(r.noise))) + ' pts (' + (Number(r.noise) > 3 ? 'mesurée entre les passes' : 'plancher de 3 pts, les passes variant moins') + '). Un écart plus petit entre deux mesures signifie « stable ».' : 'Marge de bruit : pas encore mesurable, la marque est absente de toutes les passes. Elle le deviendra dès les premières citations.') + '</p>' : '') + '</div>';
     function sst(v) { v = Number(v); return v >= 70 ? ["good", "Solide"] : v >= 40 ? ["mid", "Moyen"] : ["low", "Faible"]; }
     var g = sst(r.score);
     html += '<div class="scorecard tipbox" role="group" aria-label="Scores">' +
       '<div class="sc-hero"><span class="sc-label has-info"><span>Score global</span><button type="button" class="info" aria-expanded="false" aria-controls="tip-global">i<span class="sr">En savoir plus</span></button></span>' +
       '<span class="sc-row"><span class="v">' + esc(r.score) + '<small>/100</small></span><span class="stat ' + g[0] + '"><i></i>' + g[1] + '</span></span>' +
       '<div class="meter lg ' + g[0] + '" style="--v:' + Number(r.score) + '" role="img" aria-label="Score global : ' + esc(r.score) + ' sur 100"><i></i></div>' +
-      '<div class="meter-scale" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div></div>';
+      '<div class="meter-scale" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div>' +
+      (function () {
+        var m = r.trend && r.trend.vs_prev && r.trend.vs_prev.score;
+        if (!m || m.verdict === "unqualified") return "";
+        var w = m.verdict === "absent" ? '<b class="down">Toujours absente</b>' : m.verdict === "stable" ? '<b>Stable</b>' : '<b class="' + m.verdict + '">' + (m.verdict === "up" ? "▲ " : "▼ ") + pts(m.delta) + '</b>';
+        return '<p class="sc-delta">' + w + ' depuis le ' + esc(shortDate(r.trend.prev.date)) + '</p>';
+      })() + '</div>';
     if (hasSub) {
       var p1 = sst(r.score_perception), p2 = sst(r.score_preparation);
       html += '<div class="sc-subs">' +
@@ -705,6 +747,8 @@
     var ok = BM ? AI_ORDER.filter(function (k) { return BM[k] && BM[k].status === "ok"; }) : [];
     var multi = ok.length > 1;
     var items = [];
+    var tl = r.trend && r.trend.vs_prev ? trendLine(r.trend.vs_prev.score) : null;
+    if (tl) items.push(tl);
     // 1. visibility
     if (multi) {
       var abs = ok.filter(function (k) { return BM[k].framing === "ABSENT"; });
@@ -759,6 +803,81 @@
     if (prio) h += '<div class="prio"><span>Priorité n°1</span><p>' + esc(prio) + '</p></div>';
     return h;
   }
+  /* ——— evolution: previous month and baseline, same rules as the monthly e-mail ——— */
+  var MONTHS_FR = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+  function shortDate(iso) { var d = new Date(iso); return d.getDate() + " " + MONTHS_FR[d.getMonth()] + (d.getFullYear() !== new Date().getFullYear() ? " " + d.getFullYear() : ""); }
+  function monthLabel(iso) { var d = new Date(iso); return MONTHS_FR[d.getMonth()]; }
+  function pts(n) { return (n > 0 ? "+" : n < 0 ? "−" : "") + Math.abs(n) + " pt" + (Math.abs(n) > 1 ? "s" : ""); }
+  function mvHtml(m, label) {
+    if (!m) return '<span class="mv unqualified">—</span>';
+    var t = m.verdict === "up" || m.verdict === "down" ? pts(m.delta)
+      : m.verdict === "stable" ? "Stable"
+      : m.verdict === "absent" ? "Toujours absente"
+      : pts(m.delta) + " · indicatif";
+    return '<span class="mv ' + m.verdict + '"><i aria-hidden="true"></i>' + esc(t) + (label ? ' <span class="ml">' + esc(label) + '</span>' : '') + '</span>';
+  }
+  function trendLine(m) {
+    // one sentence for "L'essentiel", never a movement under the margin
+    if (!m) return null;
+    if (m.verdict === "absent") return ["bad", "Toujours absente depuis le mois dernier", "Le mouvement sera mesuré dès la première citation."];
+    if (m.verdict === "up") return ["good", "Score global : " + pts(m.delta) + " depuis le mois dernier", m.from + " → " + m.to + ", au-delà de la marge de bruit (± " + m.margin + ")."];
+    if (m.verdict === "down") return ["bad", "Score global : " + pts(m.delta) + " depuis le mois dernier", m.from + " → " + m.to + ", au-delà de la marge de bruit (± " + m.margin + ")."];
+    if (m.verdict === "stable") return ["warn", "Score global stable depuis le mois dernier", m.from + " → " + m.to + " : l'écart reste dans la marge de bruit (± " + m.margin + ")."];
+    return null;
+  }
+  function chartHtml(series) {
+    // global score, one point per month, on the same 0–100 scale as the meters
+    // y range fitted to the data (padded, snapped to tens) so a real movement stays visible; the noise band keeps it honest
+    var box = document.getElementById("main"), W = Math.max(300, Math.min(640, (box && box.clientWidth) || 640)), H = W < 480 ? 170 : 190, L = 34, R = 20, T = 22, B = 26;
+    var lo = 100, hi = 0;
+    series.forEach(function (p) { var m = typeof p.noise === "number" && p.passes > 1 ? p.noise : 0; lo = Math.min(lo, p.score - m); hi = Math.max(hi, p.score + m); });
+    lo = Math.max(0, Math.floor((lo - 8) / 10) * 10); hi = Math.min(100, Math.ceil((hi + 8) / 10) * 10);
+    if (hi - lo < 30) { var mid = (hi + lo) / 2; lo = Math.max(0, Math.round(mid / 10) * 10 - 20); hi = Math.min(100, lo + 30); }
+    var grid = [lo, Math.round((lo + hi) / 20) * 10, hi].filter(function (g, i, a) { return a.indexOf(g) === i; });
+    var n = series.length, x = function (i) { return L + (n === 1 ? 0 : i * (W - L - R) / (n - 1)); }, y = function (v) { return T + (hi - v) * (H - T - B) / (hi - lo); };
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Score global, mois par mois : ' + series.map(function (p) { return monthLabel(p.date) + ' ' + p.score; }).join(', ') + '">';
+    grid.forEach(function (g) { s += '<line class="ax" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(g) + '" y2="' + y(g) + '"/><text x="' + (L - 8) + '" y="' + (y(g) + 4) + '" text-anchor="end">' + g + '</text>'; });
+    var up = [], dn = [];
+    series.forEach(function (p, i) { var m = typeof p.noise === "number" && p.passes > 1 ? p.noise : 0; up.push(x(i) + ',' + y(Math.min(hi, p.score + m))); dn.unshift(x(i) + ',' + y(Math.max(lo, p.score - m))); });
+    s += '<polygon class="band" points="' + up.concat(dn).join(' ') + '"/>';
+    s += '<polyline class="ln" points="' + series.map(function (p, i) { return x(i) + ',' + y(p.score); }).join(' ') + '"/>';
+    series.forEach(function (p, i) {
+      s += '<circle class="dot" cx="' + x(i) + '" cy="' + y(p.score) + '" r="' + (i === n - 1 ? 4.5 : 3.5) + '"/>';
+      s += '<text class="val" x="' + x(i) + '" y="' + (y(p.score) - 9) + '" text-anchor="middle">' + p.score + '</text>';
+      s += '<text x="' + x(i) + '" y="' + (H - 6) + '" text-anchor="' + (i === 0 && n > 1 ? 'start' : i === n - 1 && n > 1 ? 'end' : 'middle') + '">' + monthLabel(p.date) + '</text>';
+    });
+    return s + '</svg>';
+  }
+  function buildTrendCard(r) {
+    var t = r.trend;
+    if (!t) return "";
+    var h = '<p class="eyebrow">Évolution</p>';
+    if (!t.vs_prev && !t.vs_zero) {
+      h += '<h2>Votre point de départ</h2><div class="tstart"><i aria-hidden="true"></i><div><b>Première mesure mensuelle de votre marque</b><span>' +
+        (t.monitored
+          ? 'La comparaison avec le mois précédent apparaîtra ici dès la prochaine mesure' + (t.next_run ? ', vers le ' + esc(shortDate(t.next_run)) : '') + ', sur les mêmes questions.'
+          : 'Remesurée chaque mois sur les mêmes questions, votre marque aurait ici sa courbe et ses écarts. <a href="../tarifs/">La Veille →</a>') +
+        '</span></div></div>';
+    } else {
+      var P = t.vs_prev, Z = t.vs_zero;
+      h += '<h2>' + (P ? 'Depuis le mois dernier' : 'Depuis le point zéro') + '</h2><div class="trend" role="table">';
+      h += '<div class="trow th" role="row"><span role="columnheader"></span><span role="columnheader">Aujourd\'hui</span><span role="columnheader">' + (P ? 'vs ' + esc(shortDate(t.prev.date)) : '') + '</span><span role="columnheader">' + (Z ? 'vs point zéro · ' + esc(shortDate(t.zero.date)) : '') + '</span></div>';
+      [["score", "Score global"], ["perception", "Perception"], ["preparation", "Préparation"]].forEach(function (k) {
+        var m = (P && P[k[0]]) || (Z && Z[k[0]]);
+        if (!m) return;
+        h += '<div class="trow" role="row"><span class="tl" role="rowheader">' + k[1] + '</span><span class="tf" role="cell"><small>' + ((P && P[k[0]]) ? P[k[0]].from : Z[k[0]].from) + ' →</small>' + m.to + '</span>' +
+          '<span role="cell">' + (P ? mvHtml(P[k[0]], "vs mois dernier") : '') + '</span><span role="cell">' + (Z ? mvHtml(Z[k[0]], "vs point zéro") : '') + '</span></div>';
+      });
+      h += '</div>';
+      if (t.series && t.series.length >= 3) h += '<div class="tchart">' + chartHtml(t.series) + '</div>';
+      var anyUnq = [P, Z].some(function (x) { return x && ["score", "perception"].some(function (k) { return x[k] && x[k].verdict === "unqualified"; }); });
+      h += '<p class="tcap">Un écart plus petit que la <a href="../lexique/#marge-de-bruit">marge de bruit</a> est affiché « stable » ; la bande autour de la courbe la montre. ' +
+        (anyUnq ? '« Indicatif » : l\'une des deux mesures n\'a qu\'une passe, sa marge de bruit est inconnue. ' : '') +
+        'Le <a href="../lexique/#point-zero">point zéro</a> est votre première mesure sur les mêmes questions.</p>';
+    }
+    if (r.by_model && Object.keys(r.by_model).length > 1) h += '<p class="tcap">Évolution par IA : affichée à partir de 3 mesures mensuelles, parce qu\'une IA varie d\'un jour à l\'autre plus que ses passes ne le montrent.</p>';
+    return h;
+  }
   function restructure(r) {
     var main = document.getElementById("main");
     var head = main.querySelector(".head");
@@ -771,6 +890,14 @@
     ess.innerHTML = buildEssentials(r);
     head.parentNode.insertBefore(ess, head.nextSibling);
     var cursor = ess;
+    var trendHtml = buildTrendCard(r);
+    if (trendHtml) {
+      var tc = document.createElement("section");
+      tc.className = "card essentials evolution";
+      tc.innerHTML = trendHtml;
+      cursor.parentNode.insertBefore(tc, cursor.nextSibling);
+      cursor = tc;
+    }
     if (comp) { cursor.parentNode.insertBefore(comp, cursor.nextSibling); cursor = comp; }
     var core = (r.presence || []).filter(function (x) { return x.layer !== "rotating"; });
     var SUMS = {
