@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--paper);}
+  .card{width:700px;box-sizing:border-box;padding:36px 44px;display:flex;flex-direction:column;gap:18px;}
+  .top{display:flex;justify-content:space-between;align-items:baseline;}
+  .row{display:flex;gap:14px;}
+  .sw{flex:1;height:96px;border-radius:var(--r-md);display:flex;align-items:flex-end;padding:10px;border:1px solid rgba(0,0,0,0.06);}
+  .sw span{font-family:var(--font-mono);font-size:0.66rem;color:#fff;}
+  .tint span{color:var(--cherry-press);}
+  .note{display:flex;align-items:center;gap:10px;}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--cherry);}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="top">
+      <span class="eyebrow">Cherry accent · ration it</span>
+      <span class="meta">#D21F3C</span>
+    </div>
+    <div class="row">
+      <div class="sw" style="background:var(--cherry-hover)"><span>Hover</span></div>
+      <div class="sw" style="background:var(--cherry)"><span>Cherry</span></div>
+      <div class="sw" style="background:var(--cherry-press)"><span>Press</span></div>
+      <div class="sw tint" style="background:var(--cherry-tint)"><span>Tint</span></div>
+    </div>
+    <div class="note"><span class="dot"></span><span class="small" style="margin:0;">One link, one underline, one dot, one focus ring — never a field of red.</span></div>
+  </div>
+</body>
+</html>
