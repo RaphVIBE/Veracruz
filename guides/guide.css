@@ -3,7 +3,9 @@
   --ink: #161616; --sub: #565656; --faint: #9B9B9B;
   --rule: #E2E2E2; --cherry: #D21F3C;
   --font: 'Outfit', system-ui, -apple-system, sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  /* Une seule famille. Les libelles passent par la graisse et la taille,
+     jamais par un monospace en capitales chassees. */
+  --label: 'Outfit', system-ui, -apple-system, sans-serif;
   --gutter: clamp(20px, 4vw, 40px);
 }
 * { box-sizing: border-box; margin: 0; }
@@ -12,16 +14,17 @@ body { background: var(--paper); color: var(--ink); font-family: var(--font); fo
 a { color: inherit; }
 header.site { padding: 26px 0; border-bottom: 1px solid var(--rule); }
 .header-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.wordmark { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.wordmark img.mark { height: 30px; width: auto; }
-.wordmark img.type { height: 16px; width: auto; }
+.wordmark { display: flex; align-items: center; gap: 18px; text-decoration: none; }
+/* Assets recadres au plus juste : hauteurs CSS = taille optique reelle. */
+.wordmark img.mark { height: 26px; width: auto; }
+.wordmark img.type { height: 17px; width: auto; }
 nav a { text-decoration: none; font-size: 14.5px; color: var(--sub); margin-left: 22px; }
 nav a:hover, nav a.on { color: var(--ink); }
 main { padding: clamp(48px, 8vw, 88px) 0 80px; }
-.kicker { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.14em; color: var(--faint); text-transform: uppercase; }
+.kicker { font-family: var(--label); font-weight: 500; font-size: 15px; letter-spacing: 0; color: var(--faint); }
 h1 { font-weight: 500; font-size: clamp(30px, 4.6vw, 44px); line-height: 1.12; margin: 14px 0 18px; letter-spacing: -0.01em; }
 .lede { color: var(--sub); font-size: 18.5px; }
-.updated { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 14px; }
+.updated { font-family: var(--label); font-size: 15px; color: var(--faint); margin-top: 14px; }
 article.body { margin-top: clamp(36px, 5vw, 56px); }
 article.body h2 { font-weight: 500; font-size: 23px; margin: 40px 0 12px; padding-top: 28px; border-top: 1px solid var(--rule); }
 article.body h3 { font-weight: 500; font-size: 18px; margin: 24px 0 8px; }
@@ -33,7 +36,7 @@ article.body a { text-decoration-color: var(--cherry); }
 figure.photo { margin: 30px 0; }
 figure.photo.hero { margin: clamp(30px, 4.5vw, 48px) 0 0; }
 figure.photo img { width: 100%; height: auto; display: block; border-radius: 8px; }
-figure.photo figcaption { font-family: var(--mono); font-size: 12px; line-height: 1.5; color: var(--faint); margin-top: 9px; }
+figure.photo figcaption { font-family: var(--label); font-size: 14.5px; line-height: 1.5; color: var(--faint); margin-top: 9px; }
 .callout { background: var(--white); border: 1px solid var(--rule); border-left: 3px solid var(--cherry); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
 .callout p { margin-bottom: 0; }
 .crossnav { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--sub); }
