@@ -275,6 +275,29 @@
   .meter-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--sub); font-variant-numeric: tabular-nums; }
   .sheet .head { grid-template-columns: 1fr minmax(260px, 340px); gap: clamp(24px, 5vw, 56px); align-items: end; }
   @media (max-width: 640px) { .sheet .head { grid-template-columns: 1fr; } }
+
+  /* perception by AI: one row per assistant, same 0–100 meter */
+  .pm { display: grid; }
+  .pmrow { display: grid; grid-template-columns: minmax(120px, 190px) 48px 1fr 190px; gap: 6px 16px; align-items: center; padding: 12px 0; border-top: 1px solid var(--hairline); }
+  .pmrow:first-child { border-top: 0; }
+  .pmn b { display: block; font-size: 15px; }
+  .pmn small { display: block; font-size: 11.5px; color: var(--sub); font-variant-numeric: tabular-nums; }
+  .pmv { font-family: var(--sans); font-weight: 600; font-size: 22px; text-align: right; }
+  .pmv small { font-size: 11px; color: var(--sub); font-weight: 600; }
+  .pmrow .meter > i { background: color-mix(in oklch, var(--sub) 70%, transparent); }
+  .pmrow.ref .meter > i { background: var(--petrol); }
+  .pmrow.off { color: var(--sub); }
+  .pmf { font-size: 12.5px; color: var(--sub); }
+  .pmq { grid-column: 1 / -1; font-size: 15px; margin: 0 0 10px; padding-left: 14px; border-left: 2px solid var(--hairline); }
+  .pmq cite { display: block; font-style: normal; font-family: var(--sans); font-size: 11.5px; color: var(--sub); margin-top: 4px; }
+  .pmm, .pmrow .meter { display: block; }
+  .pmrow.scale { border-top: 0; padding-top: 2px; }
+  @media (max-width: 640px) {
+    .pmrow { grid-template-columns: 1fr auto; }
+    .pmm { grid-column: 1 / -1; }
+    .pmf { grid-column: 1 / -1; }
+    .pmrow.scale { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -570,7 +593,35 @@
     }
 
     html += '<section class="card glass"><h2>Cadrage</h2><span class="fchip ' + fr[1] + '">' + esc(fr[0]) + '</span>' + (r.quote ? '<blockquote>' + esc(r.quote) + '</blockquote>' : '') + '<p class="note">Score ' + (multi ? 'automatisé' : 'préliminaire automatisé') + ' : un modèle de frontière' + (connected ? ' connecté au web' : '') + ', ' + (multi ? esc(r.passes) + ' passes' : 'une passe') + ', ' + coreP.length + ' questions d\'ancrage. La mesure complète couvre plusieurs modèles, plusieurs passes et plusieurs langues.</p>';
-    html += '<div class="modelgrid"><div class="modelcard"><b>Claude</b><span class="sc">' + esc(r.score) + '</span><span class="tag on">MESURÉ</span></div><div class="modelcard lock"><b>ChatGPT</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Gemini</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div><div class="modelcard lock"><b>Perplexity</b><span class="sc">· ·</span><span class="tag">rapport complet</span></div></div></section>';
+    html += '</section>';
+    var BM = r.by_model || null;
+    var MNAME = { claude: "Claude", openai: "ChatGPT", perplexity: "Perplexity", gemini: "Gemini" };
+    var MORDER = ["claude", "openai", "perplexity", "gemini"];
+    var measuredKeys = BM ? MORDER.filter(function (k) { return BM[k]; }) : [];
+    if (measuredKeys.length > 1) {
+      var FRL = { LEADER: "Référence", PEER: "Parmi les meilleurs", ALTERNATIVE: "Alternative", NICHE: "Acteur de niche", NEGATIVE: "Négatif", UNKNOWN: "Inconnue ou confondue", ABSENT: "Absent" };
+      html += '<section class="card glass"><h2>Perception par IA</h2><p class="caption">Les mêmes ' + coreP.length + ' questions d\'ancrage, posées à chaque assistant connecté au web, notées avec la même grille. Comparaison indicative : ces scores n\'entrent pas dans le score global.</p><div class="pm">';
+      measuredKeys.forEach(function (k) {
+        var m = BM[k];
+        var name = MNAME[k] || k;
+        if (m.status !== "ok") {
+          html += '<div class="pmrow off"><span class="pmn"><b>' + esc(name) + '</b><small>' + esc(m.model || "") + '</small></span><span class="pmv">—</span><span class="pmm"><span class="meter"></span></span><span class="pmf">' + (m.status === "not_configured" ? "non mesuré" : "indisponible pour cette mesure") + '</span></div>';
+          return;
+        }
+        var absent = m.framing === "ABSENT";
+        html += '<div class="pmrow' + (k === "claude" ? " ref" : "") + '"><span class="pmn"><b>' + esc(name) + '</b><small>' + esc(m.model || "") + (m.passes ? ' · ' + esc(m.passes) + (m.passes > 1 ? ' passes' : ' passe') : '') + '</small></span>' +
+          '<span class="pmv">' + esc(m.score_perception) + (typeof m.noise === "number" && m.noise > 0 ? '<small> ±' + esc(m.noise) + '</small>' : '') + '</span>' +
+          '<span class="pmm"><span class="meter" role="img" aria-label="' + esc(name) + ' : ' + esc(m.score_perception) + ' sur 100"><i style="--v:' + Number(m.score_perception) + '"></i></span></span>' +
+          '<span class="pmf">' + (absent ? '<span class="abs">absent</span>' : esc(FRL[m.framing] || m.framing || "")) + (typeof m.cited_self_count === "number" ? ' · site lu ' + esc(m.cited_self_count) + '/' + coreP.length : '') + '</span></div>';
+        if (m.quote && k !== "claude") html += '<blockquote class="pmq">' + esc(m.quote) + '<cite>' + esc(name) + '</cite></blockquote>';
+      });
+      html += '<div class="pmrow scale" aria-hidden="true"><span></span><span></span><span class="meter-scale"><span>0</span><span>50</span><span>100</span></span><span></span></div></div></section>';
+    } else {
+      html += '<section class="card glass"><h2>Perception par IA</h2><p class="caption">Ce score est mesuré sur Claude, connecté au web. Le rapport complet pose les mêmes questions à ChatGPT, Gemini et Perplexity.</p><div class="pm">' +
+        '<div class="pmrow ref"><span class="pmn"><b>Claude</b><small>' + esc((r.models && r.models.battery) || "") + '</small></span><span class="pmv">' + esc(r.score_perception) + '</span><span class="pmm"><span class="meter"><i style="--v:' + Number(r.score_perception) + '"></i></span></span><span class="pmf">mesuré</span></div>' +
+        ['ChatGPT', 'Gemini', 'Perplexity'].map(function (n) { return '<div class="pmrow off"><span class="pmn"><b>' + n + '</b></span><span class="pmv">🔒</span><span class="pmm"><span class="meter"></span></span><span class="pmf">rapport complet</span></div>'; }).join('') +
+        '</div></section>';
+    }
 
     if (!r.premium && !r.demo) {
       var fpLocked = Array.isArray(r.footprint) ? r.footprint.filter(function (x) { return x.domain === MASK; }).length : 0;
