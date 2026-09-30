@@ -6,14 +6,18 @@
 <title>AI Réputation — que disent les IA de votre marque ?</title>
 <meta name="description" content="Mesurez gratuitement ce que ChatGPT et les autres IA disent de votre marque à vos futurs clients. Score en deux minutes, rapport partageable.">
 <meta name="theme-color" content="#123033">
+<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="assets/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@144,900&text=AI&display=swap">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/info.css">
 <style>
   .search { margin-top: 0; width: min(740px, 100%); }
   .search input#f-brand { font-size: 20px; }
@@ -386,29 +390,33 @@
         <h2 data-i18n="rp.title">Un rapport, <em>pas une impression.</em></h2>
         <p class="lede" data-i18n="rp.sub">Chaque mesure produit un dossier daté et partageable. Refaites-la le mois suivant : le progrès se lit d'un coup d'œil.</p>
       </div>
-      <figure class="report glass" aria-label="Exemple de rapport">
+      <figure class="report glass tipbox" aria-label="Exemple de rapport">
         <div class="rp-head"><span data-i18n="rp.head">Rapport préliminaire</span><span class="rp-ex" data-i18n="rp.ex">Exemple</span></div>
         <div class="rp-id"><b data-i18n="rp.brand">Votre marque</b><span data-i18n="rp.sector">Installateur solaire · Wallonie</span></div>
         <div class="rp-main">
           <div class="scorecard">
             <div class="sc-hero">
-              <span class="sc-label" data-i18n="rp.global">Score global</span>
+              <span class="sc-label has-info"><span data-i18n="rp.global">Score global</span><button type="button" class="info" aria-expanded="false" aria-controls="tip-global">i<span class="sr" data-i18n="tip.more">En savoir plus</span></button></span>
               <span class="v">40<small>/100</small></span>
               <div class="meter lg" style="--v: 40" aria-hidden="true"><i></i></div>
               <div class="meter-scale" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div>
             </div>
             <div class="sc-subs">
-              <div class="sc-sub"><span class="sc-label" data-i18n="rp.b1">Perception</span><span class="v">22</span><div class="meter" style="--v: 22" aria-hidden="true"><i></i></div></div>
-              <div class="sc-sub"><span class="sc-label" data-i18n="rp.b2">Préparation</span><span class="v">67</span><div class="meter" style="--v: 67" aria-hidden="true"><i></i></div></div>
+              <div class="sc-sub"><span class="sc-label has-info"><span data-i18n="rp.b1">Perception</span><button type="button" class="info" aria-expanded="false" aria-controls="tip-perception">i<span class="sr" data-i18n="tip.more">En savoir plus</span></button></span><span class="v">22</span><div class="meter" style="--v: 22" aria-hidden="true"><i></i></div></div>
+              <div class="sc-sub"><span class="sc-label has-info"><span data-i18n="rp.b2">Préparation</span><button type="button" class="info" aria-expanded="false" aria-controls="tip-preparation">i<span class="sr" data-i18n="tip.more">En savoir plus</span></button></span><span class="v">67</span><div class="meter" style="--v: 67" aria-hidden="true"><i></i></div></div>
             </div>
           </div>
         </div>
         <div class="rp-comp">
-          <span class="lbl" data-i18n="rp.comp">Concurrents cités à votre place</span>
+          <span class="lbl has-info"><span data-i18n="rp.comp">Concurrents cités à votre place</span><button type="button" class="info" aria-expanded="false" aria-controls="tip-comp">i<span class="sr" data-i18n="tip.more">En savoir plus</span></button></span>
           <div class="chips" aria-hidden="true"><i>Concurrent A</i><i>Concurrent B</i><i>Concurrent C</i><i>Concurrent D</i></div>
           <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> <span data-i18n="rp.lock">Identités dans le rapport complet</span></span>
         </div>
         <blockquote class="rp-quote"><p data-i18n="rp.quote">« Je n'ai pas trouvé d'information fiable sur cette entreprise. »</p><cite data-i18n="rp.cite">L'IA, interrogée directement sur la marque</cite></blockquote>
+        <div class="tip" id="tip-global" role="tooltip" hidden data-i18n="tip.global"><b>Synthèse de 0 à 100.</b> Elle combine la perception, qui pèse le plus, et la préparation. 70 et plus : solide · 40 à 69 : moyen · moins de 40 : faible. <a class="more" href="lexique/#score-global">En savoir plus →</a></div>
+        <div class="tip" id="tip-perception" role="tooltip" hidden data-i18n="tip.perception"><b>Ce que les IA disent de vous.</b> On leur pose les questions de vos acheteurs, sans citer votre nom : vous citent-elles, et en quels termes ? <a class="more" href="lexique/#perception">En savoir plus →</a></div>
+        <div class="tip" id="tip-preparation" role="tooltip" hidden data-i18n="tip.preparation"><b>Ce que votre site donne à lire aux IA.</b> Données structurées, fichier llms.txt, accès des robots, fiche Wikidata : la base technique pour être trouvé. <a class="more" href="lexique/#preparation">En savoir plus →</a></div>
+        <div class="tip" id="tip-comp" role="tooltip" hidden data-i18n="tip.comp"><b>Les acteurs recommandés à votre place</b> quand on pose vos questions aux IA. Leur nombre est exact ; leurs noms figurent dans le rapport complet. <a class="more" href="lexique/#concurrents">En savoir plus →</a></div>
       </figure>
     </div>
   </section>
@@ -451,6 +459,7 @@
       <a href="methode/" data-i18n="nav.m">Méthode</a>
       <a href="tarifs/" data-i18n="nav.t">Tarifs</a>
       <a href="mesures/" data-i18n="n.mine">Mes mesures</a>
+      <a href="lexique/" data-i18n="nav.l">Lexique</a>
       <a href="mailto:info@veracruz.be">info@veracruz.be</a>
     </nav>
     <p class="fine"><span data-i18n="f.by">Un service du studio</span> <a href="https://veracruz.be">Veracruz</a> · © <span id="fy">2026</span></p>
@@ -472,6 +481,11 @@
       "rp.head": "Preliminary report", "rp.ex": "Example", "rp.brand": "Your brand", "rp.sector": "Solar installer · Wallonia",
       "rp.global": "Overall score", "rp.b1": "Perception", "rp.b2": "Readiness", "rp.comp": "Competitors cited in your place",
       "rp.lock": "Identities in the full report",
+      "tip.more": "Learn more", "nav.l": "Glossary",
+      "tip.global": "<b>A 0–100 summary.</b> It combines perception, which weighs most, and readiness. 70+: solid · 40–69: average · under 40: weak. <a class=\"more\" href=\"lexique/#score-global\">Learn more →</a>",
+      "tip.perception": "<b>What AI says about you.</b> We ask AI assistants your buyers' questions, without naming you: do they cite you, and how? <a class=\"more\" href=\"lexique/#perception\">Learn more →</a>",
+      "tip.preparation": "<b>What your site gives AI to read.</b> Structured data, llms.txt file, crawler access, Wikidata entry: the technical groundwork for being found. <a class=\"more\" href=\"lexique/#preparation\">Learn more →</a>",
+      "tip.comp": "<b>The players recommended instead of you</b> when AI is asked your questions. The count is exact; their names are in the full report. <a class=\"more\" href=\"lexique/#concurrents\">Learn more →</a>",
       "rp.quote": "“I could not find reliable information about this company.”", "rp.cite": "The AI, asked directly about the brand",
       "of.eyebrow": "Pricing", "of.title": "Start <em>for free.</em>",
       "of.1t": "Score", "of.1d": "Your starting point, in two minutes.", "of.1f": "Free",
@@ -1057,5 +1071,6 @@
   }
 </script>
 <script src="assets/site.js"></script>
+<script src="assets/info.js"></script>
 </body>
 </html>

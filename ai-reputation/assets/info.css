@@ -1,0 +1,37 @@
+/* AI Réputation — bouton « i » et bulle d'explication à côté d'un libellé.
+   Markup : <span class="has-info"><span>Libellé</span><button class="info" data-tip="tip-x">…</button></span>
+            <div class="tip" id="tip-x" role="tooltip" hidden>Texte</div>  (dans un conteneur .tipbox) */
+.tipbox { position: relative; }
+.has-info { display: inline-flex; align-items: center; gap: 6px; }
+.info {
+  position: relative; display: inline-grid; place-items: center;
+  width: 17px; height: 17px; padding: 0; border-radius: 50%;
+  border: 1.4px solid currentColor; background: transparent; color: var(--sub);
+  font: 700 10.5px/1 var(--displaytext, Georgia, serif); font-style: italic;
+  letter-spacing: 0; text-transform: none; cursor: pointer; opacity: .8;
+  transition: color .15s, opacity .15s, background .15s;
+}
+/* Zone tactile de 44 px sans agrandir le rond */
+.info::after { content: ""; position: absolute; inset: -14px; }
+.info:hover, .info[aria-expanded="true"] { color: var(--petrol); opacity: 1; }
+.info[aria-expanded="true"] { background: color-mix(in oklch, var(--petrol) 14%, transparent); }
+.info:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; }
+.info .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.tip {
+  position: absolute; z-index: 20; width: min(300px, calc(100% - 24px));
+  padding: 12px 14px; border-radius: 14px;
+  background: var(--sheet, var(--paper)); color: var(--ink);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 16px 40px -14px oklch(0% 0 0 / .55), 0 0 0 1px color-mix(in oklch, var(--petrol) 18%, transparent);
+  font: 400 13.5px/1.5 var(--sans, system-ui, sans-serif); letter-spacing: 0; text-transform: none; text-align: left;
+}
+.tip b { font-weight: 700; color: var(--petrol); }
+.tip[hidden] { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .tip:not([hidden]) { animation: tip-in .16s ease-out; }
+  @keyframes tip-in { from { opacity: 0; transform: translateY(-4px); } }
+}
+@media print { .info, .tip { display: none !important; } }
+.tip .more { display: inline-block; margin-top: 6px; color: var(--petrol); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.tip .more:hover { text-decoration: underline; text-underline-offset: 3px; }

@@ -4,9 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rapport · AI Réputation</title>
+<link rel="icon" href="../assets/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="../assets/favicon-48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="manifest" href="../assets/site.webmanifest">
+<link rel="stylesheet" href="../assets/info.css">
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@144,900&text=AI&display=swap">
@@ -321,6 +325,7 @@
   </footer>
 </div>
 
+<script src="../assets/info.js"></script>
 <script>
   var API = "https://ydqpevnmliopqrkuhrfu.supabase.co/functions/v1/ai-reputation-report";
   var KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkcXBldm5tbGlvcHFya3VocmZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzEwMjMsImV4cCI6MjA5NTQ0NzAyM30.mdbGH8r20tuGwA62G2r2OLJeeuk0XraRRi6pTtoGp-g";
@@ -500,21 +505,24 @@
     html += '<div class="head"><div><h1>' + esc(r.brand) + '</h1><p class="meta">' + esc(verdictLine(r.score)) + '</p>' + (typeof r.noise === "number" ? '<p class="noise">' + (coreP.some(function (x) { return x.level > 0 || (x.levels && x.levels.some(function (l) { return l > 0; })); }) ? 'Marge de bruit mesurée : ± ' + esc(r.noise) + ' pts sur la perception. Un écart plus petit entre deux mesures signifie « stable ».' : 'Marge de bruit : pas encore mesurable, la marque est absente de toutes les passes. Elle le deviendra dès les premières citations.') + '</p>' : '') + '</div>';
     function sst(v) { v = Number(v); return v >= 70 ? ["good", "Solide"] : v >= 40 ? ["mid", "Moyen"] : ["low", "Faible"]; }
     var g = sst(r.score);
-    html += '<div class="scorecard" role="group" aria-label="Scores">' +
-      '<div class="sc-hero"><span class="sc-label">Score global</span>' +
+    html += '<div class="scorecard tipbox" role="group" aria-label="Scores">' +
+      '<div class="sc-hero"><span class="sc-label has-info"><span>Score global</span><button type="button" class="info" aria-expanded="false" aria-controls="tip-global">i<span class="sr">En savoir plus</span></button></span>' +
       '<span class="sc-row"><span class="v">' + esc(r.score) + '<small>/100</small></span><span class="stat ' + g[0] + '"><i></i>' + g[1] + '</span></span>' +
       '<div class="meter lg ' + g[0] + '" style="--v:' + Number(r.score) + '" role="img" aria-label="Score global : ' + esc(r.score) + ' sur 100"><i></i></div>' +
       '<div class="meter-scale" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div></div>';
     if (hasSub) {
       var p1 = sst(r.score_perception), p2 = sst(r.score_preparation);
       html += '<div class="sc-subs">' +
-        '<div class="sc-sub"><span class="sc-label">Perception</span><span class="v">' + esc(r.score_perception) + '</span><div class="meter ' + p1[0] + '" style="--v:' + Number(r.score_perception) + '" role="img" aria-label="Perception : ' + esc(r.score_perception) + ' sur 100"><i></i></div></div>' +
-        '<div class="sc-sub"><span class="sc-label">Préparation</span><span class="v">' + esc(r.score_preparation) + '</span><div class="meter ' + p2[0] + '" style="--v:' + Number(r.score_preparation) + '" role="img" aria-label="Préparation : ' + esc(r.score_preparation) + ' sur 100"><i></i></div></div>' +
+        '<div class="sc-sub"><span class="sc-label has-info"><span>Perception</span><button type="button" class="info" aria-expanded="false" aria-controls="tip-perception">i<span class="sr">En savoir plus</span></button></span><span class="v">' + esc(r.score_perception) + '</span><div class="meter ' + p1[0] + '" style="--v:' + Number(r.score_perception) + '" role="img" aria-label="Perception : ' + esc(r.score_perception) + ' sur 100"><i></i></div></div>' +
+        '<div class="sc-sub"><span class="sc-label has-info"><span>Préparation</span><button type="button" class="info" aria-expanded="false" aria-controls="tip-preparation">i<span class="sr">En savoir plus</span></button></span><span class="v">' + esc(r.score_preparation) + '</span><div class="meter ' + p2[0] + '" style="--v:' + Number(r.score_preparation) + '" role="img" aria-label="Préparation : ' + esc(r.score_preparation) + ' sur 100"><i></i></div></div>' +
         '</div>';
     }
+    html += '<div class="tip" id="tip-global" role="tooltip" hidden><b>Synthèse de 0 à 100.</b> Elle combine la perception, qui pèse le plus, et la préparation. 70 et plus : solide · 40 à 69 : moyen · moins de 40 : faible. <a class="more" href="../lexique/#score-global">En savoir plus →</a></div>' +
+      (hasSub ? '<div class="tip" id="tip-perception" role="tooltip" hidden><b>Ce que les IA disent de vous.</b> On leur pose les questions de vos acheteurs, sans citer votre nom : vous citent-elles, et en quels termes ? <a class="more" href="../lexique/#perception">En savoir plus →</a></div>' +
+      '<div class="tip" id="tip-preparation" role="tooltip" hidden><b>Ce que votre site donne à lire aux IA.</b> Données structurées, fichier llms.txt, accès des robots, fiche Wikidata : la base technique pour être trouvé. <a class="more" href="../lexique/#preparation">En savoir plus →</a></div>' : '');
     html += '</div></div>';
 
-    html += '<section class="card glass"><h2>Comment lire ce rapport</h2><p class="howto"><b>Le score</b> va de 0 à 100 : Perception mesure ce que les IA disent de vous ; Préparation, ce que votre site leur donne à lire.' + (connected ? ' <b>Mode IA connectée</b> : l\'assistant peut chercher sur le web avant de répondre, comme ChatGPT, Perplexity ou Claude le font aujourd\'hui ; vos améliorations y deviennent visibles en quelques semaines.' : '') + ' <b>L\'échelle</b> de chaque question compte 4 niveaux, d\'« absent » à « recommandé ». <b>Les cadenas 🔒</b> signalent une information réellement mesurée mais réservée au rapport complet : les compteurs affichés sont exacts.</p></section>';
+    html += '<section class="card glass"><h2>Comment lire ce rapport</h2><p class="howto"><b>Le score</b> va de 0 à 100 : Perception mesure ce que les IA disent de vous ; Préparation, ce que votre site leur donne à lire.' + (connected ? ' <b>Mode IA connectée</b> : l\'assistant peut chercher sur le web avant de répondre, comme ChatGPT, Perplexity ou Claude le font aujourd\'hui ; vos améliorations y deviennent visibles en quelques semaines.' : '') + ' <b>L\'échelle</b> de chaque question compte 4 niveaux, d\'« absent » à « recommandé ». <b>Les cadenas 🔒</b> signalent une information réellement mesurée mais réservée au rapport complet : les compteurs affichés sont exacts. Chaque terme est détaillé dans le <a href="../lexique/">lexique</a>.</p></section>';
 
     if (bench.length > 1) {
       html += '<section class="card glass"><h2>Votre position face à la concurrence directe</h2><p class="caption">Acteurs mesurés dans les mêmes réponses, sur les mêmes questions.</p>';

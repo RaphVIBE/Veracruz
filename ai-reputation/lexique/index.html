@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lexique — AI Réputation</title>
+<meta name="description" content="Le lexique d'AI Réputation : score global, perception, préparation, concurrents, sources, marge de bruit… ce que chaque chiffre du rapport veut dire.">
+<meta name="theme-color" content="#123033">
+<link rel="icon" href="../assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="../assets/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="manifest" href="../assets/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@144,900&text=AI&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="canonical" href="https://veracruz.be/ai-reputation/lexique/">
+<style>
+  .lx-index { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 28px; padding: 0; list-style: none; }
+  .lx-index a { display: inline-block; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--hairline); color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 500; }
+  .lx-index a:hover { border-color: var(--petrol); color: var(--petrol); }
+  .lx-group { padding-top: 0; }
+  .lx-group .eyebrow { margin-bottom: 8px; }
+  .lx { margin: 0; display: grid; }
+  .lx-item { display: grid; gap: 10px; padding: 28px 0; border-top: 1px solid var(--hairline); scroll-margin-top: 110px; border-radius: 4px; }
+  .lx-item dt { font-family: var(--display); font-size: clamp(26px, 4vw, 34px); line-height: 1.1; }
+  .lx-anchor { color: inherit; text-decoration: none; }
+  .lx-anchor:hover { color: var(--petrol); }
+  .lx-item dd { margin: 0; display: grid; gap: 10px; max-width: 42em; }
+  .lx-s { font-weight: 600; font-size: 17px; }
+  .lx-d { color: var(--sub); }
+  .lx-a { font-size: 15px; }
+  .lx-a > span:first-child { display: inline-block; margin-right: 6px; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: var(--petrol); }
+  @media (min-width: 900px) { .lx-item { grid-template-columns: minmax(220px, 1fr) 2fr; gap: 48px; } }
+  .lx-item:target { background: linear-gradient(90deg, color-mix(in oklch, var(--petrol) 12%, transparent), transparent 70%); box-shadow: inset 3px 0 0 var(--petrol); padding-inline: 18px; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } .lx-item:target { animation: lx-flash 1.6s ease-out; } @keyframes lx-flash { from { background-color: color-mix(in oklch, var(--petrol) 22%, transparent); } } }
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DefinedTermSet", "name": "Lexique AI Réputation", "inLanguage": "fr", "hasDefinedTerm": [{"@type": "DefinedTerm", "name": "Score global", "description": "Synthèse de 0 à 100 de votre place dans les réponses des IA. Il réunit deux réalités en un chiffre : ce que les IA disent de vous (la perception) et ce que votre site leur donne à lire (la préparation). La perception pèse le plus, parce que c'est elle que voient vos acheteurs. Paliers : 70 et plus, solide ; de 40 à 69, moyen ; sous 40, faible.", "termCode": "score-global"}, {"@type": "DefinedTerm", "name": "Perception", "description": "Ce que les IA disent de vous quand un acheteur leur pose une question. Nous posons aux IA les questions de vos futurs clients, sans jamais citer votre nom. Pour chaque réponse, nous notons si vous êtes cité et comment, sur une échelle qui va d'« absent » à « recommandé ». La perception est la moyenne de ces constats sur les questions d'ancrage.", "termCode": "perception"}, {"@type": "DefinedTerm", "name": "Préparation", "description": "Ce que votre site donne à lire aux IA : la base technique pour être trouvé. Des vérifications directes de votre site et de votre empreinte : données structurées (schema.org), fichier llms.txt, accès des robots, plan du site, adresse de référence, fiche Wikidata reliée à votre site. La préparation agit vite, mais elle ne suffit pas : un site parfait dont personne ne parle reste absent des réponses.", "termCode": "preparation"}, {"@type": "DefinedTerm", "name": "Concurrents cités à votre place", "description": "Les acteurs que l'IA recommande quand on lui pose vos questions. Nous relevons les entreprises nommées dans les réponses à vos questions, avant vous ou à votre place. Les annuaires et plateformes ne comptent pas comme concurrents : ils sont des sources. Nous notons aussi dans combien de passes chaque acteur revient, ce qui mesure la solidité de sa place.", "termCode": "concurrents"}, {"@type": "DefinedTerm", "name": "Sources", "description": "Les pages que l'IA consulte pour vous répondre. En mode IA connectée, l'assistant cherche sur le web avant de répondre. Nous relevons les pages qu'il lit : sites de concurrents, annuaires spécialisés, médias, et parfois le vôtre. C'est l'information la plus utile du rapport, parce qu'elle désigne directement où agir.", "termCode": "sources"}, {"@type": "DefinedTerm", "name": "Cadrage", "description": "La façon dont l'IA vous présente quand elle parle de vous. Référence du secteur, alternative moins chère, acteur de niche, ou marque confondue avec une autre : deux entreprises citées aussi souvent peuvent être présentées très différemment. Nous signalons aussi les confusions, par exemple avec un homonyme.", "termCode": "cadrage"}, {"@type": "DefinedTerm", "name": "Échelle de citation", "description": "Quatre niveaux, d'« absent » à « recommandé ». Être nommé en passant ne vaut pas une recommandation. Chaque réponse est donc classée sur quatre niveaux plutôt qu'en présent ou absent, ce qui rend les progrès visibles avant même la première recommandation.", "termCode": "echelle"}, {"@type": "DefinedTerm", "name": "Questions d'ancrage", "description": "Six questions d'acheteur, fixes, qui portent la courbe. Elles sont choisies pour votre métier et votre zone à la première mesure, puis ne changent plus : c'est ce qui rend deux mesures comparables. Elles couvrent plusieurs intentions : trouver un prestataire, comparer, choisir sur un critère, vérifier une réputation. Une révision trimestrielle peut en faire évoluer une, en mesurant l'ancienne et la nouvelle en parallèle pour ne pas casser la série.", "termCode": "questions-ancrage"}, {"@type": "DefinedTerm", "name": "Questions tournantes", "description": "Trois questions renouvelées à chaque cycle, hors score. Elles captent les nouvelles façons de demander et les sujets qui émergent. Elles sont affichées à part, comme questions du mois, et n'entrent pas dans le score : elles servent à repérer tôt ce qui pourrait rejoindre les questions d'ancrage.", "termCode": "questions-tournantes"}, {"@type": "DefinedTerm", "name": "Passe", "description": "Un tour complet des questions posées à une IA. Une IA ne répond pas deux fois exactement pareil. Le score gratuit repose sur une passe ; le suivi mensuel en fait trois et publie leur moyenne, ce qui rend le chiffre plus solide.", "termCode": "passe"}, {"@type": "DefinedTerm", "name": "Marge de bruit", "description": "L'écart naturel entre deux passes : en dessous, on dit « stable ». Nous mesurons combien le résultat varie d'une passe à l'autre. Un mouvement n'est annoncé que s'il dépasse cette marge ; sinon le rapport écrit « stable ». Tant qu'une marque n'est citée dans aucune passe, il n'y a rien à mesurer : le rapport dit alors « absent », pas « stable ».", "termCode": "marge-de-bruit"}, {"@type": "DefinedTerm", "name": "IA connectée", "description": "L'assistant cherche sur le web avant de répondre, comme vos acheteurs l'utilisent. ChatGPT, Perplexity ou Claude consultent aujourd'hui le web avant de répondre. Nous mesurons dans ce mode : vos améliorations deviennent visibles en quelques semaines, au lieu d'attendre la mise à jour des connaissances du modèle, qui peut prendre des mois.", "termCode": "ia-connectee"}, {"@type": "DefinedTerm", "name": "Protocole et versions", "description": "Des règles fixes, datées et versionnées, pour comparer dans le temps. Chaque rapport indique la version du protocole, celle de votre panel de questions et les modèles interrogés. Quand un fournisseur publie un nouveau modèle, nous mesurons l'ancien et le nouveau en parallèle pour distinguer ce qui vient du changement de modèle de ce qui vient de vos actions. Le suivi mensuel interroge aussi d'autres assistants, comme ChatGPT, Perplexity et Gemini, présentés modèle par modèle.", "termCode": "protocole"}]}</script>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+<div class="wrap">
+  <header class="mast">
+    <div class="inner glass">
+      <a class="brand" href="../" aria-label="AI Réputation, accueil"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg><span class="wm">AI <b>Réputation</b></span></a>
+      <div class="navr">
+        <nav class="nav" aria-label="Navigation"><a href="../methode/" data-i18n="nav.m">Méthode</a><a href="../tarifs/" data-i18n="nav.t">Tarifs</a><a href="../mesures/" data-i18n="n.mine">Mes mesures</a></nav>
+        <div class="lang" role="group" aria-label="Langue / Language">
+          <button id="btn-fr" aria-pressed="true" onclick="setLang('fr')">FR</button>
+          <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
+        </div>
+        <details class="menu">
+          <summary aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></summary>
+          <div class="panel glass"><a href="../methode/" data-i18n="nav.m">Méthode</a><a href="../tarifs/" data-i18n="nav.t">Tarifs</a><a href="../mesures/" data-i18n="n.mine">Mes mesures</a><a class="go" href="../" data-i18n="nav.cta">Mesurer ma marque</a></div>
+        </details>
+      </div>
+    </div>
+  </header>
+
+    <div class="pagehead">
+    <p class="eyebrow" data-i18n="ph.eyebrow">Lexique</p>
+    <h1 data-i18n="ph.title">Chaque mot <em>du rapport.</em></h1>
+    <p class="lede" data-i18n="ph.lede">Ce que veut dire chaque chiffre de votre rapport, pourquoi nous le mesurons et ce que vous pouvez en faire.</p>
+    <nav aria-label="Index"><ul class="lx-index"><li><a href="#score-global" data-i18n="score-global.t">Score global</a></li><li><a href="#perception" data-i18n="perception.t">Perception</a></li><li><a href="#preparation" data-i18n="preparation.t">Préparation</a></li><li><a href="#concurrents" data-i18n="concurrents.t">Concurrents cités à votre place</a></li><li><a href="#sources" data-i18n="sources.t">Sources</a></li><li><a href="#cadrage" data-i18n="cadrage.t">Cadrage</a></li><li><a href="#echelle" data-i18n="echelle.t">Échelle de citation</a></li><li><a href="#questions-ancrage" data-i18n="questions-ancrage.t">Questions d'ancrage</a></li><li><a href="#questions-tournantes" data-i18n="questions-tournantes.t">Questions tournantes</a></li><li><a href="#passe" data-i18n="passe.t">Passe</a></li><li><a href="#marge-de-bruit" data-i18n="marge-de-bruit.t">Marge de bruit</a></li><li><a href="#ia-connectee" data-i18n="ia-connectee.t">IA connectée</a></li><li><a href="#protocole" data-i18n="protocole.t">Protocole et versions</a></li></ul></nav>
+  </div>
+  <section class="section lx-group reveal in" aria-labelledby="g-scores">
+    <p class="eyebrow" id="g-scores" data-i18n="g.scores">Les scores</p>
+    <dl class="lx">
+      <div class="lx-item" id="score-global">
+        <dt><a class="lx-anchor" href="#score-global" data-i18n="score-global.t">Score global</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="score-global.s">Synthèse de 0 à 100 de votre place dans les réponses des IA.</p>
+          <p class="lx-d" data-i18n="score-global.d">Il réunit deux réalités en un chiffre : ce que les IA disent de vous (la perception) et ce que votre site leur donne à lire (la préparation). La perception pèse le plus, parce que c'est elle que voient vos acheteurs. Paliers : 70 et plus, solide ; de 40 à 69, moyen ; sous 40, faible.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="score-global.a">Lisez-le dans le temps plutôt que dans l'absolu : c'est son évolution d'un mois à l'autre, au-delà de la marge de bruit, qui montre l'effet de vos actions.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="perception">
+        <dt><a class="lx-anchor" href="#perception" data-i18n="perception.t">Perception</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="perception.s">Ce que les IA disent de vous quand un acheteur leur pose une question.</p>
+          <p class="lx-d" data-i18n="perception.d">Nous posons aux IA les questions de vos futurs clients, sans jamais citer votre nom. Pour chaque réponse, nous notons si vous êtes cité et comment, sur une échelle qui va d'« absent » à « recommandé ». La perception est la moyenne de ces constats sur les questions d'ancrage.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="perception.a">Elle monte quand vous existez dans les sources que les IA lisent et quand des pages répondent précisément aux questions de vos acheteurs.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="preparation">
+        <dt><a class="lx-anchor" href="#preparation" data-i18n="preparation.t">Préparation</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="preparation.s">Ce que votre site donne à lire aux IA : la base technique pour être trouvé.</p>
+          <p class="lx-d" data-i18n="preparation.d">Des vérifications directes de votre site et de votre empreinte : données structurées (schema.org), fichier llms.txt, accès des robots, plan du site, adresse de référence, fiche Wikidata reliée à votre site. La préparation agit vite, mais elle ne suffit pas : un site parfait dont personne ne parle reste absent des réponses.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="preparation.a">Chaque ligne « Manquant » ou « À corriger » de votre rapport est une action concrète, souvent réglée en quelques heures.</span></p>
+        </dd>
+      </div>
+    </dl>
+  </section>
+  <section class="section lx-group reveal in" aria-labelledby="g-observe">
+    <p class="eyebrow" id="g-observe" data-i18n="g.observe">Ce que nous observons</p>
+    <dl class="lx">
+      <div class="lx-item" id="concurrents">
+        <dt><a class="lx-anchor" href="#concurrents" data-i18n="concurrents.t">Concurrents cités à votre place</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="concurrents.s">Les acteurs que l'IA recommande quand on lui pose vos questions.</p>
+          <p class="lx-d" data-i18n="concurrents.d">Nous relevons les entreprises nommées dans les réponses à vos questions, avant vous ou à votre place. Les annuaires et plateformes ne comptent pas comme concurrents : ils sont des sources. Nous notons aussi dans combien de passes chaque acteur revient, ce qui mesure la solidité de sa place.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="concurrents.a">Dans le score gratuit, leur nombre est exact ; leurs noms figurent dans le rapport complet, avec les sources qui les font citer.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="sources">
+        <dt><a class="lx-anchor" href="#sources" data-i18n="sources.t">Sources</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="sources.s">Les pages que l'IA consulte pour vous répondre.</p>
+          <p class="lx-d" data-i18n="sources.d">En mode IA connectée, l'assistant cherche sur le web avant de répondre. Nous relevons les pages qu'il lit : sites de concurrents, annuaires spécialisés, médias, et parfois le vôtre. C'est l'information la plus utile du rapport, parce qu'elle désigne directement où agir.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="sources.a">Être présent, et bien décrit, sur les sources déjà lues par les IA est souvent le levier le plus rapide. Le score gratuit en donne le nombre, le rapport complet la liste.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="cadrage">
+        <dt><a class="lx-anchor" href="#cadrage" data-i18n="cadrage.t">Cadrage</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="cadrage.s">La façon dont l'IA vous présente quand elle parle de vous.</p>
+          <p class="lx-d" data-i18n="cadrage.d">Référence du secteur, alternative moins chère, acteur de niche, ou marque confondue avec une autre : deux entreprises citées aussi souvent peuvent être présentées très différemment. Nous signalons aussi les confusions, par exemple avec un homonyme.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="cadrage.a">Un mauvais cadrage se corrige à la source : les pages et fiches qui décrivent votre activité, votre zone et votre positionnement.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="echelle">
+        <dt><a class="lx-anchor" href="#echelle" data-i18n="echelle.t">Échelle de citation</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="echelle.s">Quatre niveaux, d'« absent » à « recommandé ».</p>
+          <p class="lx-d" data-i18n="echelle.d">Être nommé en passant ne vaut pas une recommandation. Chaque réponse est donc classée sur quatre niveaux plutôt qu'en présent ou absent, ce qui rend les progrès visibles avant même la première recommandation.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="echelle.a">Passer d'« absent » à « mentionné » est déjà un signal : la marque entre dans les réponses.</span></p>
+        </dd>
+      </div>
+    </dl>
+  </section>
+  <section class="section lx-group reveal in" aria-labelledby="g-mesure">
+    <p class="eyebrow" id="g-mesure" data-i18n="g.mesure">Comment nous mesurons</p>
+    <dl class="lx">
+      <div class="lx-item" id="questions-ancrage">
+        <dt><a class="lx-anchor" href="#questions-ancrage" data-i18n="questions-ancrage.t">Questions d'ancrage</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="questions-ancrage.s">Six questions d'acheteur, fixes, qui portent la courbe.</p>
+          <p class="lx-d" data-i18n="questions-ancrage.d">Elles sont choisies pour votre métier et votre zone à la première mesure, puis ne changent plus : c'est ce qui rend deux mesures comparables. Elles couvrent plusieurs intentions : trouver un prestataire, comparer, choisir sur un critère, vérifier une réputation. Une révision trimestrielle peut en faire évoluer une, en mesurant l'ancienne et la nouvelle en parallèle pour ne pas casser la série.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="questions-ancrage.a">Vous les lisez dans votre rapport : ce sont les questions auxquelles vos pages doivent répondre.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="questions-tournantes">
+        <dt><a class="lx-anchor" href="#questions-tournantes" data-i18n="questions-tournantes.t">Questions tournantes</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="questions-tournantes.s">Trois questions renouvelées à chaque cycle, hors score.</p>
+          <p class="lx-d" data-i18n="questions-tournantes.d">Elles captent les nouvelles façons de demander et les sujets qui émergent. Elles sont affichées à part, comme questions du mois, et n'entrent pas dans le score : elles servent à repérer tôt ce qui pourrait rejoindre les questions d'ancrage.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="questions-tournantes.a">Une question tournante où vous êtes absent signale souvent un contenu à créer.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="passe">
+        <dt><a class="lx-anchor" href="#passe" data-i18n="passe.t">Passe</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="passe.s">Un tour complet des questions posées à une IA.</p>
+          <p class="lx-d" data-i18n="passe.d">Une IA ne répond pas deux fois exactement pareil. Le score gratuit repose sur une passe ; le suivi mensuel en fait trois et publie leur moyenne, ce qui rend le chiffre plus solide.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="passe.a">Plus il y a de passes, plus un mouvement annoncé est fiable.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="marge-de-bruit">
+        <dt><a class="lx-anchor" href="#marge-de-bruit" data-i18n="marge-de-bruit.t">Marge de bruit</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="marge-de-bruit.s">L'écart naturel entre deux passes : en dessous, on dit « stable ».</p>
+          <p class="lx-d" data-i18n="marge-de-bruit.d">Nous mesurons combien le résultat varie d'une passe à l'autre. Un mouvement n'est annoncé que s'il dépasse cette marge ; sinon le rapport écrit « stable ». Tant qu'une marque n'est citée dans aucune passe, il n'y a rien à mesurer : le rapport dit alors « absent », pas « stable ».</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="marge-de-bruit.a">C'est une garantie : un chiffre qui bouge dans votre rapport a vraiment bougé.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="ia-connectee">
+        <dt><a class="lx-anchor" href="#ia-connectee" data-i18n="ia-connectee.t">IA connectée</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="ia-connectee.s">L'assistant cherche sur le web avant de répondre, comme vos acheteurs l'utilisent.</p>
+          <p class="lx-d" data-i18n="ia-connectee.d">ChatGPT, Perplexity ou Claude consultent aujourd'hui le web avant de répondre. Nous mesurons dans ce mode : vos améliorations deviennent visibles en quelques semaines, au lieu d'attendre la mise à jour des connaissances du modèle, qui peut prendre des mois.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="ia-connectee.a">C'est ce qui permet de mesurer l'effet de vos actions mois après mois.</span></p>
+        </dd>
+      </div>
+      <div class="lx-item" id="protocole">
+        <dt><a class="lx-anchor" href="#protocole" data-i18n="protocole.t">Protocole et versions</a></dt>
+        <dd>
+          <p class="lx-s" data-i18n="protocole.s">Des règles fixes, datées et versionnées, pour comparer dans le temps.</p>
+          <p class="lx-d" data-i18n="protocole.d">Chaque rapport indique la version du protocole, celle de votre panel de questions et les modèles interrogés. Quand un fournisseur publie un nouveau modèle, nous mesurons l'ancien et le nouveau en parallèle pour distinguer ce qui vient du changement de modèle de ce qui vient de vos actions. Le suivi mensuel interroge aussi d'autres assistants, comme ChatGPT, Perplexity et Gemini, présentés modèle par modèle.</p>
+          <p class="lx-a"><span data-i18n="lv">Votre levier</span> <span data-i18n="protocole.a">Vous savez toujours pourquoi un chiffre bouge.</span></p>
+        </dd>
+      </div>
+    </dl>
+  </section>
+  <section class="closer reveal">
+    <h2 data-i18n="c.title">Commencez par <em>la mesure.</em></h2>
+    <p class="lede" data-i18n="c.sub">Deux minutes, gratuit : vous saurez ce que les IA racontent à votre place.</p>
+    <a class="go" href="../" data-i18n="c.cta">Mesurer ma marque</a>
+  </section>
+  <footer>
+    <a class="brand" href="../"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg><span class="wm">AI <b>Réputation</b></span></a>
+    <nav class="links" aria-label="Pied de page">
+      <a href="../methode/" data-i18n="nav.m">Méthode</a>
+      <a href="../tarifs/" data-i18n="nav.t">Tarifs</a>
+      <a href="../mesures/" data-i18n="n.mine">Mes mesures</a>
+      <a href="../lexique/" data-i18n="nav.l">Lexique</a>
+      <a href="mailto:info@veracruz.be">info@veracruz.be</a>
+    </nav>
+    <p class="fine"><span data-i18n="f.by">Un service du studio</span> <a href="https://veracruz.be">Veracruz</a> · © <span id="fy">2026</span></p>
+  </footer>
+</div>
+<script>window.PAGE_I18N = { en: {"nav.m": "Method", "nav.t": "Pricing", "n.mine": "My measurements", "nav.cta": "Measure my brand", "nav.l": "Glossary", "c.title": "Start with <em>the measurement.</em>", "c.sub": "Two minutes, free: you will know what the AIs are saying in your place.", "c.cta": "Measure my brand", "f.by": "A service by studio", "ph.eyebrow": "Glossary", "ph.title": "Every word <em>of the report.</em>", "ph.lede": "What each figure in your report means, why we measure it and what you can do about it.", "idx.label": "Index", "lv": "Your lever", "g.scores": "The scores", "g.observe": "What we observe", "g.mesure": "How we measure", "score-global.t": "Overall score", "score-global.s": "A 0–100 summary of your place in AI answers.", "score-global.d": "It brings two realities into one figure: what AI says about you (perception) and what your site gives AI to read (readiness). Perception weighs most, because it is what your buyers see. Bands: 70 and above, solid; 40 to 69, average; below 40, weak.", "score-global.a": "Read it over time rather than in absolute terms: its month-to-month change, beyond the noise margin, shows the effect of your actions.", "perception.t": "Perception", "perception.s": "What AI says about you when a buyer asks it a question.", "perception.d": "We ask AI assistants your future clients' questions, never naming you. For each answer we record whether you are cited and how, on a scale from “absent” to “recommended”. Perception is the average of these findings across the anchor questions.", "perception.a": "It rises when you exist in the sources AI reads and when pages answer your buyers' questions precisely.", "preparation.t": "Readiness", "preparation.s": "What your site gives AI to read: the technical groundwork for being found.", "preparation.d": "Direct checks of your site and footprint: structured data (schema.org), llms.txt file, crawler access, sitemap, canonical address, a Wikidata entry linked to your site. Readiness moves fast, but it is not enough: a perfect site nobody talks about stays absent from answers.", "preparation.a": "Every “Missing” or “To fix” line in your report is a concrete action, often solved in a few hours.", "concurrents.t": "Competitors cited in your place", "concurrents.s": "The players AI recommends when asked your questions.", "concurrents.d": "We record the companies named in answers to your questions, ahead of you or instead of you. Directories and platforms do not count as competitors: they are sources. We also note in how many passes each player returns, which measures how firm its position is.", "concurrents.a": "In the free score, their count is exact; their names are in the full report, with the sources that get them cited.", "sources.t": "Sources", "sources.s": "The pages AI consults to answer.", "sources.d": "In connected mode, the assistant searches the web before answering. We record the pages it reads: competitors' sites, specialised directories, media, and sometimes yours. It is the most useful information in the report, because it points directly to where to act.", "sources.a": "Being present, and well described, on the sources AI already reads is often the fastest lever. The free score gives their number, the full report the list.", "cadrage.t": "Framing", "cadrage.s": "How AI presents you when it talks about you.", "cadrage.d": "Sector reference, cheaper alternative, niche player, or a brand confused with another: two companies cited equally often can be presented very differently. We also flag confusions, for instance with a namesake.", "cadrage.a": "Poor framing is fixed at the source: the pages and listings that describe your business, area and positioning.", "echelle.t": "Citation scale", "echelle.s": "Four levels, from “absent” to “recommended”.", "echelle.d": "Being named in passing is not a recommendation. Each answer is therefore rated on four levels rather than present or absent, which makes progress visible even before the first recommendation.", "echelle.a": "Moving from “absent” to “mentioned” is already a signal: the brand is entering the answers.", "questions-ancrage.t": "Anchor questions", "questions-ancrage.s": "Six fixed buyer questions that carry the curve.", "questions-ancrage.d": "They are chosen for your trade and area at the first measurement, then never change: that is what makes two measurements comparable. They cover several intents: finding a provider, comparing, choosing on a criterion, checking a reputation. A quarterly review can change one, measuring the old and new side by side so the series is not broken.", "questions-ancrage.a": "You read them in your report: they are the questions your pages must answer.", "questions-tournantes.t": "Rotating questions", "questions-tournantes.s": "Three questions renewed each cycle, outside the score.", "questions-tournantes.d": "They capture new ways of asking and emerging topics. They are shown separately, as questions of the month, and do not enter the score: they help spot early what could join the anchor questions.", "questions-tournantes.a": "A rotating question where you are absent often points to content worth creating.", "passe.t": "Pass", "passe.s": "One complete round of questions put to an AI.", "passe.d": "An AI never answers twice in exactly the same way. The free score relies on one pass; monthly tracking runs three and publishes their average, which makes the figure sturdier.", "passe.a": "The more passes, the more reliable an announced movement.", "marge-de-bruit.t": "Noise margin", "marge-de-bruit.s": "The natural spread between passes: below it, we say “stable”.", "marge-de-bruit.d": "We measure how much the result varies from one pass to the next. A movement is announced only if it exceeds that margin; otherwise the report says “stable”. As long as a brand is cited in no pass, there is nothing to measure: the report then says “absent”, not “stable”.", "marge-de-bruit.a": "It is a guarantee: a figure that moves in your report really moved.", "ia-connectee.t": "Connected AI", "ia-connectee.s": "The assistant searches the web before answering, as your buyers use it.", "ia-connectee.d": "ChatGPT, Perplexity or Claude now consult the web before answering. We measure in that mode: your improvements become visible within weeks, instead of waiting for the model's knowledge to be updated, which can take months.", "ia-connectee.a": "That is what makes the effect of your actions measurable month after month.", "protocole.t": "Protocol and versions", "protocole.s": "Fixed, dated, versioned rules, to compare over time.", "protocole.d": "Every report states the protocol version, your question panel version and the models queried. When a provider releases a new model, we measure old and new side by side to separate what comes from the model change from what comes from your actions. Monthly tracking also queries other assistants, such as ChatGPT, Perplexity and Gemini, shown model by model.", "protocole.a": "You always know why a figure moves."} };</script>
+<script src="../assets/site.js"></script>
+</body>
+</html>
