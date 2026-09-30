@@ -3,118 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AI Réputation</title>
+<title>AI Réputation — que disent les IA de votre marque ?</title>
+<meta name="description" content="Mesurez gratuitement ce que ChatGPT et les autres IA disent de votre marque à vos futurs clients. Score en deux minutes, rapport partageable.">
+<meta name="theme-color" content="#123033">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<meta name="description" content="Ce que les intelligences artificielles disent de votre marque à vos futurs clients. Mesuré, pas supposé.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@144,900&text=AI&display=swap">
+<link rel="stylesheet" href="assets/site.css">
 <style>
-  :root {
-    --paper: oklch(96.8% 0.007 185);
-    --ink: oklch(23% 0.014 195);
-    --sub: oklch(46% 0.016 192);
-    --hairline: oklch(80% 0.012 185 / .7);
-    --petrol: oklch(44% 0.078 190);
-    --petrol-deep: oklch(31% 0.06 190);
-    --brick: oklch(51% 0.1 35);
-    --sage: oklch(50% 0.07 140);
-    --glass: oklch(98% 0.004 185 / .55);
-    --glass-strong: oklch(98.5% 0.004 185 / .78);
-    --glass-edge: oklch(100% 0 0 / .65);
-    --glass-shadow: 0 24px 70px -28px oklch(30% 0.05 190 / .5);
-    --blob-a: oklch(82% 0.06 190 / .55);
-    --blob-b: oklch(85% 0.055 45 / .4);
-    --blob-c: oklch(84% 0.05 140 / .38);
-    --display: "Libre Caslon Display", Georgia, serif;
-    --displaytext: "Libre Caslon Text", Georgia, serif;
-    --sans: "Public Sans", "Helvetica Neue", Arial, sans-serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: oklch(18% 0.012 195);
-      --ink: oklch(93% 0.008 185);
-      --sub: oklch(70% 0.014 188);
-      --hairline: oklch(38% 0.016 188 / .8);
-      --petrol: oklch(70% 0.085 186);
-      --petrol-deep: oklch(80% 0.075 186);
-      --brick: oklch(68% 0.1 40);
-      --sage: oklch(70% 0.08 140);
-      --glass: oklch(26% 0.014 192 / .5);
-      --glass-strong: oklch(27% 0.014 192 / .8);
-      --glass-edge: oklch(100% 0 0 / .14);
-      --glass-shadow: 0 24px 70px -24px oklch(5% 0.02 190 / .8);
-      --blob-a: oklch(45% 0.08 190 / .5);
-      --blob-b: oklch(40% 0.07 45 / .4);
-      --blob-c: oklch(42% 0.06 140 / .35);
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper: oklch(18% 0.012 195);
-    --ink: oklch(93% 0.008 185);
-    --sub: oklch(70% 0.014 188);
-    --hairline: oklch(38% 0.016 188 / .8);
-    --petrol: oklch(70% 0.085 186);
-    --petrol-deep: oklch(80% 0.075 186);
-    --brick: oklch(68% 0.1 40);
-    --sage: oklch(70% 0.08 140);
-    --glass: oklch(26% 0.014 192 / .5);
-    --glass-strong: oklch(27% 0.014 192 / .8);
-    --glass-edge: oklch(100% 0 0 / .14);
-    --glass-shadow: 0 24px 70px -24px oklch(5% 0.02 190 / .8);
-    --blob-a: oklch(45% 0.08 190 / .5);
-    --blob-b: oklch(40% 0.07 45 / .4);
-    --blob-c: oklch(42% 0.06 140 / .35);
-    color-scheme: dark;
-  }
-  * { box-sizing: border-box; margin: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.62; overflow-x: hidden; }
-  .wrap { max-width: 1020px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 28px); }
-  h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.06; text-wrap: balance; }
-  ::selection { background: color-mix(in oklch, var(--petrol) 25%, transparent); }
-  button, input { font: inherit; }
-  button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; border-radius: 6px; }
-
-  /* ——— ambient light ——— */
-  .ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
-  .ambient i { position: absolute; border-radius: 50%; filter: blur(90px); }
-  .ambient .a { width: 55vmax; height: 55vmax; background: var(--blob-a); top: -18vmax; left: -12vmax; }
-  .ambient .b { width: 44vmax; height: 44vmax; background: var(--blob-b); top: 22vh; right: -16vmax; }
-  .ambient .c { width: 40vmax; height: 40vmax; background: var(--blob-c); bottom: -14vmax; left: 22vw; }
-  @media (prefers-reduced-motion: no-preference) {
-    .ambient .a { animation: drift 26s ease-in-out infinite alternate; }
-    .ambient .b { animation: drift 32s ease-in-out infinite alternate-reverse; }
-    .ambient .c { animation: drift 38s ease-in-out infinite alternate; }
-    @keyframes drift { to { transform: translate(6vmax, 4vmax) scale(1.08); } }
-  }
-
-  /* ——— glass primitives ——— */
-  .glass {
-    background: var(--glass);
-    -webkit-backdrop-filter: blur(24px) saturate(1.6);
-    backdrop-filter: blur(24px) saturate(1.6);
-    border: 1px solid var(--glass-edge);
-    box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-edge);
-  }
-  .pill { border-radius: 999px; }
-
-  /* ——— masthead ——— */
-  .mast { position: sticky; top: 12px; z-index: 5; }
-  .mast .inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; }
-  .mark { font-family: var(--display); font-size: 19px; }
-  .mark b { font-weight: 400; color: var(--petrol); }
-  .lang { display: flex; gap: 2px; border-radius: 999px; padding: 3px; background: color-mix(in oklch, var(--ink) 7%, transparent); }
-  .lang button { border: 0; background: transparent; color: var(--sub); padding: 5px 14px; font-size: 12.5px; font-weight: 600; letter-spacing: .06em; cursor: pointer; border-radius: 999px; }
-  .lang button[aria-pressed="true"] { background: var(--glass-strong); color: var(--ink); box-shadow: 0 2px 10px -4px oklch(30% 0.04 190 / .4); }
-
-  /* ——— hero ——— */
-  .hero { min-height: calc(96svh - 80px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: clamp(48px, 9vh, 90px) 0 clamp(56px, 9vh, 96px); position: relative; }
-  .hero h1 { font-size: clamp(24px, 3.2vw, 34px); max-width: 30ch; margin-top: clamp(36px, 6vh, 64px); font-weight: 400; }
-  .hero h1 em { font-family: var(--displaytext); font-style: italic; color: var(--petrol); }
-  .hero .lede { margin-top: 10px; font-size: clamp(14px, 1.6vw, 15.5px); color: var(--sub); max-width: 52ch; }
-
   .search { margin-top: 0; width: min(740px, 100%); }
   .search input#f-brand { font-size: 20px; }
   .box .lens { flex: none; width: 21px; height: 21px; color: var(--sub); margin-left: 4px; }
@@ -125,8 +25,6 @@
   .search .box:focus-within { transform: translateY(-2px); box-shadow: 0 30px 80px -28px oklch(30% 0.06 190 / .6), inset 0 1px 0 var(--glass-edge); }
   .search input#f-brand { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font-size: 19px; padding: 15px 0; outline: none; }
   .search input::placeholder { color: var(--sub); }
-  .go { border: 0; background: var(--petrol); color: var(--paper); font-size: 16.5px; font-weight: 700; padding: 15px 30px; border-radius: 999px; cursor: pointer; white-space: nowrap; transition: background .2s ease; }
-  .go:hover { background: var(--petrol-deep); }
   .hint { margin-top: 14px; font-size: 13.5px; color: var(--sub); }
   .hint button { border: 0; background: none; color: var(--petrol); font-size: 13.5px; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
@@ -142,27 +40,6 @@
   .modemenu button:hover { background: color-mix(in oklch, var(--ink) 8%, transparent); }
   .modemenu button:focus-visible { outline: 2px solid var(--petrol); outline-offset: -2px; }
   .modemenu button[aria-selected="true"]::after { content: " ✓"; color: var(--petrol); font-weight: 700; }
-  .mylink { font-size: 13px; font-weight: 600; color: var(--sub); text-decoration: none; white-space: nowrap; margin-right: 10px; }
-  .mylink:hover { color: var(--ink); text-decoration: underline; }
-
-  /* mobile: the field gets its own full-width row; selector + button share the row below */
-  @media (max-width: 560px) {
-    .hero { min-height: 0; justify-content: flex-start; padding: 28px 0 48px; }
-    .search .box { flex-wrap: wrap; gap: 8px 10px; padding: 6px 8px 8px 14px; border-radius: 28px; }
-    .box .lens { order: 0; margin-left: 2px; }
-    .search input#f-brand { order: 1; flex: 1 1 calc(100% - 40px); font-size: 18px; padding: 14px 0 12px; }
-    .modewrap { order: 2; }
-    .go { order: 3; flex: 1; padding: 14px 20px; }
-    .modemenu { min-width: 0; width: calc(100vw - 48px); }
-    .hero .proofline { position: static; margin-top: 32px; }
-    .mark { white-space: nowrap; }
-  }
-  @media (max-width: 380px) {
-    .mast .inner { gap: 8px; }
-    .mark { font-size: 17px; }
-    .mylink { font-size: 12px; margin-right: 0; }
-    .lang button { padding: 5px 8px; }
-  }
 
   /* step 2 sheet */
   .sheet { overflow: hidden; max-height: 0; opacity: 0; transition: max-height .5s cubic-bezier(.16,1,.3,1), opacity .4s ease, margin .4s ease; margin-top: 0; text-align: left; border-radius: 26px; }
@@ -223,25 +100,13 @@
   .final .roundel .l { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--sub); font-weight: 700; margin-top: 3px; }
   .finalbtns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .finalbtns .go { text-decoration: none; display: inline-block; }
-  .quietgo { background: color-mix(in oklch, var(--ink) 9%, transparent); color: var(--ink); }
-  .quietgo:hover { background: color-mix(in oklch, var(--ink) 15%, transparent); }
   @media (prefers-reduced-motion: no-preference) {
     #k-scorewrap .roundel { animation: press .6s cubic-bezier(.16,1,.3,1) backwards; }
   }
 
-  /* proof line */
-  .proofline { position: absolute; bottom: 18px; left: 0; right: 0; display: flex; gap: 6px 24px; flex-wrap: wrap; justify-content: center; font-size: 13px; color: var(--sub); padding-inline: 16px; }
-  .proofline b { color: var(--ink); font-weight: 600; }
-  .stamp { color: var(--brick); border: 1.5px solid var(--brick); border-radius: 4px; padding: 0 7px; transform: rotate(-3deg); display: inline-block; font-family: var(--display); letter-spacing: .12em; font-size: 12px; background: color-mix(in oklch, var(--paper) 60%, transparent); }
-
-  /* ——— sections ——— */
-  section { padding: clamp(48px, 8vw, 84px) 0; }
-  section h2 { font-size: clamp(27px, 3.8vw, 36px); margin-bottom: 10px; }
-  .sub { color: var(--sub); max-width: 44em; }
-
   .specimen { border-radius: 26px; overflow: hidden; max-width: 640px; margin: 28px auto 0; text-align: left; }
-  .specimen .shead { display: flex; justify-content: space-between; gap: 10px; padding: 12px 22px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); font-weight: 600; }
-  .specimen .q { padding: 16px 22px 6px; font-size: 14.5px; color: var(--sub); }
+  .specimen .shead2 { display: flex; justify-content: space-between; gap: 10px; padding: 12px 22px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); font-weight: 600; }
+  .specimen .q { padding: 18px 22px 6px; }
   .specimen .q em { font-family: var(--displaytext); font-style: italic; color: var(--ink); font-size: 15.5px; }
   .specimen ol { list-style: none; padding: 10px 0 4px; margin: 0; counter-reset: rank; }
   .specimen li { counter-increment: rank; display: flex; gap: 14px; align-items: baseline; padding: 8px 22px; font-size: 14.5px; }
@@ -277,24 +142,76 @@
     .sp-verdict span { animation: press .45s cubic-bezier(.16,1,.3,1) backwards; }
   }
 
-  .measures { margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-  .m { border-radius: 20px; padding: 20px 22px; font-size: 14.5px; }
-  .m b { display: block; font-weight: 700; margin-bottom: 4px; }
-  .m span { color: var(--sub); }
 
-  .tariff { margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; align-items: stretch; }
-  .tcol { position: relative; display: flex; flex-direction: column; gap: 10px; border-radius: 22px; padding: 24px 24px 26px; }
-  .tcol .no { font-family: var(--display); font-size: 20px; color: var(--petrol); }
-  .tcol h3 { font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1.15; min-height: 2.3em; }
-  .tcol .fee { font-family: var(--display); font-size: 34px; color: var(--petrol); line-height: 1; }
-  .tcol .per { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--sub); min-height: 1.4em; }
-  .tcol p { font-size: 14px; color: var(--sub); }
-  .tcol.reco { border: 1.5px solid var(--petrol); }
-  .tcol .badge { position: absolute; top: -11px; right: 18px; background: var(--petrol); color: var(--paper); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; border-radius: 999px; padding: 3px 12px; transform: rotate(-2deg); }
-  @media (max-width: 560px) { .tcol h3 { min-height: 0; } .tcol .per { min-height: 0; } }
+  /* ——— home: hero ——— */
+  .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(56px, 12vw, 112px) 0 clamp(72px, 12vw, 128px); }
+  .hero h1 { font-size: clamp(40px, 10vw, 86px); margin-top: 18px; }
+  .hero h1 em { display: block; }
+  .hero .lede { margin-top: 20px; max-width: 24em; }
+  .search { width: min(720px, 100%); margin-top: clamp(36px, 7vw, 56px); }
+  .search .hint { margin-top: 18px; }
+  @media (min-width: 760px) { .hero { min-height: calc(100svh - 90px); justify-content: center; padding-top: 48px; } }
 
-  .ctaband { text-align: center; }
-  footer { padding: 30px 0 26px; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; font-size: 12.5px; color: var(--sub); letter-spacing: .04em; }
+  /* mobile: the field gets its own full-width row; selector + button share the row below */
+  @media (max-width: 560px) {
+    .search .box { flex-wrap: wrap; gap: 8px 10px; padding: 6px 8px 8px 14px; border-radius: 28px; }
+    .box .lens { order: 0; margin-left: 2px; }
+    .search input#f-brand { order: 1; flex: 1 1 calc(100% - 40px); font-size: 18px; padding: 14px 0 12px; }
+    .modewrap { order: 2; }
+    .search .box .go { order: 3; flex: 1; padding: 14px 20px; }
+    .modemenu { min-width: 0; width: calc(100vw - 48px); }
+    .hintbits { gap: 8px 18px; font-size: 13px; }
+  }
+
+  /* ——— specimen ——— */
+  .specimen { max-width: 640px; margin: 0 auto; text-align: left; border-radius: 26px; overflow: hidden; }
+  .specimen .q em { font-size: clamp(17px, 2.4vw, 19px); line-height: 1.45; }
+
+  /* ——— three steps ——— */
+  .steps3 { list-style: none; padding: 0; display: grid; gap: 0; }
+  .steps3 li { border-top: 1px solid var(--hairline); padding: 28px 0 32px; display: grid; grid-template-columns: 64px 1fr; column-gap: 12px; align-content: start; }
+  .steps3 .n { grid-row: span 2; font-family: var(--display); font-size: 40px; line-height: 1; color: var(--petrol); }
+  .steps3 h3 { font-size: 27px; }
+  .steps3 p { color: var(--sub); margin-top: 8px; max-width: 26em; }
+  @media (min-width: 760px) {
+    .steps3 { grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .steps3 li { grid-template-columns: 1fr; padding-top: 32px; }
+    .steps3 .n { grid-row: auto; font-size: 52px; margin-bottom: 22px; }
+  }
+  .more { margin-top: 28px; }
+
+  /* ——— report preview ——— */
+  .split { display: grid; gap: 8px; align-items: center; }
+  @media (min-width: 900px) { .split { grid-template-columns: 1fr 1.05fr; gap: 64px; } .split .shead { margin-bottom: 0; } }
+  .report { border-radius: 28px; overflow: hidden; margin: 0; }
+  .rp-head { display: flex; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; color: var(--sub); }
+  .rp-ex { color: var(--petrol); }
+  .rp-id { padding: 22px 24px 0; display: grid; gap: 2px; }
+  .rp-id b { font-family: var(--display); font-weight: 400; font-size: 24px; }
+  .rp-id span { font-size: 14px; color: var(--sub); }
+  .rp-main { padding: 22px 24px 26px; }
+  .rp-comp { border-top: 1px solid var(--hairline); padding: 18px 24px 20px; display: grid; gap: 12px; }
+  .rp-comp .lbl { font-size: 13.5px; font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips i { font-style: normal; font-size: 13px; padding: 6px 12px; border-radius: 999px; background: color-mix(in oklch, var(--ink) 8%, transparent); filter: blur(4px); user-select: none; }
+  .lock { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: var(--petrol); }
+  .lock svg { width: 15px; height: 15px; }
+  .rp-quote { border-top: 1px solid var(--hairline); padding: 20px 24px 24px; }
+  .rp-quote p { font-family: var(--displaytext); font-style: italic; font-size: 17px; line-height: 1.45; }
+  .rp-quote cite { display: block; font-style: normal; font-size: 12.5px; color: var(--sub); margin-top: 8px; }
+
+  /* ——— offer teaser ——— */
+  .offer { list-style: none; padding: 0; display: grid; }
+  .offer li { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid var(--hairline); padding: 26px 0; }
+  .offer h3 { font-size: 26px; }
+  .offer p { color: var(--sub); margin-top: 4px; font-size: 15px; }
+  .offer .fee { font-family: var(--display); font-weight: 400; font-size: 30px; color: var(--petrol); white-space: nowrap; text-align: right; }
+  .offer .fee small { font-family: var(--sans); font-size: 13px; color: var(--sub); margin-left: 2px; }
+  .offer li.reco { border: 1.5px solid var(--petrol); border-radius: 22px; padding: 26px 22px; margin-top: 12px; background: color-mix(in oklch, var(--petrol) 7%, transparent); }
+  .offer li.reco + li, .offer li:last-child { border-bottom: 0; }
+  .vatnote { margin-top: 18px; font-size: 13.5px; color: var(--sub); }
+  .badge { display: inline-block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 800; color: var(--petrol); margin-bottom: 6px; }
+  @media (min-width: 760px) { .offer li { padding: 30px 8px; } .offer li.reco { padding: 30px 28px; } .offer .fee { font-size: 36px; } }
 </style>
 </head>
 <body>
@@ -302,19 +219,38 @@
 
 <div class="wrap">
   <header class="mast">
-    <div class="inner">
-      <div class="mark">AI <b>Réputation</b></div>
-      <div style="display: flex; align-items: center;">
-      <a class="mylink" href="mesures/" data-i18n="n.mine">Mes mesures</a>
-      <div class="lang" role="group" aria-label="Langue / Language">
-        <button id="btn-fr" aria-pressed="true" onclick="setLang('fr')">FR</button>
-        <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
-      </div>
+    <div class="inner glass">
+      <a class="brand" href="./" aria-label="AI Réputation, accueil">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg>
+        <span class="wm">AI <b>Réputation</b></span>
+      </a>
+      <div class="navr">
+        <nav class="nav" aria-label="Navigation">
+          <a href="methode/" data-i18n="nav.m">Méthode</a>
+          <a href="tarifs/" data-i18n="nav.t">Tarifs</a>
+          <a href="mesures/" data-i18n="n.mine">Mes mesures</a>
+        </nav>
+        <div class="lang" role="group" aria-label="Langue / Language">
+          <button id="btn-fr" aria-pressed="true" onclick="setLang('fr')">FR</button>
+          <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
+        </div>
+        <details class="menu">
+          <summary aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></summary>
+          <div class="panel glass">
+            <a href="methode/" data-i18n="nav.m">Méthode</a>
+            <a href="tarifs/" data-i18n="nav.t">Tarifs</a>
+            <a href="mesures/" data-i18n="n.mine">Mes mesures</a>
+          </div>
+        </details>
       </div>
     </div>
   </header>
 
   <div class="hero">
+    <p class="eyebrow" data-i18n="h.eyebrow">Mesure de réputation IA</p>
+    <h1><span data-i18n="h.1">Que disent les IA</span> <em data-i18n="h.2">de votre marque&nbsp;?</em></h1>
+    <p class="lede" data-i18n="h.lede">Vos clients demandent conseil à ChatGPT. Êtes-vous dans la réponse&nbsp;?</p>
+
     <form class="search" id="askForm">
       <div class="box glass">
         <div class="modewrap">
@@ -400,22 +336,17 @@
         </div>
       </div>
     </div>
-
-    <h1><span data-i18n="h.1">Que disent les IA</span> <em data-i18n="h.2">de votre marque&nbsp;?</em></h1>
-    <p class="lede" data-i18n="h.lede">ChatGPT, Claude, Gemini et Perplexity vous décrivent, vous comparent, vous recommandent, ou vous oublient. <span style="white-space: nowrap;">Mesurez-le.</span></p>
-
-    <div class="proofline">
-      <span data-i18n="p.q"><b>« Quel installateur de panneaux solaires recommandes-tu en Wallonie ? »</b></span>
-      <span><span data-i18n="p.r">3 concurrents cités · l'entreprise testée</span> <span class="stamp" data-i18n="p.stamp">ABSENT</span></span>
-    </div>
   </div>
 
-  <section id="preuve" style="text-align: center;">
-    <h2 data-i18n="pr.title">La réponse que reçoit votre prochain client</h2>
-    <p class="sub" style="margin-inline: auto;" data-i18n="pr.sub">Composée à partir de blogs, d'annuaires et de forums. Pas de votre site.</p>
+  <section class="section center reveal" id="preuve">
+    <div class="shead">
+      <p class="eyebrow" data-i18n="pr.eyebrow">Spécimen</p>
+      <h2 data-i18n="pr.title">La réponse que reçoit votre prochain client</h2>
+      <p class="lede" data-i18n="pr.sub">Composée à partir de blogs, d'annuaires et de forums. Pas de votre site.</p>
+    </div>
     <div class="specimen glass">
-      <div class="shead"><span data-i18n="pr.head">Spécimen de mesure</span><span id="sp-ref">A-07</span></div>
-      <div class="q"><span data-i18n="pr.q">Question posée à une IA :</span> <em id="sp-q"><span id="sp-qtext"></span><span class="caret" id="sp-caret"></span></em></div>
+      <div class="shead2"><span data-i18n="pr.head">Question posée à une IA</span><span id="sp-ref">A-07</span></div>
+      <div class="q"><em id="sp-q"><span id="sp-qtext"></span><span class="caret" id="sp-caret"></span></em></div>
       <div class="thinking" id="sp-think" hidden><i></i><i></i><i></i> <span data-i18n="pr.think">interrogation du modèle…</span></div>
       <ol id="sp-list"></ol>
       <div class="sp-verdict" id="sp-verdict" hidden></div>
@@ -423,59 +354,106 @@
     </div>
   </section>
 
-  <section id="methode">
-    <h2 data-i18n="m.title">Un prompt est une anecdote. Nous produisons une mesure.</h2>
-    <p class="sub" data-i18n="m.sub">Le test interroge les modèles des centaines de fois, comme le feraient vos clients : sans jamais souffler votre nom, en plusieurs formulations, plusieurs passes et plusieurs langues.</p>
-    <div class="measures">
-      <div class="m glass"><b data-i18n="m.1t">Présence spontanée</b><span data-i18n="m.1d">Apparaissez-vous quand un acheteur demande « le meilleur… » sans vous nommer, et à quel rang ?</span></div>
-      <div class="m glass"><b data-i18n="m.2t">Cadrage</b><span data-i18n="m.2d">Référence, égal des meilleurs, « option moins chère » ou acteur de niche : comment les IA vous racontent.</span></div>
-      <div class="m glass"><b data-i18n="m.3t">Exactitude</b><span data-i18n="m.3d">Prix, adresses, direction, certifications : chaque fait faux, tracé jusqu'à la page qui l'enseigne aux modèles.</span></div>
-      <div class="m glass"><b data-i18n="m.4t">Part de voix</b><span data-i18n="m.4d">Les concurrents cités quand vous êtes absent : qui occupe le terrain dans la couche de réponse.</span></div>
-      <div class="m glass"><b data-i18n="m.5t">Questions du secteur</b><span data-i18n="m.5d">Les vraies questions que vos acheteurs posent aux IA : le keyword research de l'ère conversationnelle.</span></div>
-      <div class="m glass"><b data-i18n="m.6t">Stabilité</b><span data-i18n="m.6d">Les réponses changent d'une passe et d'un modèle à l'autre ; nous mesurons la dérive dans le temps.</span></div>
+  <section class="section reveal" id="comment">
+    <div class="shead">
+      <p class="eyebrow" data-i18n="st.eyebrow">Comment ça marche</p>
+      <h2 data-i18n="st.title">Trois étapes, <em>deux minutes.</em></h2>
+    </div>
+    <ol class="steps3">
+      <li>
+        <span class="n">01</span>
+        <h3 data-i18n="st.1t">Votre marque</h3>
+        <p data-i18n="st.1d">Son nom et son site. Rien d'autre à préparer.</p>
+      </li>
+      <li>
+        <span class="n">02</span>
+        <h3 data-i18n="st.2t">La mesure</h3>
+        <p data-i18n="st.2d">Une IA connectée au web reçoit les vraies questions de vos acheteurs, sans jamais entendre votre nom.</p>
+      </li>
+      <li>
+        <span class="n">03</span>
+        <h3 data-i18n="st.3t">Le verdict</h3>
+        <p data-i18n="st.3d">Un score sur 100, votre place face aux concurrents, et ce qu'il faut corriger en premier.</p>
+      </li>
+    </ol>
+    <p class="more"><a class="textlink" href="methode/" data-i18n="st.more">Comment nous mesurons →</a></p>
+  </section>
+
+  <section class="section reveal" id="rapport">
+    <div class="split">
+      <div class="shead">
+        <p class="eyebrow" data-i18n="rp.eyebrow">Ce que vous recevez</p>
+        <h2 data-i18n="rp.title">Un rapport, <em>pas une impression.</em></h2>
+        <p class="lede" data-i18n="rp.sub">Chaque mesure produit un dossier daté et partageable. Refaites-la le mois suivant : le progrès se lit d'un coup d'œil.</p>
+      </div>
+      <figure class="report glass" aria-label="Exemple de rapport">
+        <div class="rp-head"><span data-i18n="rp.head">Rapport préliminaire</span><span class="rp-ex" data-i18n="rp.ex">Exemple</span></div>
+        <div class="rp-id"><b data-i18n="rp.brand">Votre marque</b><span data-i18n="rp.sector">Installateur solaire · Wallonie</span></div>
+        <div class="rp-main">
+          <div class="scorecard">
+            <div class="sc-hero">
+              <span class="sc-label" data-i18n="rp.global">Score global</span>
+              <span class="v">40<small>/100</small></span>
+              <div class="meter lg" style="--v: 40" aria-hidden="true"><i></i></div>
+              <div class="meter-scale" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div>
+            </div>
+            <div class="sc-subs">
+              <div class="sc-sub"><span class="sc-label" data-i18n="rp.b1">Perception</span><span class="v">22</span><div class="meter" style="--v: 22" aria-hidden="true"><i></i></div></div>
+              <div class="sc-sub"><span class="sc-label" data-i18n="rp.b2">Préparation</span><span class="v">67</span><div class="meter" style="--v: 67" aria-hidden="true"><i></i></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="rp-comp">
+          <span class="lbl" data-i18n="rp.comp">Concurrents cités à votre place</span>
+          <div class="chips" aria-hidden="true"><i>Concurrent A</i><i>Concurrent B</i><i>Concurrent C</i><i>Concurrent D</i></div>
+          <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> <span data-i18n="rp.lock">Identités dans le rapport complet</span></span>
+        </div>
+        <blockquote class="rp-quote"><p data-i18n="rp.quote">« Je n'ai pas trouvé d'information fiable sur cette entreprise. »</p><cite data-i18n="rp.cite">L'IA, interrogée directement sur la marque</cite></blockquote>
+      </figure>
     </div>
   </section>
 
-  <section id="tarifs">
-    <h2 data-i18n="t.title">Procédure et tarification</h2>
-    <div class="tariff">
-      <div class="tcol glass">
-        <div class="no">I</div><h3 data-i18n="t.1t">Score</h3>
-        <div class="fee" data-i18n="t.1f">Gratuit</div>
-        <div class="per" data-i18n="t.1p">votre marque, votre domaine</div>
-        <p data-i18n="t.1d">Votre nom, votre site : l'outil comprend votre activité, lance une première batterie et rend un score de perception IA avec les constats clés.</p>
-      </div>
-      <div class="tcol glass">
-        <div class="no">II</div><h3 data-i18n="t.2t">Rapport</h3>
-        <div class="fee" data-i18n="t.2f">390&nbsp;€</div>
-        <div class="per" data-i18n="t.2p">le dossier · livré sous 5 jours</div>
-        <p data-i18n="t.2d">Batterie intégrale multi-modèles et multi-langues, benchmark concurrentiel, inventaire des erreurs et des sources responsables, plan de correction priorisé.</p>
-      </div>
-      <div class="tcol glass reco">
-        <span class="badge" data-i18n="t.reco">Le cœur de l'offre</span>
-        <div class="no">III</div><h3 data-i18n="t.3t">Amélioration continue</h3>
-        <div class="fee" data-i18n="t.3f">290&nbsp;€</div>
-        <div class="per" data-i18n="t.3p">par mois · rapport inclus à l'entrée</div>
-        <p data-i18n="t.3d">Mesurer sans corriger ne change rien ; corriger sans mesurer ne se prouve pas. L'abonnement fait les deux : interventions chaque mois, re-mesure à chaque évolution des modèles, et le delta avant / après comme seul juge.</p>
-      </div>
-      <div class="tcol glass">
-        <div class="no">IV</div><h3 data-i18n="t.4t">Consultance</h3>
-        <div class="fee" data-i18n="t.4f">1&nbsp;200&nbsp;€</div>
-        <div class="per" data-i18n="t.4p">par jour · sur devis</div>
-        <p data-i18n="t.4d">Exécution du plan de correction avec vos équipes : stratégie de contenu pour la couche de réponse, préparation au commerce agentique, formation.</p>
-      </div>
+  <section class="section reveal" id="offre">
+    <div class="shead">
+      <p class="eyebrow" data-i18n="of.eyebrow">Tarifs</p>
+      <h2 data-i18n="of.title">Commencez <em>gratuitement.</em></h2>
     </div>
+    <ul class="offer">
+      <li>
+        <div><h3 data-i18n="of.1t">Score</h3><p data-i18n="of.1d">Votre point de départ, en deux minutes.</p></div>
+        <b class="fee" data-i18n="of.1f">Gratuit</b>
+      </li>
+      <li>
+        <div><h3 data-i18n="of.2t">Rapport</h3><p data-i18n="of.2d">Le diagnostic complet et le plan de correction.</p></div>
+        <b class="fee" data-i18n="of.2f">390&nbsp;€</b>
+      </li>
+      <li class="reco">
+        <div><span class="badge" data-i18n="of.reco">Le cœur de l'offre</span><h3 data-i18n="of.3t">Amélioration continue</h3><p data-i18n="of.3d">On corrige, on re-mesure, chaque mois.</p></div>
+        <b class="fee"><span data-i18n="of.3f">290&nbsp;€</span><small data-i18n="of.3p">/mois</small></b>
+      </li>
+    </ul>
+    <p class="vatnote" data-i18n="of.vat">Prix hors TVA.</p>
+    <p class="more"><a class="textlink" href="tarifs/" data-i18n="of.more">Détail des offres et consultance →</a></p>
   </section>
 
-  <section class="ctaband">
-    <h2 data-i18n="c.title">Commencez par la mesure</h2>
-    <p class="sub" style="margin: 8px auto 22px;" data-i18n="c.sub">Deux minutes, gratuit, et vous saurez ce que les machines racontent à votre place.</p>
-    <button class="go" data-i18n="c.cta" onclick="document.getElementById('f-brand').focus(); window.scrollTo({top: 0, behavior: 'smooth'});">Obtenir mon score</button>
+  <section class="closer reveal">
+    <h2 data-i18n="c.title">Commencez par <em>la mesure.</em></h2>
+    <p class="lede" data-i18n="c.sub">Deux minutes, gratuit : vous saurez ce que les IA racontent à votre place.</p>
+    <button class="go" data-i18n="c.cta" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); setTimeout(function () { document.getElementById('f-brand').focus(); }, 450);">Mesurer ma marque</button>
   </section>
 
   <footer>
-    <span>AI Réputation — <span data-i18n="f.by">un service du studio</span> <a href="https://veracruz.be" style="color: var(--petrol); font-weight: 600; text-decoration: none;">Veracruz</a> · © <span id="fy">2026</span> Veracruz</span>
-    <span data-i18n="f.chain">Mesure · Diagnostic · Amélioration continue · Consultance</span>
+    <a class="brand" href="./">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg>
+      <span class="wm">AI <b>Réputation</b></span>
+    </a>
+    <nav class="links" aria-label="Pied de page">
+      <a href="methode/" data-i18n="nav.m">Méthode</a>
+      <a href="tarifs/" data-i18n="nav.t">Tarifs</a>
+      <a href="mesures/" data-i18n="n.mine">Mes mesures</a>
+      <a href="mailto:info@veracruz.be">info@veracruz.be</a>
+    </nav>
+    <p class="fine"><span data-i18n="f.by">Un service du studio</span> <a href="https://veracruz.be">Veracruz</a> · © <span id="fy">2026</span></p>
   </footer>
 </div>
 
@@ -483,8 +461,25 @@
   var I18N = {
     fr: {},
     en: {
+      "nav.m": "Method", "nav.t": "Pricing",
+      "st.eyebrow": "How it works", "st.title": "Three steps, <em>two minutes.</em>",
+      "st.1t": "Your brand", "st.1d": "Its name and its website. Nothing else to prepare.",
+      "st.2t": "The measurement", "st.2d": "A web-connected AI receives your buyers' real questions, without ever hearing your name.",
+      "st.3t": "The verdict", "st.3d": "A score out of 100, where you stand against competitors, and what to fix first.",
+      "st.more": "How we measure →",
+      "rp.eyebrow": "What you receive", "rp.title": "A report, <em>not an impression.</em>",
+      "rp.sub": "Every measurement produces a dated, shareable file. Run it again next month: progress shows at a glance.",
+      "rp.head": "Preliminary report", "rp.ex": "Example", "rp.brand": "Your brand", "rp.sector": "Solar installer · Wallonia",
+      "rp.global": "Overall score", "rp.b1": "Perception", "rp.b2": "Readiness", "rp.comp": "Competitors cited in your place",
+      "rp.lock": "Identities in the full report",
+      "rp.quote": "“I could not find reliable information about this company.”", "rp.cite": "The AI, asked directly about the brand",
+      "of.eyebrow": "Pricing", "of.title": "Start <em>for free.</em>",
+      "of.1t": "Score", "of.1d": "Your starting point, in two minutes.", "of.1f": "Free",
+      "of.2t": "Report", "of.2d": "The full diagnosis and the correction plan.", "of.2f": "€390",
+      "of.3t": "Continuous improvement", "of.3d": "We correct, we re-measure, every month.", "of.3f": "€290", "of.3p": "/month",
+      "of.reco": "The heart of the offer", "of.vat": "Prices exclude VAT.", "of.more": "Full offer details and consulting →",
       "h.1": "What do AIs say", "h.2": "about your brand?",
-      "h.lede": "ChatGPT, Claude, Gemini and Perplexity describe you, compare you, recommend you, or leave you out. Measure it.",
+      "h.lede": "Your customers ask ChatGPT for advice. Are you in the answer?", "h.eyebrow": "AI reputation measurement",
       "s.brand": "Your company name…", "s.go": "Measure",
       "s.email.l": "Your work email", "s.email": "name@your-domain.com",
       "s.site.l": "Your brand's website", "s.site": "your-domain.com",
@@ -517,7 +512,7 @@
       "p.r": "3 competitors cited · the tested business", "p.stamp": "ABSENT",
       "pr.title": "The answer your next customer receives",
       "pr.sub": "Assembled from blogs, directories and forums. Not from your site.",
-      "pr.head": "Measurement specimen", "pr.q": "Question put to an AI:",
+      "pr.head": "Question put to an AI", "pr.eyebrow": "Specimen", "pr.think": "querying the model…",
       "pr.qtext": "“Which solar panel installer would you recommend in Wallonia?”",
       "pr.1": "Competitor A, “well established, highly rated”",
       "pr.2": "Competitor B, “good value for money”",
@@ -545,30 +540,30 @@
       "k.also": "A copy is also on its way to",
       "k.r1": "Don't worry: your score will be sent to your address.",
       "k.r2": "This takes less than two minutes.",
-      "k.r3": "We are querying every major AI tool out there. It can take a moment ;)",
+      "k.r3": "The AI searches the web, just like a customer would. It can take a moment.",
       "k.r4": "You can close this page: nothing will be lost.",
       "k.s1": "Opening the file", "k.s1m": "registered",
       "k.s2": "Profiling the business", "k.s2m": "site · sector · area",
-      "k.s3": "Generating the question battery", "k.s3m": "35 buyer questions · 2 languages",
-      "k.s4": "Queueing the models", "k.s4m": "ChatGPT · Claude · Gemini · Perplexity",
-      "k.s5": "Scheduling measurement passes", "k.s5m": "3 passes per question",
+      "k.s3": "Writing your buyers' questions", "k.s3m": "9 questions · your name never given",
+      "k.s4": "Querying the web-connected AI", "k.s4m": "live web search",
+      "k.s5": "Reading the answers", "k.s5m": "presence · rank · framing",
       "k.s6": "Compiling the file", "k.s6m": "sent to the bureau",
-      "c.title": "Start with the measurement",
-      "c.sub": "Two minutes, free, and you will know what the machines are saying in your place.",
-      "c.cta": "Get my score",
-      "f.by": "a service by studio",
+      "c.title": "Start with <em>the measurement.</em>",
+      "c.sub": "Two minutes, free: you will know what the AIs are saying in your place.",
+      "c.cta": "Measure my brand",
+      "f.by": "A service by studio",
       "f.chain": "Measurement · Diagnosis · Continuous improvement · Consulting"
     }
   };
   I18N.fr["k.r1"] = "Ne vous inquiétez pas : votre score sera envoyé à votre adresse.";
   I18N.fr["k.r2"] = "Cela prend moins de deux minutes.";
-  I18N.fr["k.r3"] = "Nous interrogeons l'ensemble des outils IA existants, cela peut prendre un peu de temps ;)";
+  I18N.fr["k.r3"] = "L'IA cherche sur le web, comme le ferait un client. Cela peut prendre un moment.";
   I18N.fr["k.r4"] = "Vous pouvez fermer cette page : rien ne sera perdu.";
   I18N.fr["k.s1"] = "Ouverture du dossier"; I18N.fr["k.s1m"] = "enregistré";
   I18N.fr["k.s2"] = "Profilage de l'activité"; I18N.fr["k.s2m"] = "site · secteur · zone";
-  I18N.fr["k.s3"] = "Génération de la batterie de questions"; I18N.fr["k.s3m"] = "35 questions d'acheteur · 2 langues";
-  I18N.fr["k.s4"] = "Mise en file des modèles"; I18N.fr["k.s4m"] = "ChatGPT · Claude · Gemini · Perplexity";
-  I18N.fr["k.s5"] = "Programmation des passes de mesure"; I18N.fr["k.s5m"] = "3 passes par question";
+  I18N.fr["k.s3"] = "Rédaction des questions de vos acheteurs"; I18N.fr["k.s3m"] = "9 questions · sans votre nom";
+  I18N.fr["k.s4"] = "Interrogation de l'IA connectée"; I18N.fr["k.s4m"] = "recherche web active";
+  I18N.fr["k.s5"] = "Lecture des réponses"; I18N.fr["k.s5m"] = "présence · rang · cadrage";
   I18N.fr["k.s6"] = "Compilation du dossier"; I18N.fr["k.s6m"] = "transmis au bureau";
   I18N.fr["k.copied"] = "Lien copié ✓";
   I18N.fr["s.ok"] = "Bien reçu. Votre demande est au dossier ; votre score arrive.";
@@ -1061,5 +1056,6 @@
     })(0);
   }
 </script>
+<script src="assets/site.js"></script>
 </body>
 </html>

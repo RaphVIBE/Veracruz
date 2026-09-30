@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tarifs — AI Réputation</title>
+<meta name="description" content="Score gratuit, rapport à 390 €, amélioration continue à 290 € par mois, consultance sur devis.">
+<meta name="theme-color" content="#123033">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Public+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@144,900&text=AI&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .plans { display: grid; gap: 16px; }
+  @media (min-width: 760px) { .plans { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .plans { grid-template-columns: repeat(4, 1fr); } }
+  .plan { border-radius: 26px; padding: 30px 26px 28px; display: flex; flex-direction: column; gap: 14px; position: relative; }
+  .plan .no { font-family: var(--display); font-size: 18px; color: var(--petrol); }
+  .plan h2 { font-size: 30px; }
+  .plan .fee { font-family: var(--display); font-size: 44px; line-height: 1; color: var(--petrol); }
+  .plan .fee small { font-family: var(--sans); font-size: 14px; color: var(--sub); margin-left: 4px; }
+  .plan .per { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--sub); }
+  .plan ul { list-style: none; padding: 0; display: grid; gap: 10px; margin-top: 6px; font-size: 15px; }
+  .plan li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; }
+  .plan li::before { content: ""; width: 14px; height: 8px; border-left: 2px solid var(--petrol); border-bottom: 2px solid var(--petrol); transform: rotate(-45deg); margin-top: 6px; }
+  .plan .go { margin-top: auto; }
+  .plan .spacer { flex: 1; }
+  .plan.reco { border: 1.5px solid var(--petrol); }
+  .plan .badge { position: absolute; top: -12px; left: 24px; background: var(--petrol); color: var(--on-petrol); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 800; border-radius: 999px; padding: 4px 12px; }
+  .note { margin-top: 22px; font-size: 14px; color: var(--sub); }
+  .plan .fee small.vat { font-size: 11px; letter-spacing: .08em; font-weight: 700; }
+
+  .faq { display: grid; }
+  .faq details { border-top: 1px solid var(--hairline); }
+  .faq details:last-child { border-bottom: 1px solid var(--hairline); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 20px; padding: 24px 0; font-family: var(--display); font-size: 22px; line-height: 1.25; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-family: var(--sans); color: var(--petrol); font-size: 24px; line-height: 1; transition: transform .25s ease; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq p { color: var(--sub); padding: 0 0 26px; max-width: 40em; }
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "fr", "mainEntity": [{"@type": "Question", "name": "Pourquoi le score gratuit ne mesure-t-il que ma propre marque ?", "acceptedAnswer": {"@type": "Answer", "text": "Un score engage la marque mesurée. L'e-mail doit donc appartenir au domaine du site. Mesurer d'autres marques fait partie des offres payantes."}}, {"@type": "Question", "name": "Quelles IA interrogez-vous ?", "acceptedAnswer": {"@type": "Answer", "text": "Le score gratuit interroge une IA connectée au web, comme ChatGPT, Perplexity ou Claude le font aujourd'hui pour vos clients. Les offres payantes élargissent la mesure."}}, {"@type": "Question", "name": "En combien de temps voit-on un résultat ?", "acceptedAnswer": {"@type": "Answer", "text": "La préparation technique bouge en quelques jours. La perception prend quelques semaines : il faut que les sources que lisent les IA parlent de vous."}}, {"@type": "Question", "name": "Mes rapports sont-ils publics ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Votre e-mail sert à vous envoyer le score. Un rapport n'est visible que par qui en a le lien : vous décidez de le partager ou non."}}]}</script>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+<div class="wrap">
+  <header class="mast">
+    <div class="inner glass">
+      <a class="brand" href="../" aria-label="AI Réputation, accueil"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg><span class="wm">AI <b>Réputation</b></span></a>
+      <div class="navr">
+        <nav class="nav" aria-label="Navigation"><a href="../methode/" data-i18n="nav.m">Méthode</a><a href="../tarifs/" aria-current="page" data-i18n="nav.t">Tarifs</a><a href="../mesures/" data-i18n="n.mine">Mes mesures</a></nav>
+        <div class="lang" role="group" aria-label="Langue / Language">
+          <button id="btn-fr" aria-pressed="true" onclick="setLang('fr')">FR</button>
+          <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
+        </div>
+        <details class="menu">
+          <summary aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></summary>
+          <div class="panel glass"><a href="../methode/" data-i18n="nav.m">Méthode</a><a href="../tarifs/" aria-current="page" data-i18n="nav.t">Tarifs</a><a href="../mesures/" data-i18n="n.mine">Mes mesures</a><a class="go" href="../" data-i18n="nav.cta">Mesurer ma marque</a></div>
+        </details>
+      </div>
+    </div>
+  </header>
+
+  <div class="pagehead">
+    <p class="eyebrow" data-i18n="ph.eyebrow">Tarifs</p>
+    <h1 data-i18n="ph.title">Mesurer, corriger, <em>prouver.</em></h1>
+    <p class="lede" data-i18n="ph.lede">Commencez gratuitement. Passez au suivi quand vous voulez voir la courbe monter.</p>
+  </div>
+
+  <section class="reveal" style="padding-bottom: var(--section);">
+    <div class="plans">
+      <article class="plan glass">
+        <span class="no">I</span>
+        <h2 data-i18n="t1.t">Score</h2>
+        <div class="fee"><span data-i18n="t1.f">Gratuit</span></div>
+        <div class="per" data-i18n="t1.p">votre marque, votre domaine</div>
+        <ul><li data-i18n="t1.i1">Score de perception sur 100</li><li data-i18n="t1.i2">Présence face aux concurrents</li><li data-i18n="t1.i3">Rapport partageable</li></ul>
+        <span class="spacer"></span>
+        <a class="go quietgo" href="../" data-i18n="t1.c">Mesurer ma marque</a>
+      </article>
+      <article class="plan glass">
+        <span class="no">II</span>
+        <h2 data-i18n="t2.t">Rapport</h2>
+        <div class="fee"><span data-i18n="t2.f">390&nbsp;€</span><small class="vat" data-i18n="t.vat">HTVA</small></div>
+        <div class="per" data-i18n="t2.p">le dossier · livré sous 5 jours</div>
+        <ul><li data-i18n="t2.i1">Concurrents nommés</li><li data-i18n="t2.i2">Sources lues par les IA</li><li data-i18n="t2.i3">Erreurs factuelles relevées</li><li data-i18n="t2.i4">Plan de correction priorisé</li></ul>
+        <span class="spacer"></span>
+        <a class="go quietgo" href="../" data-i18n="t2.c">Commencer par le score</a>
+      </article>
+      <article class="plan glass reco">
+        <span class="badge" data-i18n="t.reco">Le cœur de l'offre</span><span class="no">III</span>
+        <h2 data-i18n="t3.t">Amélioration continue</h2>
+        <div class="fee"><span data-i18n="t3.f">290&nbsp;€</span><small data-i18n="t3.s">/mois</small><small class="vat" data-i18n="t.vat">HTVA</small></div>
+        <div class="per" data-i18n="t3.p">rapport inclus à l'entrée</div>
+        <ul><li data-i18n="t3.i1">Interventions chaque mois</li><li data-i18n="t3.i2">Re-mesure en trois passes</li><li data-i18n="t3.i3">Courbe avant / après</li><li data-i18n="t3.i4">E-mail de suivi mensuel</li></ul>
+        <span class="spacer"></span>
+        <a class="go" href="../" data-i18n="t3.c">Commencer par le score</a>
+      </article>
+      <article class="plan glass">
+        <span class="no">IV</span>
+        <h2 data-i18n="t4.t">Consultance</h2>
+        <div class="fee"><span data-i18n="t4.f">1&nbsp;200&nbsp;€</span><small class="vat" data-i18n="t.vat">HTVA</small></div>
+        <div class="per" data-i18n="t4.p">par jour · sur devis</div>
+        <ul><li data-i18n="t4.i1">Exécution du plan avec vos équipes</li><li data-i18n="t4.i2">Contenus et sources</li><li data-i18n="t4.i3">Formation</li></ul>
+        <span class="spacer"></span>
+        <a class="go quietgo" href="mailto:info@veracruz.be?subject=AI%20R%C3%A9putation%20%E2%80%94%20consultance" data-i18n="t4.c">Nous écrire</a>
+      </article>
+    </div>
+    <p class="note" data-i18n="t.vatnote">Prix hors TVA. Le score reste gratuit, sans engagement.</p>
+  </section>
+
+  <section class="section reveal" style="padding-top: 0;">
+    <div class="narrow">
+      <div class="shead">
+        <p class="eyebrow" data-i18n="fq.eyebrow">Questions fréquentes</p>
+        <h2 data-i18n="fq.title">Avant de <em>commencer.</em></h2>
+      </div>
+      <div class="faq">
+      <details><summary data-i18n="q1.q">Pourquoi le score gratuit ne mesure-t-il que ma propre marque&nbsp;?</summary><p data-i18n="q1.a">Un score engage la marque mesurée. L'e-mail doit donc appartenir au domaine du site. Mesurer d'autres marques fait partie des offres payantes.</p></details>
+      <details><summary data-i18n="q2.q">Quelles IA interrogez-vous&nbsp;?</summary><p data-i18n="q2.a">Le score gratuit interroge une IA connectée au web, comme ChatGPT, Perplexity ou Claude le font aujourd'hui pour vos clients. Les offres payantes élargissent la mesure.</p></details>
+      <details><summary data-i18n="q3.q">En combien de temps voit-on un résultat&nbsp;?</summary><p data-i18n="q3.a">La préparation technique bouge en quelques jours. La perception prend quelques semaines : il faut que les sources que lisent les IA parlent de vous.</p></details>
+      <details><summary data-i18n="q4.q">Mes rapports sont-ils publics&nbsp;?</summary><p data-i18n="q4.a">Non. Votre e-mail sert à vous envoyer le score. Un rapport n'est visible que par qui en a le lien : vous décidez de le partager ou non.</p></details>
+      </div>
+    </div>
+  </section>
+  <section class="closer reveal">
+    <h2 data-i18n="c.title">Commencez par <em>la mesure.</em></h2>
+    <p class="lede" data-i18n="c.sub">Deux minutes, gratuit : vous saurez ce que les IA racontent à votre place.</p>
+    <a class="go" href="../" data-i18n="c.cta">Mesurer ma marque</a>
+  </section>
+  <footer>
+    <a class="brand" href="../"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg><span class="wm">AI <b>Réputation</b></span></a>
+    <nav class="links" aria-label="Pied de page">
+      <a href="../methode/" data-i18n="nav.m">Méthode</a>
+      <a href="../tarifs/" data-i18n="nav.t">Tarifs</a>
+      <a href="../mesures/" data-i18n="n.mine">Mes mesures</a>
+      <a href="mailto:info@veracruz.be">info@veracruz.be</a>
+    </nav>
+    <p class="fine"><span data-i18n="f.by">Un service du studio</span> <a href="https://veracruz.be">Veracruz</a> · © <span id="fy">2026</span></p>
+  </footer>
+</div>
+<script>window.PAGE_I18N = { en: {"nav.m": "Method", "nav.t": "Pricing", "n.mine": "My measurements", "nav.cta": "Measure my brand", "c.title": "Start with <em>the measurement.</em>", "c.sub": "Two minutes, free: you will know what the AIs are saying in your place.", "c.cta": "Measure my brand", "f.by": "A service by studio", "ph.eyebrow": "Pricing", "ph.title": "Measure, correct, <em>prove.</em>", "ph.lede": "Start for free. Move to tracking when you want to see the curve go up.", "t.reco": "The heart of the offer", "t.vat": "excl. VAT", "t.vatnote": "Prices exclude VAT. The score stays free, with no commitment.", "t1.t": "Score", "t1.f": "Free", "t1.p": "your brand, your domain", "t1.i1": "Perception score out of 100", "t1.i2": "Presence against competitors", "t1.i3": "Shareable report", "t1.c": "Measure my brand", "t2.t": "Report", "t2.f": "€390", "t2.p": "per file · delivered within 5 days", "t2.i1": "Competitors named", "t2.i2": "Sources read by the AIs", "t2.i3": "Factual errors found", "t2.i4": "Prioritised correction plan", "t2.c": "Start with the score", "t3.t": "Continuous improvement", "t3.f": "€290", "t3.s": "/month", "t3.p": "report included on entry", "t3.i1": "Interventions every month", "t3.i2": "Re-measurement in three passes", "t3.i3": "Before / after curve", "t3.i4": "Monthly tracking email", "t3.c": "Start with the score", "t4.t": "Consulting", "t4.f": "€1,200", "t4.p": "per day · on quotation", "t4.i1": "Executing the plan with your teams", "t4.i2": "Content and sources", "t4.i3": "Training", "t4.c": "Write to us", "fq.eyebrow": "Frequently asked", "fq.title": "Before you <em>start.</em>", "q1.q": "Why does the free score only measure my own brand?", "q1.a": "A score commits the brand being measured, so the email must belong to the site's domain. Measuring other brands is part of the paid offers.", "q2.q": "Which AIs do you query?", "q2.a": "The free score queries a web-connected AI, the way ChatGPT, Perplexity or Claude now answer your customers. The paid offers widen the measurement.", "q3.q": "How soon will I see a result?", "q3.a": "Technical readiness moves within days. Perception takes a few weeks: the sources the AIs read need to talk about you.", "q4.q": "Are my reports public?", "q4.a": "No. Your email is used to send you the score. A report is only visible to whoever has its link: you decide whether to share it."} };</script>
+<script src="../assets/site.js"></script>
+</body>
+</html>
