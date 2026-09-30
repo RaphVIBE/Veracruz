@@ -1,0 +1,16 @@
+# macOS / Windows junk
+.DS_Store
+Thumbs.db
+
+# Editeur
+.vscode/
+.idea/
+*.swp
+
+# Sortie du journal — generee par `npm run build` depuis content/journal/*.md.
+# Netlify la reconstruit a chaque deploiement, elle n'a pas sa place dans le depot.
+/journal/
+
+# Cache Netlify CLI
+.netlify/
+node_modules/
