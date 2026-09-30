@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>VeraCruz — A design studio</title>
+<title>VeraCruz, design studio in Brussels</title>
 <meta name="description" content="VeraCruz is a design studio for problems that cross product, service, and physical. We design them as one." />
 <meta name="theme-color" content="#FFFFFF" />
 
@@ -17,18 +17,18 @@
 <!-- Social sharing -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://veracruz.be/" />
-<meta property="og:title" content="VeraCruz — A design studio" />
+<meta property="og:title" content="VeraCruz, design studio in Brussels" />
 <meta property="og:description" content="A design studio for problems that cross product, service, and physical. We design them as one." />
 <meta property="og:image" content="https://veracruz.be/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="VeraCruz — A design studio" />
+<meta name="twitter:title" content="VeraCruz, design studio in Brussels" />
 <meta name="twitter:description" content="A design studio for problems that cross product, service, and physical. We design them as one." />
 <meta name="twitter:image" content="https://veracruz.be/og-image.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     /* ── VeraCruz Design System tokens ──────────────────────────── */
@@ -36,7 +36,9 @@
     /* Type families */
     --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
     --font-body:    'Outfit', system-ui, -apple-system, sans-serif;
-    --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    /* Une seule famille. Les libelles passent par la graisse et la taille,
+       pas par un caractere monospace. */
+    --font-label:   'Outfit', system-ui, -apple-system, sans-serif;
 
     /* Ink & paper (core duotone) */
     --ink:   #0A0A0A;
@@ -154,7 +156,7 @@
     padding-block: 10px;             /* tighter; nav links carry their own 44px */
   }
   .wordmark {
-    display: inline-flex; align-items: center; gap: 12px;
+    display: inline-flex; align-items: center; gap: 18px;
     height: 40px;
     line-height: 0;
     transition: opacity 200ms ease;
@@ -168,8 +170,10 @@
     /* PNGs now have alpha channels (transparent backgrounds), so they sit cleanly
        on any section tint without needing blend-mode tricks. */
   }
-  .wordmark .mark-img { height: 32px; }
-  .wordmark .logotype-img { height: 36px; }
+  /* Assets recadres au plus juste : les hauteurs CSS correspondent donc a la
+     taille optique reelle du signe et du mot. */
+  .wordmark .mark-img { height: 26px; }
+  .wordmark .logotype-img { height: 17px; }
   nav.primary ul {
     display: flex; gap: clamp(18px, 3vw, 36px);
     list-style: none; margin: 0; padding: 0;
@@ -233,14 +237,17 @@
     .hero::before { transition: opacity 600ms cubic-bezier(.2,.7,.2,1); }
   }
   .eyebrow {
-    font-family: var(--font-mono);
-    font-weight: 400;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.86rem;
+    letter-spacing: 0;
     color: var(--fg3);
     display: inline-flex; align-items: center; gap: 14px;
     margin-bottom: clamp(28px, 5vh, 44px);
+  }
+  .eyebrow .dot {
+    display: inline-block; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--line-strong); margin-inline: 4px;
   }
   .eyebrow::before {
     content: ""; width: 26px; height: 1px; background: var(--fg3);
@@ -298,11 +305,10 @@
     .block-head:not(:has(.label)) h2 { max-width: 26ch; }
   }
   .block-head .label {
-    font-family: var(--font-mono);
-    font-weight: 400;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.86rem;
+    letter-spacing: 0;
     color: var(--fg3);
     display: inline-flex; align-items: center; gap: 14px;
   }
@@ -386,29 +392,25 @@
     margin: 0;
   }
   .practice-row .name .index {
-    font-family: var(--font-mono);
+    font-family: var(--font-label);
     font-weight: 400;
-    font-size: 0.7rem;
+    font-size: 0.78rem;
     color: var(--fg3);
     display: inline-block;
     vertical-align: top;
-    margin-right: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    margin-right: 14px;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
   }
   .practice-row p { margin: 0; color: var(--fg2); max-width: 42ch; }
   .practice-row .examples {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
+    font-family: var(--font-label);
+    font-size: 0.86rem;
+    letter-spacing: 0;
     color: var(--fg3);
     list-style: none; padding: 0; margin: 0;
-    display: flex; flex-wrap: wrap; gap: 6px 14px;
+    display: flex; flex-wrap: wrap; gap: 4px 26px;
   }
-  .practice-row .examples li::after {
-    content: "·"; margin-left: 14px; color: var(--line-strong);
-  }
-  .practice-row .examples li:last-child::after { content: ""; }
 
   /* ────────── Approach ────────── */
   .approach-grid {
@@ -451,10 +453,10 @@
 
   .sectors-block { margin-top: clamp(40px, 6vh, 64px); }
   .sectors-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.86rem;
+    letter-spacing: 0;
     color: var(--fg3);
     display: inline-flex; align-items: center; gap: 14px;
     margin-bottom: 20px;
@@ -473,16 +475,17 @@
     letter-spacing: -0.01em;
   }
   .sectors li { display: inline-flex; align-items: baseline; gap: 20px; }
+  /* Separateur graphique plutot qu'un point median. */
   .sectors li:not(:last-child)::after {
-    content: "·";
-    color: var(--cherry);
-    font-size: 1.2em; line-height: 0;
+    content: "";
+    width: 3px; height: 3px;
+    background: var(--cherry);
+    align-self: center;
   }
   .sectors li.more {
     color: var(--fg3);
-    font-family: var(--font-mono);
-    font-style: italic;
-    font-size: 0.85rem;
+    font-family: var(--font-label);
+    font-size: 0.95rem;
   }
 
   /* ────────── About ────────── */
@@ -511,7 +514,7 @@
   .about-portrait.is-placeholder { display: flex; align-items: center; justify-content: center; }
   .about-portrait.is-placeholder::before {
     content: "Portrait";
-    font-family: var(--font-mono); font-style: italic;
+    font-family: var(--font-label); font-style: italic;
     color: var(--fg3); font-size: 0.85rem;
   }
   .about-body {
@@ -528,9 +531,9 @@
   .about-meta {
     margin-top: clamp(24px, 4vh, 36px);
     display: flex; flex-direction: column; gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
+    font-family: var(--font-label);
+    font-size: 0.92rem;
+    letter-spacing: 0;
     color: var(--fg3);
   }
   .about-meta .signature {
@@ -574,10 +577,10 @@
     display: flex; flex-direction: column; gap: 4px;
   }
   .contact-line .k {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.86rem;
+    letter-spacing: 0;
     color: var(--fg3);
   }
   .contact-line .v {
@@ -749,9 +752,9 @@
     /* Header: logo only, no nav */
     nav.primary { display: none; }
     .header-row { justify-content: flex-start; padding-block: 12px; }
-    .wordmark { gap: 10px; height: 34px; }
-    .wordmark .mark-img { height: 28px; }
-    .wordmark .logotype-img { height: 31px; }
+    .wordmark { gap: 15px; height: 34px; }
+    .wordmark .mark-img { height: 23px; }
+    .wordmark .logotype-img { height: 15px; }
 
     /* Section rhythm: tighten vertical breathing on small screens */
     .hero { padding-block: clamp(48px, 10vh, 96px) clamp(56px, 12vh, 112px); }
@@ -792,7 +795,9 @@
 
   /* Very narrow phones (≤380px) — final safety net */
   @media (max-width: 380px) {
-    .wordmark .logotype-img { height: 28px; }
+    .wordmark { gap: 13px; }
+    .wordmark .mark-img { height: 21px; }
+    .wordmark .logotype-img { height: 13px; }
     .hero h1 { font-size: clamp(2.4rem, 11vw, 3.4rem); letter-spacing: -0.025em; }
     .v--lead { font-size: clamp(1.4rem, 8vw, 2rem); letter-spacing: -0.025em; }
   }
@@ -817,7 +822,7 @@
       "@id": "https://veracruz.be/#studio",
       "name": "VeraCruz",
       "alternateName": ["VeraCruz Studio", "Veracruz design studio"],
-      "description": "VeraCruz is a senior design studio in Brussels for problems that cross product, service and physical design: digital products and design systems, service design and customer journeys, product design, packaging and retail spaces — designed as one project, from framing to execution.",
+      "description": "VeraCruz is a senior design studio in Brussels for problems that cross product, service and physical design: digital products and design systems, service design and customer journeys, product design, packaging and retail spaces, designed as one project, from framing to execution.",
       "url": "https://veracruz.be/",
       "logo": "https://veracruz.be/veracruz-symbol.png",
       "image": "https://veracruz.be/og-image.png",
@@ -826,7 +831,7 @@
       "areaServed": [{ "@type": "Country", "name": "Belgium" }, { "@type": "Place", "name": "Europe" }],
       "knowsAbout": ["Product design", "Interaction design", "Design systems", "Service design", "Service blueprints", "Customer journey design", "Industrial design", "Packaging design", "Retail and spatial design", "Design strategy"],
       "slogan": "For problems that cross product, service, and physical.",
-      "disambiguatingDescription": "Design studio in Brussels, Belgium — not the Mexican city or state of Veracruz.",
+      "disambiguatingDescription": "Design studio in Brussels, Belgium. Not the Mexican city or state of Veracruz.",
       "numberOfEmployees": { "@type": "QuantitativeValue", "value": 2 },
       "founder": { "@id": "https://veracruz.be/#raphael" },
       "subjectOf": { "@type": "FAQPage", "@id": "https://veracruz.be/facts/#faq", "url": "https://veracruz.be/facts/" },
@@ -857,8 +862,8 @@
 <header class="site">
   <div class="wrap header-row">
     <a href="#top" class="wordmark" aria-label="VeraCruz, home">
-      <img class="mark-img" src="veracruz-symbol.png" alt="" />
-      <img class="logotype-img" src="veracruz-logotype.png" alt="VeraCruz" />
+      <img class="mark-img" src="veracruz-symbol-tight.png" alt="" />
+      <img class="logotype-img" src="veracruz-logotype-tight.png" alt="VeraCruz" />
     </a>
     <nav class="primary" aria-label="Primary">
       <ul>
@@ -877,7 +882,7 @@
   <!-- Hero -->
   <section class="hero">
     <div class="wrap">
-      <div class="eyebrow reveal">A new studio, senior profiles &nbsp;·&nbsp; Brussels</div>
+      <div class="eyebrow reveal">A new studio, senior profiles <span class="dot"></span> Brussels</div>
       <h1 class="reveal">
         For problems that cross <em>product, service, and physical.</em>
       </h1>
@@ -892,7 +897,7 @@
     <div class="wrap">
       <div class="block-head reveal">
         <span class="label">Practice</span>
-        <h2>Three disciplines, one studio. Most projects need all three.</h2>
+        <h2>Three things we do, usually on the same project.</h2>
       </div>
 
       <div class="practice-list">
@@ -901,8 +906,8 @@
             <img src="practice-product.jpg" alt="Parcel tracking app on an iPhone, showing pickup points on a map" loading="lazy" />
           </figure>
           <div class="practice-text">
-            <div class="name"><span class="index">i</span>Product</div>
-            <p>Digital products, interfaces, and the systems behind them. From first concept to interaction model to the details that ship.</p>
+            <div class="name"><span class="index">01</span>Product</div>
+            <p>Digital products, interfaces and the systems underneath. Concept work, interaction models, and the detail that decides whether something actually ships.</p>
           </div>
           <ul class="examples">
             <li>Apps &amp; web</li>
@@ -916,8 +921,8 @@
             <img src="practice-service.jpg" alt="Co-design workshop in progress, sticky notes and journey maps on a long table" loading="lazy" />
           </figure>
           <div class="practice-text">
-            <div class="name"><span class="index">ii</span>Service</div>
-            <p>Customer journeys, operational flows, and the human side that makes products actually work in the wild.</p>
+            <div class="name"><span class="index">02</span>Service</div>
+            <p>Customer journeys and the operational flows behind them. This is usually where a good product runs into trouble.</p>
           </div>
           <ul class="examples">
             <li>Service blueprints</li>
@@ -931,8 +936,8 @@
             <img src="practice-physical.jpg" alt="Concept sketch of a street-side parcel locker in an urban setting" loading="lazy" />
           </figure>
           <div class="practice-text">
-            <div class="name"><span class="index">iii</span>Physical</div>
-            <p>Objects, hardware, and environments. Where digital meets the world, we design what people touch and stand in.</p>
+            <div class="name"><span class="index">03</span>Physical</div>
+            <p>Objects, hardware and the spaces they sit in. The part of the experience people can put their hands on.</p>
           </div>
           <ul class="examples">
             <li>Product design</li>
@@ -948,25 +953,25 @@
   <section class="block" id="approach">
     <div class="wrap">
       <div class="block-head reveal">
-        <h2>We start with the question, not the deliverable.</h2>
+        <h2>How the work goes.</h2>
       </div>
 
       <div class="approach-grid">
         <div class="approach-item reveal">
-          <h3><span class="dot"></span>Clarity before craft</h3>
-          <p>Most projects fail upstream. We invest in framing the right problem first, then bring craft to bear on the right thing.</p>
+          <h3><span class="dot"></span>Framing first</h3>
+          <p>Projects rarely come apart during execution. They come apart because the wrong problem got agreed in week one. We spend real time there before anything gets drawn.</p>
         </div>
         <div class="approach-item reveal">
-          <h3><span class="dot"></span>One team, end to end</h3>
-          <p>Strategy and execution under one roof. No translation loss between the people who think and the people who make.</p>
+          <h3><span class="dot"></span>Same people throughout</h3>
+          <p>Whoever works out what to build also builds it, so nothing gets lost in a handover between a strategy team and a delivery team.</p>
         </div>
         <div class="approach-item reveal">
-          <h3><span class="dot"></span>Senior, small, present</h3>
-          <p>You work with senior practitioners, in small numbers, in the room. Less choreography, more thinking together.</p>
+          <h3><span class="dot"></span>Small and senior</h3>
+          <p>You get experienced designers in the room rather than a large team with two of them on it.</p>
         </div>
         <div class="approach-item reveal">
-          <h3><span class="dot"></span>Made to last</h3>
-          <p>We design for organisations that take time seriously. The work should still feel right in five years.</p>
+          <h3><span class="dot"></span>Long horizons</h3>
+          <p>Our clients plan in years. The work should still hold up by the time they get there.</p>
         </div>
       </div>
     </div>
@@ -1011,12 +1016,12 @@
 
         <div class="reveal">
           <p class="about-body">
-            I am Raphael Hombroeck. Veracruz is the studio I built after close to twenty years designing across product, service, and physical for organisations in logistics, medical, telco, energy, and banking. <span class="ink">Small, senior, and undivided by discipline.</span>
+            I&rsquo;m Raphael Hombroeck. I spent close to twenty years designing across product, service and physical for organisations in logistics, medical, telco, energy and banking before starting VeraCruz. <span class="ink">The studio is small and senior on purpose.</span>
           </p>
 
           <div class="about-meta">
             <span class="signature">Raphael Hombroeck</span>
-            <span>Founder &amp; principal designer</span>
+            <span>Founder and principal designer</span>
             <a href="https://www.linkedin.com/in/rhombroeck/" rel="noopener" target="_blank">LinkedIn</a>
           </div>
         </div>
@@ -1033,7 +1038,7 @@
 
       <div class="contact-card reveal">
         <p class="contact-pitch">
-          A short note about your organisation and the question you are sitting with is enough to start.
+          A few lines about your organisation and what you are working on is enough to start. We reply within two working days.
         </p>
 
         <div class="contact-meta">
@@ -1061,7 +1066,7 @@
 <footer class="site">
   <div class="wrap footer-row">
     <span>© 2026 VeraCruz <span class="dot"></span> Brussels</span>
-    <span>A design studio for what crosses disciplines.</span>
+    <span>Design across product, service and physical.</span>
   </div>
 </footer>
 
