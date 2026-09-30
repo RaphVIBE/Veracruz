@@ -302,6 +302,45 @@
     .pmf { grid-column: 1 / -1; }
     .pmrow.scale { display: none; }
   }
+
+  /* ——— essentials: verdicts first ——— */
+  .sheet section.essentials { border-top: 0; padding-top: 6px; }
+  .eyebrow { font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--petrol); }
+  .sheet section.essentials h2, .sheet section.detail h2 { font-size: clamp(26px, 4.4vw, 34px); margin: 8px 0 18px; }
+  .ess { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .ess li { display: grid; grid-template-columns: 12px 1fr; gap: 14px; align-items: start; padding: 14px 16px; border-radius: 12px; background: color-mix(in oklch, var(--ink) 4%, transparent); }
+  .ess li > i { width: 12px; height: 12px; border-radius: 50%; margin-top: 5px; background: var(--sub); }
+  .ess li.bad > i { background: var(--brick); } .ess li.warn > i { background: var(--amber); } .ess li.good > i { background: var(--sage); }
+  .ess b { display: block; font-size: 16.5px; }
+  .ess span { display: block; font-size: 14px; color: var(--sub); margin-top: 2px; }
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 22px; }
+  @media (max-width: 640px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+  .tile { display: grid; gap: 8px; padding: 14px 14px 12px; border: 1px solid var(--hairline); border-radius: 12px; }
+  .tile .tn { font-size: 13px; font-weight: 700; }
+  .tile .tv { font-family: var(--sans); font-weight: 600; font-size: 34px; line-height: 1; }
+  .tile .meter { display: block; }
+  .tile .meter > i { background: var(--sub); }
+  .tile.good .meter > i { background: var(--sage); } .tile.warn .meter > i { background: var(--amber); } .tile.bad .meter > i { background: var(--brick); }
+  .tile .ts { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; }
+  .tile .ts i { width: 8px; height: 8px; border-radius: 50%; background: var(--sub); }
+  .tile.good .ts i { background: var(--sage); } .tile.warn .ts i { background: var(--amber); } .tile.bad .ts i { background: var(--brick); }
+  .tile.off { color: var(--sub); }
+  .tcap { font-size: 12px; color: var(--sub); margin-top: 8px; }
+  .prio { margin-top: 22px; padding: 16px 18px; border-radius: 12px; border: 1.5px solid var(--petrol); background: color-mix(in oklch, var(--petrol) 6%, transparent); }
+  .prio span { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 800; color: var(--petrol); }
+  .prio p { margin-top: 4px; font-size: 15.5px; }
+  /* ——— detail: folded sections ——— */
+  .dsec { border-top: 1px solid var(--hairline); }
+  .dsec:last-child { border-bottom: 1px solid var(--hairline); }
+  .dsec summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 12px; padding: 16px 0; }
+  .dsec summary::-webkit-details-marker { display: none; }
+  .dsec summary::before { content: "+"; color: var(--petrol); font-weight: 700; width: 14px; flex: none; }
+  .dsec[open] summary::before { content: "–"; }
+  .dsec .dt { font-family: var(--display); font-size: 19px; }
+  .dsec .ds { margin-left: auto; font-size: 12.5px; color: var(--sub); text-align: right; }
+  .dsec .dbody { padding: 0 0 22px 26px; }
+  @media (max-width: 640px) { .dsec summary { flex-wrap: wrap; } .dsec .ds { margin-left: 26px; text-align: left; width: 100%; } .dsec .dbody { padding-left: 0; } }
+  @media print { .dsec summary::before { content: ""; } .tile, .ess li, .prio { break-inside: avoid; } }
 </style>
 </head>
 <body>
@@ -644,6 +683,127 @@
     }
 
     document.getElementById("main").innerHTML = html;
+    restructure(r);
+  }
+
+  /* ——— reading order: the essentials first, the detail folded underneath ——— */
+  var AI_NAME = { claude: "Claude", openai: "ChatGPT", perplexity: "Perplexity", gemini: "Gemini" };
+  var AI_ORDER = ["claude", "openai", "perplexity", "gemini"];
+  function aiState(m) {
+    if (!m || m.status !== "ok") return ["off", "Indisponible"];
+    if (m.framing === "ABSENT") return ["bad", "Absente"];
+    if (m.score_perception < 40) return ["warn", "Faible"];
+    return ["good", "Présente"];
+  }
+  function namesList(a) { return a.length <= 1 ? a.join("") : a.slice(0, -1).join(", ") + " et " + a[a.length - 1]; }
+  function buildEssentials(r) {
+    var core = (r.presence || []).filter(function (x) { return x.layer !== "rotating"; });
+    var nQ = core.length || 6;
+    var BM = r.by_model || null;
+    var ok = BM ? AI_ORDER.filter(function (k) { return BM[k] && BM[k].status === "ok"; }) : [];
+    var multi = ok.length > 1;
+    var items = [];
+    // 1. visibility
+    if (multi) {
+      var abs = ok.filter(function (k) { return BM[k].framing === "ABSENT"; });
+      var pres = ok.filter(function (k) { return BM[k].framing !== "ABSENT"; });
+      if (!pres.length) items.push(["bad", "Absente des réponses des " + ok.length + " IA mesurées", "Aucune ne cite votre marque quand un acheteur pose ses questions."]);
+      else if (abs.length) items.push(["warn", "Visible chez " + pres.length + " IA sur " + ok.length, "Citée par " + namesList(pres.map(function (k) { return AI_NAME[k]; })) + ". Absente de " + namesList(abs.map(function (k) { return AI_NAME[k]; })) + "."]);
+      else items.push(["good", "Visible chez les " + ok.length + " IA mesurées", "Chaque assistant cite votre marque dans au moins une réponse."]);
+    } else {
+      var seen = core.filter(function (x) { return x.level > 0; }).length;
+      items.push(seen ? ["warn", "Citée dans " + seen + " réponse" + (seen > 1 ? "s" : "") + " sur " + nQ, "Sur les questions que posent vos acheteurs, sans jamais donner votre nom."] : ["bad", "Absente des réponses de l'IA", "Sur les " + nQ + " questions que posent vos acheteurs, votre marque n'apparaît jamais."]);
+    }
+    // 2. your site as a source
+    if (multi) {
+      var reads = ok.filter(function (k) { return BM[k].cited_self_count > 0; });
+      items.push(reads.length ? [reads.length === ok.length ? "good" : "warn", "Votre site est lu par " + reads.length + " IA sur " + ok.length, reads.map(function (k) { return AI_NAME[k] + " (" + BM[k].cited_self_count + "/" + nQ + ")"; }).join(", ") + "."] : ["bad", "Aucune IA ne lit votre site", "Elles répondent à partir d'annuaires, de blogs et de sites concurrents."]);
+    } else {
+      var lu = core.filter(function (x) { return x.cited_self; }).length;
+      items.push(lu ? ["warn", "Votre site est lu sur " + lu + " question" + (lu > 1 ? "s" : "") + " sur " + nQ, "L'IA le consulte parfois pour répondre."] : ["bad", "L'IA ne lit pas votre site", "Elle répond à partir d'annuaires, de blogs et de sites concurrents."]);
+    }
+    // 3. competition
+    var you = (r.benchmark || []).filter(function (b) { return b.you; })[0];
+    var nComp = you && you.of ? you.of - 1 : Math.max(0, (r.benchmark || []).length - 1);
+    if (nComp) items.push([you && you.score > 0 ? "warn" : "bad", nComp + " concurrents cités à votre place", "Dans les réponses aux mêmes questions" + (multi ? " (mesure Claude)." : ".")]);
+    // 4. technical readiness
+    var todo = (r.prep || []).filter(function (c) { return c.status !== "ok"; });
+    if (typeof r.score_preparation === "number") items.push([r.score_preparation >= 75 ? "good" : r.score_preparation >= 50 ? "warn" : "bad", "Préparation technique : " + r.score_preparation + "/100", todo.length ? todo.length + " point" + (todo.length > 1 ? "s" : "") + " à corriger sur votre site." : "Rien à corriger sur ce point."]);
+    // priority
+    var prio = "";
+    var ent = (r.prep || []).filter(function (c) { return c.id === "entity" && c.status !== "ok"; })[0];
+    var firstTodo = todo[0];
+    if (items[0][0] !== "good" && ent) prio = LEVERS.entity.fix;
+    else if (firstTodo && LEVERS[firstTodo.id]) prio = LEVERS[firstTodo.id].fix;
+    else if (items[0][0] !== "good") prio = "Être présent sur les sites que les IA consultent : fiches, profils et avis sur les annuaires de votre secteur.";
+
+    var h = '<p class="eyebrow">L\'essentiel</p><h2>Ce qu\'il faut retenir</h2><ul class="ess">';
+    items.forEach(function (it) { h += '<li class="' + it[0] + '"><i aria-hidden="true"></i><div><b>' + esc(it[1]) + '</b><span>' + esc(it[2]) + '</span></div></li>'; });
+    h += '</ul>';
+    // tiles, AI by AI
+    h += '<div class="tiles">';
+    if (multi || (BM && Object.keys(BM).length > 1)) {
+      AI_ORDER.forEach(function (k) {
+        if (!BM[k]) return;
+        var m = BM[k], st = aiState(m);
+        h += '<div class="tile ' + st[0] + '"><span class="tn">' + AI_NAME[k] + '</span><span class="tv">' + (m.status === "ok" ? esc(m.score_perception) : "—") + '</span><span class="meter"><i style="--v:' + (m.status === "ok" ? Number(m.score_perception) : 0) + '"></i></span><span class="ts"><i></i>' + st[1] + '</span></div>';
+      });
+    } else {
+      var st0 = r.framing === "ABSENT" ? ["bad", "Absente"] : r.score_perception < 40 ? ["warn", "Faible"] : ["good", "Présente"];
+      h += '<div class="tile ' + st0[0] + '"><span class="tn">Claude</span><span class="tv">' + esc(r.score_perception) + '</span><span class="meter"><i style="--v:' + Number(r.score_perception) + '"></i></span><span class="ts"><i></i>' + st0[1] + '</span></div>';
+      ["ChatGPT", "Gemini", "Perplexity"].forEach(function (n) { h += '<div class="tile off"><span class="tn">' + n + '</span><span class="tv">🔒</span><span class="meter"></span><span class="ts">Rapport complet</span></div>'; });
+    }
+    h += '</div><p class="tcap">Perception par IA, sur 100 : mêmes questions, même grille.</p>';
+    if (prio) h += '<div class="prio"><span>Priorité n°1</span><p>' + esc(prio) + '</p></div>';
+    return h;
+  }
+  function restructure(r) {
+    var main = document.getElementById("main");
+    var head = main.querySelector(".head");
+    if (!head) return;
+    var cards = [].slice.call(main.querySelectorAll("section.card"));
+    function titled(t) { return cards.filter(function (c) { var h2 = c.querySelector("h2"); return h2 && h2.textContent.indexOf(t) === 0; })[0]; }
+    var comp = titled("Votre position");
+    var ess = document.createElement("section");
+    ess.className = "card essentials";
+    ess.innerHTML = buildEssentials(r);
+    head.parentNode.insertBefore(ess, head.nextSibling);
+    var cursor = ess;
+    if (comp) { cursor.parentNode.insertBefore(comp, cursor.nextSibling); cursor = comp; }
+    var core = (r.presence || []).filter(function (x) { return x.layer !== "rotating"; });
+    var SUMS = {
+      "Perception par IA": r.by_model ? Object.keys(r.by_model).length + " IA" : "",
+      "Noyau": core.filter(function (x) { return x.level > 0; }).length + "/" + core.length + " réponses citent la marque",
+      "Présence": core.filter(function (x) { return x.level > 0; }).length + "/" + core.length + " réponses citent la marque",
+      "Questions du mois": (r.presence || []).filter(function (x) { return x.layer === "rotating"; }).length + " questions",
+      "Votre site": core.filter(function (x) { return x.cited_self; }).length + "/" + core.length + " questions",
+      "Préparation": (r.prep || []).filter(function (c) { return c.status !== "ok"; }).length + " à corriger",
+      "Cadrage": (FR_FRAMING[r.framing] || [""])[0]
+    };
+    var wrap = document.createElement("section");
+    wrap.className = "card detail";
+    wrap.innerHTML = '<p class="eyebrow">Détail de la mesure</p><h2>Question par question</h2><p class="caption">Toutes les données derrière les constats. Ouvrez une rubrique pour la lire.</p>';
+    cards.filter(function (c) { return c !== comp; }).forEach(function (c) {
+      var h2 = c.querySelector("h2");
+      if (!h2) return;
+      var title = h2.textContent;
+      var sum = "";
+      Object.keys(SUMS).forEach(function (k) { if (title.indexOf(k) === 0) sum = SUMS[k]; });
+      var d = document.createElement("details");
+      d.className = "dsec";
+      d.innerHTML = '<summary><span class="dt">' + esc(title) + '</span><span class="ds">' + esc(sum) + '</span></summary>';
+      h2.parentNode.removeChild(h2);
+      var body = document.createElement("div");
+      body.className = "dbody";
+      while (c.firstChild) body.appendChild(c.firstChild);
+      d.appendChild(body);
+      wrap.appendChild(d);
+      c.parentNode.removeChild(c);
+    });
+    cursor.parentNode.insertBefore(wrap, cursor.nextSibling);
+    var bundle = main.querySelector(".bundle");
+    if (bundle) wrap.parentNode.insertBefore(bundle, wrap.nextSibling);
+    window.addEventListener("beforeprint", function () { [].forEach.call(wrap.querySelectorAll("details"), function (d) { d.open = true; }); });
   }
   try { document.getElementById("fy").textContent = String(new Date().getFullYear()); } catch (e) {}
   load();
