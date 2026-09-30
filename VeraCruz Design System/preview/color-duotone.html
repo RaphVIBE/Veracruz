@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--paper);}
+  .card{width:700px;box-sizing:border-box;padding:36px 44px;display:flex;flex-direction:column;gap:18px;}
+  .pair{display:flex;gap:18px;}
+  .sw{flex:1;height:140px;border-radius:var(--r-md);border:1px solid var(--line);position:relative;}
+  .sw .info{position:absolute;left:14px;bottom:12px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.04em;}
+  .ink{background:var(--ink);} .ink .info{color:#fff;}
+  .paper{background:var(--paper);} .paper .info{color:var(--ink);}
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="eyebrow">Core duotone · ink &amp; paper</span>
+    <div class="pair">
+      <div class="sw ink"><span class="info">Ink<br>#0A0A0A</span></div>
+      <div class="sw paper"><span class="info">Paper<br>#FFFFFF</span></div>
+    </div>
+  </div>
+</body>
+</html>

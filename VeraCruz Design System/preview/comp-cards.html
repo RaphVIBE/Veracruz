@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--n-050);}
+  .card{width:700px;box-sizing:border-box;padding:40px 44px;display:flex;gap:22px;}
+  .proj{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;}
+  .proj .ph{height:140px;background:var(--paper);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .proj img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);}
+  .proj .body{padding:16px 18px;display:flex;flex-direction:column;gap:6px;}
+  .proj .body h3{margin:0;font-size:1.1rem;}
+  .top{display:flex;justify-content:space-between;align-items:baseline;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="proj">
+      <div class="ph"><img src="../assets/city-sketch.png" alt=""></div>
+      <div class="body">
+        <div class="top"><span class="label">014</span><span class="meta">2025</span></div>
+        <h3>Vertical City</h3>
+        <p class="small" style="margin:0;">Speculative urban masterplan in graphite.</p>
+      </div>
+    </div>
+    <div class="proj">
+      <div class="ph" style="background:var(--ink)"><img src="../assets/veracruz-symbol-white.png" style="width:auto;height:70px;filter:none;object-fit:contain" alt=""></div>
+      <div class="body">
+        <div class="top"><span class="label">013</span><span class="meta">2024</span></div>
+        <h3>Identity</h3>
+        <p class="small" style="margin:0;">Mark, wordmark, system.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

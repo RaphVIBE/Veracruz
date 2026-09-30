@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--paper);}
+  .card{width:700px;box-sizing:border-box;padding:36px 44px;display:flex;flex-direction:column;gap:18px;}
+  .f{display:flex;flex-direction:column;gap:7px;}
+  label{font-family:var(--font-mono);font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg3);}
+  input{font-family:var(--font-body);font-size:1rem;padding:12px 14px;border:1px solid var(--line-strong);border-radius:var(--r-sm);
+        background:var(--paper);color:var(--ink);outline:none;}
+  input:focus{border-color:var(--cherry);box-shadow:0 0 0 3px var(--cherry-tint);}
+  .focused{border-color:var(--cherry);box-shadow:0 0 0 3px var(--cherry-tint);}
+  ::placeholder{color:var(--n-400);}
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="eyebrow">Form fields</span>
+    <div class="f"><label>Name</label><input placeholder="Your name"></div>
+    <div class="f"><label>Email — focused</label><input class="focused" value="hello@studio.com"></div>
+  </div>
+</body>
+</html>

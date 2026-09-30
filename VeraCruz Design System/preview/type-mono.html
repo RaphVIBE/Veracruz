@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--paper);}
+  .card{width:700px;box-sizing:border-box;padding:36px 44px;display:flex;flex-direction:column;gap:20px;}
+  .grp{display:flex;flex-direction:column;gap:8px;}
+  .cap{font-family:var(--font-label);font-weight:500;font-size:0.8rem;color:var(--fg3);}
+  .nav{display:flex;gap:28px;}
+  .no{color:var(--fg3);font-size:0.86rem;line-height:1.5;border-left:2px solid var(--cherry);padding-left:12px;}
+  code{font-family:var(--font-mono);font-size:0.84rem;background:var(--bg3);padding:2px 5px;border-radius:var(--r-xs);}
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="eyebrow">Label voice, same family</span>
+
+    <div class="grp"><span class="cap">Eyebrow</span><span class="eyebrow">What we do</span></div>
+    <div class="grp"><span class="cap">Nav</span><div class="nav"><span class="label">Work</span><span class="label">Studio</span><span class="label">Contact</span></div></div>
+    <div class="grp"><span class="cap">Metadata</span><span class="meta">Project 014, speculative, 2025</span></div>
+    <div class="grp"><span class="cap">Code, the only place monospace belongs</span><span><code>--font-label</code> and <code>--font-mono</code></span></div>
+
+    <p class="no">Labels, eyebrows and metadata are set in Outfit at weight 500, sentence case, <code>letter-spacing: 0</code>. Never in a monospace face, never in uppercase, never tracked out past ~0.02em. Monospace plus uppercase plus wide tracking is the house style of AI-generated landing pages; it is the fastest way to make this brand look like one.</p>
+  </div>
+</body>
+</html>

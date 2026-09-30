@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--paper);}
+  .card{width:700px;box-sizing:border-box;padding:36px 44px;display:flex;flex-direction:column;gap:22px;}
+  .top{display:flex;justify-content:space-between;align-items:baseline;}
+  .swatches{display:flex;gap:20px;}
+  .s{flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .chip{width:100%;height:120px;border:1px solid var(--line);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;}
+  .chip img{height:78px;}
+  .chip.dark{background:var(--ink);border-color:var(--ink);}
+  .cap{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg3);}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="top">
+      <span class="eyebrow">Symbol — the eye</span>
+      <span class="meta">vision · vera</span>
+    </div>
+    <div class="swatches">
+      <div class="s"><div class="chip"><img src="../assets/veracruz-symbol.png" alt="ink"></div><span class="cap">Ink</span></div>
+      <div class="s"><div class="chip dark"><img src="../assets/veracruz-symbol-white.png" alt="white"></div><span class="cap">White</span></div>
+      <div class="s"><div class="chip"><img src="../assets/veracruz-symbol-cherry.png" alt="cherry"></div><span class="cap">Cherry</span></div>
+    </div>
+  </div>
+</body>
+</html>
