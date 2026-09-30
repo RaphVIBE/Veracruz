@@ -200,6 +200,8 @@
   .docbar { display: flex; align-items: center; gap: 12px; padding: 16px 0 14px; }
   .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); white-space: nowrap; }
   .brand svg { width: 28px; height: 28px; flex: none; }
+  .brand .mk { position: relative; display: inline-grid; flex: none; }
+  .brand .mk::after { content: "AI"; position: absolute; inset: 0; display: grid; place-items: center; padding-top: 7%; font-family: Fraunces, Georgia, serif; font-weight: 900; font-size: 10.5px; line-height: 1; }
   .brand .wm { font-family: var(--display); font-size: 18px; line-height: 1; }
   .brand .wm b { font-weight: 400; color: var(--petrol); }
   .doclabel { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--sub); padding-left: 12px; border-left: 1px solid var(--hairline); }
@@ -346,7 +348,7 @@
 <body>
 <div class="wrap">
   <header class="docbar">
-    <a class="brand" href="../" aria-label="AI Réputation, accueil"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg><span class="wm">AI <b>Réputation</b></span></a>
+    <a class="brand" href="../" aria-label="AI Réputation, accueil"><span class="mk" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/></svg></span><span class="wm">AI <b>Réputation</b></span></a>
     <span class="doclabel">Rapport de mesure</span>
     <div class="actions">
       <button class="ibtn" id="copyBtn" onclick="copyLink()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span id="copyLbl">Copier le lien</span></button>
