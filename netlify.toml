@@ -1,0 +1,30 @@
+# Netlify build for veracruz.be
+#
+# The site is static. The only build step is the journal generator, which turns
+# content/journal/*.md into journal/**. It has no dependencies, so there is
+# nothing to install — Netlify just runs node.
+
+[build]
+  command = "node build/build.mjs"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Serve /journal/<slug> without the trailing slash too.
+[[redirects]]
+  from = "/journal/:slug"
+  to = "/journal/:slug/"
+  status = 301
+  force = false
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/journal/feed.xml"
+  [headers.values]
+    Content-Type = "application/rss+xml; charset=utf-8"
+    Cache-Control = "public, max-age=3600"

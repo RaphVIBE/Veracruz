@@ -1,0 +1,17 @@
+{
+  "name": "veracruz-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "veracruz.be — static studio site with a Markdown-built journal",
+  "scripts": {
+    "build": "node build/build.mjs",
+    "dev": "node build/build.mjs && node --run serve",
+    "serve": "node -e \"const{createServer}=require('node:http'),{readFile,stat}=require('node:fs'),{join,extname}=require('node:path');const T={'.html':'text/html','.css':'text/css','.js':'text/javascript','.xml':'application/xml','.png':'image/png','.jpg':'image/jpeg','.ico':'image/x-icon','.svg':'image/svg+xml'};createServer((q,s)=>{let p=join(process.cwd(),decodeURIComponent(q.url.split('?')[0]));stat(p,(e,st)=>{if(!e&&st.isDirectory())p=join(p,'index.html');readFile(p,(e2,d)=>{if(e2){s.writeHead(404);return s.end('Not found');}s.writeHead(200,{'content-type':T[extname(p)]||'application/octet-stream'});s.end(d);});});}).listen(4000,()=>console.log('http://localhost:4000'));\"",
+    "test": "node --test build/markdown.test.mjs",
+    "og": "node build/og.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
