@@ -30,6 +30,10 @@ article.body strong { color: var(--ink); font-weight: 500; }
 article.body ul { color: var(--sub); padding-left: 22px; margin-bottom: 14px; }
 article.body li { margin-bottom: 6px; }
 article.body a { text-decoration-color: var(--cherry); }
+figure.photo { margin: 30px 0; }
+figure.photo.hero { margin: clamp(30px, 4.5vw, 48px) 0 0; }
+figure.photo img { width: 100%; height: auto; display: block; border-radius: 8px; }
+figure.photo figcaption { font-family: var(--mono); font-size: 12px; line-height: 1.5; color: var(--faint); margin-top: 9px; }
 .callout { background: var(--white); border: 1px solid var(--rule); border-left: 3px solid var(--cherry); border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
 .callout p { margin-bottom: 0; }
 .crossnav { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--sub); }
