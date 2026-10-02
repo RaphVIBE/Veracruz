@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI Réputation — que disent les IA de votre marque ?</title>
-<meta name="description" content="Mesurez gratuitement ce que ChatGPT et les autres IA disent de votre marque à vos futurs clients. Score en deux minutes, rapport partageable.">
+<meta name="description" content="Mesurez gratuitement ce qu'une IA connectée au web dit de votre marque à vos futurs clients. Le rapport compare ChatGPT, Gemini, Perplexity et Claude.">
 <meta name="theme-color" content="#123033">
 <link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
@@ -216,6 +216,49 @@
   .vatnote { margin-top: 18px; font-size: 13.5px; color: var(--sub); }
   .badge { display: inline-block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 800; color: var(--petrol); margin-bottom: 6px; }
   @media (min-width: 760px) { .offer li { padding: 30px 8px; } .offer li.reco { padding: 30px 28px; } .offer .fee { font-size: 36px; } }
+  /* ——— multi-IA ——— */
+  .models { max-width: 640px; margin: 0 auto; text-align: left; border-radius: 26px; overflow: hidden; }
+  .models .mhead { display: flex; justify-content: space-between; gap: 10px; padding: 12px 22px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); font-weight: 600; }
+  .models ul { list-style: none; padding: 8px 0; margin: 0; }
+  .models li { display: grid; grid-template-columns: 6.6em 1fr 2.4em; gap: 14px; align-items: center; padding: 12px 22px; }
+  .models li b { font-weight: 600; font-size: 15px; }
+  .models li .v { font-family: var(--display); font-size: 24px; line-height: 1; text-align: right; font-variant-numeric: tabular-nums; }
+  .models li.low .v { color: var(--brick); }
+  .models li.low .meter > i { background: var(--brick); }
+  .models .mfoot { border-top: 1px solid var(--hairline); padding: 14px 22px 18px; font-size: 13px; color: var(--sub); display: grid; gap: 8px; }
+  .models .mfoot strong { color: var(--ink); font-weight: 600; }
+
+  /* ——— why it moves ——— */
+  .why { display: grid; gap: 28px; align-items: center; }
+  @media (min-width: 900px) { .why { grid-template-columns: 1fr 1fr; gap: 64px; } .why .shead { margin-bottom: 0; } }
+  .why .rules { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 12px; }
+  .why .rules li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; color: var(--sub); font-size: 15.5px; }
+  .why .rules li::before { content: ""; width: 14px; height: 8px; border-left: 2px solid var(--petrol); border-bottom: 2px solid var(--petrol); transform: rotate(-45deg); margin-top: 6px; }
+  .ledger { border-radius: 26px; overflow: hidden; margin: 0; }
+  .ledger .lhead { display: flex; justify-content: space-between; padding: 12px 22px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); font-weight: 600; }
+  .ledger .lhead span:last-child { color: var(--petrol); }
+  .ledger dl { margin: 0; padding: 8px 0; }
+  .ledger .ln { display: flex; justify-content: space-between; gap: 16px; padding: 12px 22px; font-size: 15px; }
+  .ledger dd { margin: 0; font-family: var(--display); font-size: 24px; line-height: 1; font-variant-numeric: tabular-nums; }
+  .ledger .ln.neg dd { color: var(--brick); }
+  .ledger .ln.pos dd { color: var(--sage); }
+  .ledger .ln.tot { border-top: 1px solid var(--hairline); margin-top: 6px; padding-top: 16px; font-weight: 600; }
+  .ledger .lfoot { border-top: 1px solid var(--hairline); padding: 14px 22px 18px; font-family: var(--displaytext); font-style: italic; font-size: 15.5px; line-height: 1.45; }
+
+  /* ——— case: Veracruz ——— */
+  .case { border-radius: 28px; overflow: hidden; }
+  .case .chead { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 16px; padding: 14px 24px; border-bottom: 1px solid var(--hairline); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); font-weight: 600; }
+  .case .figs { display: grid; gap: 0; }
+  .case .fig { padding: 22px 24px; border-top: 1px solid var(--hairline); display: grid; gap: 8px; }
+  .case .fig:first-child { border-top: 0; }
+  .case .fig .v { font-family: var(--display); font-size: 44px; line-height: 1; color: var(--petrol); font-variant-numeric: tabular-nums; }
+  .case .fig .v small { font-family: var(--sans); font-size: 14px; color: var(--sub); margin-left: 2px; }
+  .case .fig.low .v { color: var(--brick); }
+  .case .fig p { color: var(--sub); font-size: 14.5px; max-width: 22em; }
+  @media (min-width: 760px) { .case .figs { grid-template-columns: repeat(3, 1fr); } .case .fig { border-top: 0; border-left: 1px solid var(--hairline); } .case .fig:first-child { border-left: 0; } }
+  .case .cfoot { border-top: 1px solid var(--hairline); padding: 18px 24px 22px; font-family: var(--displaytext); font-style: italic; font-size: 16.5px; line-height: 1.5; }
+  .founder { margin-top: 18px; font-size: 14.5px; }
+  .founder b { color: var(--petrol); }
 </style>
 </head>
 <body>
@@ -225,7 +268,7 @@
   <header class="mast">
     <div class="inner glass">
       <a class="brand" href="./" aria-label="AI Réputation, accueil">
-        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg>
+        <span class="mk" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/></svg></span>
         <span class="wm">AI <b>Réputation</b></span>
       </a>
       <div class="navr">
@@ -253,7 +296,7 @@
   <div class="hero">
     <p class="eyebrow" data-i18n="h.eyebrow">Mesure de réputation IA</p>
     <h1><span data-i18n="h.1">Que disent les IA</span> <em data-i18n="h.2">de votre marque&nbsp;?</em></h1>
-    <p class="lede" data-i18n="h.lede">Vos clients demandent conseil à ChatGPT. Êtes-vous dans la réponse&nbsp;?</p>
+    <p class="lede" data-i18n="h.lede">Vos clients demandent conseil à ChatGPT, Gemini, Perplexity ou Claude. Chacune répond à sa façon. Êtes-vous dans la réponse&nbsp;?</p>
 
     <form class="search" id="askForm">
       <div class="box glass">
@@ -291,7 +334,7 @@
           <p class="privacy" id="catNote" data-i18n="s.catnote" style="margin-top: 8px;" hidden>Le radar mesure une catégorie de marché, pas une marque : n'importe quel e-mail convient. Une mesure fraîche gratuite par semaine ; un mot-clé déjà mesuré cette semaine renvoie le dossier existant.</p>
           <div class="adv" id="adv">
             <div class="row">
-              <div class="f"><label for="f-sector" data-i18n="s.sector.l">Secteur d'activité</label><input id="f-sector" name="sector" data-i18n-ph="s.sector" placeholder="Studio de design, solaire… (optionnel)"></div>
+              <div class="f"><label for="f-sector" data-i18n="s.sector.l">Secteur d'activité</label><input id="f-sector" name="sector" data-i18n-ph="s.sector" placeholder="Conseil RH, bureau d'études… (optionnel)"></div>
               <div class="f"><label for="f-zone" data-i18n="s.zone.l">Zone</label><input id="f-zone" name="zone" data-i18n-ph="s.zone" placeholder="Wallonie, Belgique, global…"></div>
             </div>
             <div class="row" style="padding-top: 10px;">
@@ -342,6 +385,27 @@
     </div>
   </div>
 
+  <section class="section center reveal" id="ias">
+    <div class="shead">
+      <p class="eyebrow" data-i18n="ia.eyebrow">Quatre IA, quatre réponses</p>
+      <h2 data-i18n="ia.title">Les IA ne voient pas <em>la même marque.</em></h2>
+      <p class="lede" data-i18n="ia.sub">Mêmes six questions, même jour, même studio. Chaque IA cherche sur le web à sa façon, et ne trouve pas les mêmes pages.</p>
+    </div>
+    <figure class="models glass" aria-labelledby="ia-cap">
+      <div class="mhead"><span data-i18n="ia.head">Perception de Veracruz, sur 100</span><span data-i18n="ia.date">30/09/2026</span></div>
+      <ul>
+        <li class="low"><b>Claude</b><div class="meter" style="--v: 3" aria-hidden="true"><i></i></div><span class="v">3</span></li>
+        <li class="low"><b>Perplexity</b><div class="meter" style="--v: 3" aria-hidden="true"><i></i></div><span class="v">3</span></li>
+        <li><b>ChatGPT</b><div class="meter" style="--v: 33" aria-hidden="true"><i></i></div><span class="v">33</span></li>
+        <li><b>Gemini</b><div class="meter" style="--v: 34" aria-hidden="true"><i></i></div><span class="v">34</span></li>
+      </ul>
+      <figcaption class="mfoot" id="ia-cap">
+        <span data-i18n="ia.free"><strong>Le score gratuit interroge une IA connectée au web. Le rapport en interroge quatre.</strong></span>
+        <span data-i18n="ia.note">Note de méthode : ces questions reprennent le vocabulaire du site de Veracruz, ce qui avantage les IA qui le lisent. Une mesure isolée varie aussi d'un jour à l'autre : nous raisonnons sur la tendance mensuelle.</span>
+      </figcaption>
+    </figure>
+  </section>
+
   <section class="section center reveal" id="preuve">
     <div class="shead">
       <p class="eyebrow" data-i18n="pr.eyebrow">Spécimen</p>
@@ -383,6 +447,32 @@
     <p class="more"><a class="textlink" href="methode/" data-i18n="st.more">Comment nous mesurons →</a></p>
   </section>
 
+  <section class="section reveal" id="pourquoi">
+    <div class="why">
+      <div class="shead">
+        <p class="eyebrow" data-i18n="w.eyebrow">Ce qui nous distingue</p>
+        <h2 data-i18n="w.title">Un chiffre qui bouge sans raison <em>ne sert à rien.</em></h2>
+        <p class="lede" data-i18n="w.sub">Les tableaux de bord affichent un score. Le nôtre dit pourquoi il bouge.</p>
+        <ul class="rules">
+          <li data-i18n="w.r1">Les mêmes six questions d'acheteur, chaque mois.</li>
+          <li data-i18n="w.r2">Plusieurs passes par mesure, et une marge de bruit calculée.</li>
+          <li data-i18n="w.r3">Sous la marge, nous écrivons « stable ». Jamais de faux progrès.</li>
+          <li data-i18n="w.r4">Un nouveau modèle sort ? Nous séparons son effet de celui de vos actions.</li>
+        </ul>
+      </div>
+      <figure class="ledger glass" aria-label="Exemple de lecture d'un mouvement de score">
+        <div class="lhead"><span data-i18n="w.head">Lecture d'un mouvement</span><span data-i18n="w.ex">Exemple</span></div>
+        <dl>
+          <div class="ln"><dt data-i18n="w.l1">Score du mois précédent</dt><dd>41</dd></div>
+          <div class="ln neg"><dt data-i18n="w.l2">Effet du nouveau modèle</dt><dd>−8</dd></div>
+          <div class="ln pos"><dt data-i18n="w.l3">Effet de vos actions</dt><dd>+5</dd></div>
+          <div class="ln tot"><dt data-i18n="w.l4">Score de ce mois</dt><dd>38</dd></div>
+        </dl>
+        <p class="lfoot" data-i18n="w.foot">« Le nouveau modèle vous a fait perdre 8 points. Vos actions en ont repris 5. »</p>
+      </figure>
+    </div>
+  </section>
+
   <section class="section reveal" id="rapport">
     <div class="split">
       <div class="shead">
@@ -392,7 +482,7 @@
       </div>
       <figure class="report glass tipbox" aria-label="Exemple de rapport">
         <div class="rp-head"><span data-i18n="rp.head">Rapport préliminaire</span><span class="rp-ex" data-i18n="rp.ex">Exemple</span></div>
-        <div class="rp-id"><b data-i18n="rp.brand">Votre marque</b><span data-i18n="rp.sector">Installateur solaire · Wallonie</span></div>
+        <div class="rp-id"><b data-i18n="rp.brand">Votre marque</b><span data-i18n="rp.sector">Cabinet de conseil RH · Bruxelles</span></div>
         <div class="rp-main">
           <div class="scorecard">
             <div class="sc-hero">
@@ -421,6 +511,23 @@
     </div>
   </section>
 
+  <section class="section reveal" id="cas">
+    <div class="shead">
+      <p class="eyebrow" data-i18n="ca.eyebrow">Preuve</p>
+      <h2 data-i18n="ca.title">Nous nous sommes <em>mesurés en premier.</em></h2>
+      <p class="lede" data-i18n="ca.sub">Veracruz, le studio derrière AI Réputation, est notre premier dossier. Voici ses chiffres, y compris ceux qui ne flattent pas.</p>
+    </div>
+    <article class="case glass">
+      <div class="chead"><span data-i18n="ca.head">Dossier Veracruz · studio de design, Bruxelles</span><span data-i18n="ca.meta">Protocole P1 · mis à jour chaque mois</span></div>
+      <div class="figs">
+        <div class="fig"><span class="sc-label" data-i18n="ca.f1l">Point zéro</span><span class="v">35<small>/100</small></span><p data-i18n="ca.f1">Score global au 26/09/2026. Reproduit à l'identique huit minutes plus tard.</p></div>
+        <div class="fig"><span class="sc-label" data-i18n="ca.f2l">Préparation</span><span class="v">58 → 83</span><p data-i18n="ca.f2">Données structurées, fichiers pour les IA, plan du site : une heure de travail.</p></div>
+        <div class="fig low"><span class="sc-label" data-i18n="ca.f3l">Perception</span><span class="v">3<small>/100</small></span><p data-i18n="ca.f3">Toujours absent des réponses de Claude. Le site doit d'abord exister dans les sources que lisent les IA.</p></div>
+      </div>
+      <p class="cfoot" data-i18n="ca.foot">La technique est la base, pas le résultat. Nous publierons la suite de la courbe, même si elle ne bouge pas.</p>
+    </article>
+  </section>
+
   <section class="section reveal" id="offre">
     <div class="shead">
       <p class="eyebrow" data-i18n="of.eyebrow">Tarifs</p>
@@ -428,11 +535,11 @@
     </div>
     <ul class="offer">
       <li>
-        <div><h3 data-i18n="of.1t">Score</h3><p data-i18n="of.1d">Votre point de départ, en deux minutes.</p></div>
+        <div><h3 data-i18n="of.1t">Score</h3><p data-i18n="of.1d">Votre point de départ, en deux minutes, sur une IA.</p></div>
         <b class="fee" data-i18n="of.1f">Gratuit</b>
       </li>
       <li>
-        <div><h3 data-i18n="of.2t">Rapport</h3><p data-i18n="of.2d">Le diagnostic complet et le plan de correction.</p></div>
+        <div><h3 data-i18n="of.2t">Rapport</h3><p data-i18n="of.2d">Le diagnostic sur quatre IA et le plan de correction.</p></div>
         <b class="fee" data-i18n="of.2f">390&nbsp;€</b>
       </li>
       <li class="reco">
@@ -440,6 +547,7 @@
         <b class="fee"><span data-i18n="of.3f">290&nbsp;€</span><small data-i18n="of.3p">/mois</small></b>
       </li>
     </ul>
+    <p class="founder" data-i18n="of.fd"><b>Cinq places de client fondateur</b> : 290&nbsp;€/mois bloqués douze mois. <a class="textlink" href="tarifs/#fondateur">Les conditions →</a></p>
     <p class="vatnote" data-i18n="of.vat">Prix hors TVA.</p>
     <p class="more"><a class="textlink" href="tarifs/" data-i18n="of.more">Détail des offres et consultance →</a></p>
   </section>
@@ -452,7 +560,7 @@
 
   <footer>
     <a class="brand" href="./">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/><text x="20" y="25.2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="15" fill="currentColor">AI</text></svg>
+      <span class="mk" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--ring-track)" stroke-width="4"/><circle cx="20" cy="20" r="16.5" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round" stroke-dasharray="80 104" transform="rotate(-80 20 20)"/></svg></span>
       <span class="wm">AI <b>Réputation</b></span>
     </a>
     <nav class="links" aria-label="Pied de page">
@@ -478,7 +586,7 @@
       "st.more": "How we measure →",
       "rp.eyebrow": "What you receive", "rp.title": "A report, <em>not an impression.</em>",
       "rp.sub": "Every measurement produces a dated, shareable file. Run it again next month: progress shows at a glance.",
-      "rp.head": "Preliminary report", "rp.ex": "Example", "rp.brand": "Your brand", "rp.sector": "Solar installer · Wallonia",
+      "rp.head": "Preliminary report", "rp.ex": "Example", "rp.brand": "Your brand", "rp.sector": "HR consultancy · Brussels",
       "rp.global": "Overall score", "rp.b1": "Perception", "rp.b2": "Readiness", "rp.comp": "Competitors cited in your place",
       "rp.lock": "Identities in the full report",
       "tip.more": "Learn more", "nav.l": "Glossary",
@@ -488,18 +596,41 @@
       "tip.comp": "<b>The players recommended instead of you</b> when AI is asked your questions. The count is exact; their names are in the full report. <a class=\"more\" href=\"lexique/#concurrents\">Learn more →</a>",
       "rp.quote": "“I could not find reliable information about this company.”", "rp.cite": "The AI, asked directly about the brand",
       "of.eyebrow": "Pricing", "of.title": "Start <em>for free.</em>",
-      "of.1t": "Score", "of.1d": "Your starting point, in two minutes.", "of.1f": "Free",
-      "of.2t": "Report", "of.2d": "The full diagnosis and the correction plan.", "of.2f": "€390",
+      "of.1t": "Score", "of.1d": "Your starting point, in two minutes, on one AI.", "of.1f": "Free",
+      "of.2t": "Report", "of.2d": "The diagnosis across four AIs and the correction plan.", "of.2f": "€390",
       "of.3t": "Continuous improvement", "of.3d": "We correct, we re-measure, every month.", "of.3f": "€290", "of.3p": "/month",
       "of.reco": "The heart of the offer", "of.vat": "Prices exclude VAT.", "of.more": "Full offer details and consulting →",
       "h.1": "What do AIs say", "h.2": "about your brand?",
-      "h.lede": "Your customers ask ChatGPT for advice. Are you in the answer?", "h.eyebrow": "AI reputation measurement",
+      "h.lede": "Your customers ask ChatGPT, Gemini, Perplexity or Claude for advice. Each answers its own way. Are you in the answer?",
+      "ia.eyebrow": "Four AIs, four answers", "ia.title": "The AIs don't see <em>the same brand.</em>",
+      "ia.sub": "Same six questions, same day, same studio. Each AI searches the web its own way, and finds different pages.",
+      "ia.head": "Perception of Veracruz, out of 100", "ia.date": "30/09/2026",
+      "ia.free": "<strong>The free score queries one web-connected AI. The report queries four.</strong>",
+      "ia.note": "Method note: these questions reuse the wording of Veracruz's own site, which favours the AIs that read it. A single measurement also varies from day to day: we reason on the monthly trend.",
+      "w.eyebrow": "What sets us apart", "w.title": "A number that moves for no reason <em>is useless.</em>",
+      "w.sub": "Dashboards show a score. Ours tells you why it moved.",
+      "w.r1": "The same six buyer questions, every month.",
+      "w.r2": "Several passes per measurement, and a computed noise margin.",
+      "w.r3": "Below the margin, we write “stable”. Never a false gain.",
+      "w.r4": "A new model comes out? We separate its effect from the effect of your actions.",
+      "w.head": "Reading a movement", "w.ex": "Example",
+      "w.l1": "Last month's score", "w.l2": "Effect of the new model", "w.l3": "Effect of your actions", "w.l4": "This month's score",
+      "w.foot": "“The new model cost you 8 points. Your actions won back 5.”",
+      "ca.eyebrow": "Proof", "ca.title": "We measured <em>ourselves first.</em>",
+      "ca.sub": "Veracruz, the studio behind AI Réputation, is our first file. Here are its figures, including the unflattering ones.",
+      "ca.head": "Veracruz file · design studio, Brussels", "ca.meta": "Protocol P1 · updated monthly",
+      "ca.f1l": "Baseline", "ca.f1": "Overall score on 26/09/2026. Reproduced identically eight minutes later.",
+      "ca.f2l": "Readiness", "ca.f2": "Structured data, files for AIs, sitemap: one hour of work.",
+      "ca.f3l": "Perception", "ca.f3": "Still absent from Claude's answers. The site first has to exist in the sources the AIs read.",
+      "ca.foot": "Technical work is the foundation, not the result. We will publish the rest of the curve, even if it doesn't move.",
+      "of.fd": "<b>Five founding-client places</b>: €290/month locked for twelve months. <a class=\"textlink\" href=\"tarifs/#fondateur\">The terms →</a>",
+      "h.eyebrow": "AI reputation measurement",
       "s.brand": "Your company name…", "s.go": "Measure",
       "s.email.l": "Your work email", "s.email": "name@your-domain.com",
       "s.site.l": "Your brand's website", "s.site": "your-domain.com",
       "s.own": "The free score measures your own brand: the email must belong to the site's domain. Measuring other brands is part of the Pro plan.",
       "s.mismatch": "This email does not belong to the site's domain. The free score is for your own brand; for other brands, ask us about Pro.",
-      "s.sector.l": "Business sector", "s.sector": "Design studio, solar… (optional)",
+      "s.sector.l": "Business sector", "s.sector": "HR consulting, engineering firm… (optional)",
       "s.zone.l": "Area", "s.zone": "Wallonia, Belgium, global…",
       "s.comp.l": "Known competitors", "s.comp": "Comma-separated (optional)",
       "s.send": "Send me my score", "s.adv": "Refine the measurement ↓", "s.advUp": "Collapse ↑",
@@ -522,12 +653,12 @@
       "s.ok": "Received. Your request is on file; your score is on its way.",
       "s.err": "The request could not be recorded. Check your connection and try again.",
       "s.need": "Add your company name first.",
-      "p.q": "“Which solar panel installer would you recommend in Wallonia?”",
+      "p.q": "“Which HR consultancy in Brussels would you recommend for a 30-person SME?”",
       "p.r": "3 competitors cited · the tested business", "p.stamp": "ABSENT",
       "pr.title": "The answer your next customer receives",
       "pr.sub": "Assembled from blogs, directories and forums. Not from your site.",
       "pr.head": "Question put to an AI", "pr.eyebrow": "Specimen", "pr.think": "querying the model…",
-      "pr.qtext": "“Which solar panel installer would you recommend in Wallonia?”",
+      "pr.qtext": "“Which HR consultancy in Brussels would you recommend for a 30-person SME?”",
       "pr.1": "Competitor A, “well established, highly rated”",
       "pr.2": "Competitor B, “good value for money”",
       "pr.3": "Competitor C, “covers the whole region”",
@@ -614,6 +745,7 @@
     document.getElementById("btn-en").setAttribute("aria-pressed", String(l === "en"));
     try { localStorage.setItem("ar-lang", l); } catch (e) {}
     if (typeof MODE === "string") { try { applyModeTexts(); } catch (e) {} }
+    if (typeof window.specStatic === "function") { try { window.specStatic(); } catch (e) {} }
   }
   try { if (localStorage.getItem("ar-lang") === "en") setLang("en"); } catch (e) {}
 
@@ -621,12 +753,12 @@
   var SPECS = {
     fr: [
       { ref: "A-07",
-        q: "« Quel installateur de panneaux solaires recommandes-tu en Wallonie ? »",
+        q: "« Quel cabinet RH à Bruxelles recommandes-tu pour une PME de 30 personnes qui recrute ses premiers managers ? »",
         rows: [
-          { t: "Concurrent A, « réputé, bien noté »" },
-          { t: "Concurrent B, « bon rapport qualité-prix »" },
-          { t: "Concurrent C, « couvre toute la région »" },
-          { t: "Votre entreprise", cls: "you-abs", flag: "ABSENT" }
+          { t: "Concurrent A, « spécialiste des PME »" },
+          { t: "Concurrent B, « très présent sur Sortlist »" },
+          { t: "Concurrent C, « approche sur mesure »" },
+          { t: "Votre cabinet", cls: "you-abs", flag: "ABSENT" }
         ],
         verdict: "ABSENT DE LA RÉPONSE", good: false,
         foot: "3 concurrents cités. Vous n'existez pas dans cette réponse." },
@@ -638,25 +770,25 @@
           { t: "Votre maison, « une alternative moins chère »", cls: "you-alt", flag: "CADRAGE : SECOND CHOIX" }
         ],
         verdict: "CITÉE 3ᵉ · MAL RACONTÉE", good: false,
-        foot: "Présente, mais présentée en option de repli. Un cadrage se corrige." },
+        foot: "Présent, mais présenté en option de repli. Un cadrage se corrige." },
       { ref: "C-05",
-        q: "« Cet hôtel à Bruges vaut-il ses 4 étoiles ? Donne-moi ses infos pratiques. »",
+        q: "« Que penses-tu de cette fiduciaire à Namur ? Donne-moi ses infos pratiques. »",
         rows: [
-          { t: "Votre hôtel, « élégant, très bien situé »", cls: "you-ok", flag: "CITÉ 1ᵉʳ" },
-          { t: "Prix annoncé : celui de 2021", cls: "warn", flag: "FAIT ERRONÉ" },
-          { t: "« …et sa piscine » — fermée depuis deux ans", cls: "warn", flag: "FAIT ERRONÉ" }
+          { t: "Votre fiduciaire, « sérieuse, réactive »", cls: "you-ok", flag: "CITÉE" },
+          { t: "Adresse : celle d'un homonyme à Liège", cls: "warn", flag: "FAIT ERRONÉ" },
+          { t: "« …spécialisée en particuliers » — vous servez des PME", cls: "warn", flag: "FAIT ERRONÉ" }
         ],
         verdict: "2 FAITS ERRONÉS", good: false,
-        foot: "Bien classé, mais l'IA décrit un hôtel qui n'existe plus. L'exactitude se mesure aussi." }
+        foot: "Bien perçue, mais l'IA confond votre cabinet avec un autre. L'exactitude se mesure aussi." }
     ],
     en: [
       { ref: "A-07",
-        q: "“Which solar panel installer would you recommend in Wallonia?”",
+        q: "“Which HR consultancy in Brussels would you recommend for a 30-person SME hiring its first managers?”",
         rows: [
-          { t: "Competitor A, “well established, highly rated”" },
-          { t: "Competitor B, “good value for money”" },
-          { t: "Competitor C, “covers the whole region”" },
-          { t: "Your business", cls: "you-abs", flag: "ABSENT" }
+          { t: "Competitor A, “SME specialist”" },
+          { t: "Competitor B, “very visible on Sortlist”" },
+          { t: "Competitor C, “tailored approach”" },
+          { t: "Your firm", cls: "you-abs", flag: "ABSENT" }
         ],
         verdict: "ABSENT FROM THE ANSWER", good: false,
         foot: "3 competitors cited. You do not exist in this answer." },
@@ -670,14 +802,14 @@
         verdict: "CITED 3RD · BADLY TOLD", good: false,
         foot: "Present, but framed as a fallback. Framing can be corrected." },
       { ref: "C-05",
-        q: "“Is this 4-star hotel in Bruges worth it? Give me the practical details.”",
+        q: "“What do you think of this accounting firm in Namur? Give me the practical details.”",
         rows: [
-          { t: "Your hotel, “elegant, perfectly located”", cls: "you-ok", flag: "CITED 1ST" },
-          { t: "Price quoted: the 2021 rate", cls: "warn", flag: "FALSE FACT" },
-          { t: "“…and its pool” — closed two years ago", cls: "warn", flag: "FALSE FACT" }
+          { t: "Your firm, “reliable, responsive”", cls: "you-ok", flag: "CITED" },
+          { t: "Address: a namesake's, in Liège", cls: "warn", flag: "FALSE FACT" },
+          { t: "“…specialised in private clients” — you serve SMEs", cls: "warn", flag: "FALSE FACT" }
         ],
         verdict: "2 FALSE FACTS", good: false,
-        foot: "Well ranked, but the AI describes a hotel that no longer exists. Accuracy is measured too." }
+        foot: "Well perceived, but the AI confuses your firm with another. Accuracy is measured too." }
     ]
   };
 
@@ -715,7 +847,7 @@
       ref.textContent = c.ref; qEl.textContent = c.q; caret.hidden = true; think.hidden = true;
       renderRows(c, false); showVerdict(c);
     }
-    if (reduced) { staticRender(SPECS.fr[0]); return; }
+    if (reduced) { staticRender((SPECS[LANG] || SPECS.fr)[0]); window.specStatic = function () { staticRender((SPECS[LANG] || SPECS.fr)[0]); }; return; }
 
     var idx = 0;
     (function cycle() {
