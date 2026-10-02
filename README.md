@@ -71,4 +71,4 @@ To work on the static pages, open `index.html` in a browser. To see the journal,
 
 `VeraCruz Design System/` contains the canonical design tokens (colors, type, radii, spacing) the live site is built on. Read its `README.md` before touching type: one family (Outfit) for everything, monospace for code only.
 
-`ai-reputation/` is a **separate identity** (Public Sans, Fraunces, its own palette and logotype). Nothing from the studio design system applies there, and nothing from there applies to the studio site.
+AI Réputation is a **separate product with its own site**, https://reputation.veracruz.be, published from the private repo `RaphVIBE/ai-reputation`. It left this repo on 2026-10-02; `/ai-reputation/*` redirects there (see `netlify.toml`). Nothing from the studio design system applies to it.

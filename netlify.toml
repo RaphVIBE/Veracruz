@@ -18,6 +18,20 @@
   status = 301
   force = false
 
+# AI Réputation a son propre site depuis le 02/10/2026. Les anciens liens (rapports envoyés
+# par e-mail, pages partagées) suivent, chemin et paramètres compris.
+[[redirects]]
+  from = "/ai-reputation"
+  to = "https://reputation.veracruz.be/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ai-reputation/*"
+  to = "https://reputation.veracruz.be/:splat"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/assets/*"
   [headers.values]
