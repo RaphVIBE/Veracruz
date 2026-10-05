@@ -44,3 +44,6 @@ figure.photo figcaption { font-family: var(--label); font-size: 14.5px; line-hei
 footer.site { border-top: 1px solid var(--rule); padding: 26px 0 40px; }
 .footer-row { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: 14px; color: var(--faint); }
 .footer-row a { color: var(--sub); text-decoration: none; }
+.lang-switch { display: inline-flex; align-items: center; gap: 10px; }
+.lang-switch i { width: 3px; height: 3px; background: var(--cherry); }
+.lang-switch [aria-current] { color: var(--ink); font-weight: 500; }

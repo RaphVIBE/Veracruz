@@ -406,6 +406,7 @@ footer.site {
 }
 .footer-row a { transition: color 200ms var(--ease); }
 .footer-row a:hover { color: var(--cherry-press); }
+.lang-switch [aria-current] { color: var(--fg1); font-weight: 500; }
 
 /* Mirrors index.html: below 760px the section links drop away and only the
    Journal link stays, so the wordmark (which goes home) plus Journal is the

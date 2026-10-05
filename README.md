@@ -48,6 +48,10 @@ npx playwright install chromium
 
 **Do not add these to `package.json`.** Netlify runs `npm install` before the build whenever dependencies are declared, and pulling Chromium on every deploy would be slow and fragile. The share images are generated locally and committed, so the deploy stays dependency-free.
 
+## Languages
+
+The site is in English at the root and in French under `fr/`: `fr/index.html` mirrors `index.html`, `fr/faits/` mirrors `facts/`. The guides exist in French only, the journal in English only. Every footer carries the language switch, and each pair of pages declares its `hreflang` alternates (also in `sitemap.xml`). A change to one version of a page has to be carried over to the other by hand.
+
 ## Deploy
 
 Deployed via [Netlify](https://www.netlify.com/), linked to this repo. Every push to `main` runs `node build/build.mjs` and is live within a few minutes. Config lives in `netlify.toml`; `journal/` is generated output and is gitignored.
@@ -56,7 +60,8 @@ To work on the static pages, open `index.html` in a browser. To see the journal,
 
 ## Files
 
-- `index.html` — the entire site
+- `index.html` — the home page (English)
+- `fr/` — the French home page and `fr/faits/`
 - `content/journal/` — journal posts in Markdown (the source of truth)
 - `build/` — the journal generator: `build.mjs`, a small Markdown parser, and the share-image renderer
 - `assets/journal.css` — styles for the journal pages
