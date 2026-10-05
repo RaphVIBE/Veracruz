@@ -116,6 +116,7 @@ const foot = `
   <div class="wrap footer-row">
     <span>&copy; ${new Date().getFullYear()} VeraCruz <span class="dot"></span> Brussels</span>
     <span><a href="/journal/feed.xml">RSS</a> <span class="dot"></span> <a href="mailto:info@veracruz.be">info@veracruz.be</a></span>
+    <span class="lang-switch" role="group" aria-label="Language"><span lang="en" aria-current="true">English</span> <span class="dot"></span> <a href="/fr/" lang="fr" hreflang="fr">Français</a></span>
   </div>
 </footer>
 
