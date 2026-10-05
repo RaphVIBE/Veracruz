@@ -290,7 +290,7 @@
   }
 
   /* DS layout: paper-white throughout; hairlines do the section work. */
-  .hero, #practice, #approach, #currently, #about, #contact { background: var(--paper); }
+  .hero, #practice, #approach, #currently, #about, #faq, #contact { background: var(--paper); }
 
   /* Lighten the row separators on tinted backgrounds so they don't read heavy. */
   #practice .practice-row { border-top-color: var(--rule-2); }
@@ -556,6 +556,21 @@
   .about-meta a:hover, .about-meta a:focus-visible {
     color: var(--cherry); border-color: var(--cherry);
   }
+
+  /* ────────── Questions ────────── */
+  .faq details { border-top: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 1px solid var(--line); }
+  .faq summary {
+    cursor: pointer; list-style: none;
+    display: flex; justify-content: space-between; gap: 1.5rem;
+    padding: 1.4rem 0;
+    font-weight: 500; font-size: 17px; color: var(--fg1);
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--cherry); transition: transform .2s ease; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq p { margin: 0; padding: 0 0 1.4rem; max-width: 44em; }
+  .faq p strong { color: var(--fg1); font-weight: 500; }
 
   /* ────────── Contact ────────── */
   .contact-card {
@@ -864,6 +879,66 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "en",
+  "about": {
+    "@id": "https://veracruz.be/#studio"
+  },
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does a project cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Framing or diagnostic work runs €5,000 to €8,000. A full product and service project runs €25,000 to €60,000. Ongoing monthly work runs €4,000 to €6,000. All excluding VAT."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who actually does the work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The people you meet. VeraCruz is a senior studio: strategy and execution sit in the same hands, and nothing is passed to a subcontractor without telling you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What kinds of projects do you take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Work where a digital product, a service journey and a physical object have to hold together."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a project take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A framing engagement takes three to five weeks. An end-to-end project usually runs three to six months."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you work on something confidential or early-stage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and most of our work is. We sign your NDA and do not publish work without written agreement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where are you, and who do you work with?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Brussels. Clients are mostly large organisations in logistics, energy and medical. We work in English, French and Dutch."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -1034,6 +1109,48 @@
             <a href="https://www.linkedin.com/in/rhombroeck/" rel="noopener" target="_blank">LinkedIn</a>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Questions -->
+  <section class="block" id="faq">
+    <div class="wrap">
+      <div class="block-head reveal">
+        <span class="label">Questions</span>
+        <h2>Before you write.</h2>
+      </div>
+
+      <div class="faq reveal">
+      <details>
+        <summary>What does a project cost?</summary>
+        <p>Framing or diagnostic work runs <strong>€5,000 to €8,000</strong>. A full product and service project, from strategy to delivery, runs <strong>€25,000 to €60,000</strong>. Ongoing work on a monthly basis runs <strong>€4,000 to €6,000</strong>. All excluding VAT. The range depends on scope and on how much of the work is yours to carry.</p>
+      </details>
+
+      <details>
+        <summary>Who actually does the work?</summary>
+        <p>The people you meet. VeraCruz is a senior studio: strategy and execution sit in the same hands, and nothing is passed to a subcontractor without telling you.</p>
+      </details>
+
+      <details>
+        <summary>What kinds of projects do you take?</summary>
+        <p>Work where a digital product, a service journey and a physical object have to hold together. That combination is the reason most clients come to us rather than to a specialist in one of the three.</p>
+      </details>
+
+      <details>
+        <summary>How long does a project take?</summary>
+        <p>A framing engagement takes three to five weeks. An end-to-end project usually runs three to six months, depending on how many decisions sit outside the studio.</p>
+      </details>
+
+      <details>
+        <summary>Can you work on something confidential or early-stage?</summary>
+        <p>Yes, and most of our work is. We sign your NDA, and we do not publish work without written agreement, which is why parts of the practice are not on this site.</p>
+      </details>
+
+      <details>
+        <summary>Where are you, and who do you work with?</summary>
+        <p>Brussels. Clients are mostly large organisations in sectors where a mistake is expensive: logistics, energy, medical. We work in English, French and Dutch.</p>
+      </details>
       </div>
     </div>
   </section>

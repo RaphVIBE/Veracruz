@@ -291,7 +291,7 @@
   }
 
   /* DS layout: paper-white throughout; hairlines do the section work. */
-  .hero, #practice, #approach, #currently, #about, #contact { background: var(--paper); }
+  .hero, #practice, #approach, #currently, #about, #faq, #contact { background: var(--paper); }
 
   /* Lighten the row separators on tinted backgrounds so they don't read heavy. */
   #practice .practice-row { border-top-color: var(--rule-2); }
@@ -557,6 +557,21 @@
   .about-meta a:hover, .about-meta a:focus-visible {
     color: var(--cherry); border-color: var(--cherry);
   }
+
+  /* ────────── Questions ────────── */
+  .faq details { border-top: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 1px solid var(--line); }
+  .faq summary {
+    cursor: pointer; list-style: none;
+    display: flex; justify-content: space-between; gap: 1.5rem;
+    padding: 1.4rem 0;
+    font-weight: 500; font-size: 17px; color: var(--fg1);
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--cherry); transition: transform .2s ease; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq p { margin: 0; padding: 0 0 1.4rem; max-width: 44em; }
+  .faq p strong { color: var(--fg1); font-weight: 500; }
 
   /* ────────── Contact ────────── */
   .contact-card {
@@ -866,6 +881,66 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "fr",
+  "about": {
+    "@id": "https://veracruz.be/#studio"
+  },
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte un projet ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un cadrage ou un diagnostic coûte de 5 000 à 8 000 €. Un projet complet produit et service coûte de 25 000 à 60 000 €. Un accompagnement continu, au mois, coûte de 4 000 à 6 000 €. Montants hors TVA."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qui fait réellement le travail ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les personnes que vous rencontrez. VeraCruz est un studio senior : la stratégie et l'exécution sont dans les mêmes mains, et rien n'est confié à un sous-traitant sans que vous le sachiez."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels types de projets prenez-vous ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ceux où un produit numérique, un parcours de service et un objet physique doivent tenir ensemble."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps dure un projet ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un cadrage prend de trois à cinq semaines. Un projet complet dure en général de trois à six mois."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pouvez-vous travailler sur un projet confidentiel ou en phase amont ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, c'est le cas de la plupart de nos projets. Nous signons votre NDA et nous ne publions rien sans accord écrit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Où êtes-vous, et avec qui travaillez-vous ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "À Bruxelles. Nos clients sont surtout de grandes organisations de la logistique, de l'énergie et du médical. Nous travaillons en français, en anglais et en néerlandais."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -1036,6 +1111,48 @@
             <a href="https://www.linkedin.com/in/rhombroeck/" rel="noopener" target="_blank">LinkedIn</a>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Questions -->
+  <section class="block" id="faq">
+    <div class="wrap">
+      <div class="block-head reveal">
+        <span class="label">Questions</span>
+        <h2>Avant de nous écrire.</h2>
+      </div>
+
+      <div class="faq reveal">
+      <details>
+        <summary>Combien coûte un projet&nbsp;?</summary>
+        <p>Un cadrage ou un diagnostic coûte de <strong>5&nbsp;000 à 8&nbsp;000&nbsp;€</strong>. Un projet complet produit et service, de la stratégie à la livraison, coûte de <strong>25&nbsp;000 à 60&nbsp;000&nbsp;€</strong>. Un accompagnement continu, au mois, coûte de <strong>4&nbsp;000 à 6&nbsp;000&nbsp;€</strong>. Tous ces montants s'entendent hors TVA. La fourchette dépend du périmètre et de la part du travail que vous prenez en charge.</p>
+      </details>
+
+      <details>
+        <summary>Qui fait réellement le travail&nbsp;?</summary>
+        <p>Les personnes que vous rencontrez. VeraCruz est un studio senior&nbsp;: la stratégie et l'exécution sont dans les mêmes mains, et rien n'est confié à un sous-traitant sans que vous le sachiez.</p>
+      </details>
+
+      <details>
+        <summary>Quels types de projets prenez-vous&nbsp;?</summary>
+        <p>Ceux où un produit numérique, un parcours de service et un objet physique doivent tenir ensemble. C'est pour cette combinaison que la plupart de nos clients viennent chez nous plutôt que chez un spécialiste de l'un des trois.</p>
+      </details>
+
+      <details>
+        <summary>Combien de temps dure un projet&nbsp;?</summary>
+        <p>Un cadrage prend de trois à cinq semaines. Un projet complet dure en général de trois à six mois, selon le nombre de décisions qui se prennent en dehors du studio.</p>
+      </details>
+
+      <details>
+        <summary>Pouvez-vous travailler sur un projet confidentiel ou en phase amont&nbsp;?</summary>
+        <p>Oui, c'est le cas de la plupart de nos projets. Nous signons votre NDA et nous ne publions rien sans accord écrit. C'est pour cela qu'une partie de notre travail n'apparaît pas sur ce site.</p>
+      </details>
+
+      <details>
+        <summary>Où êtes-vous, et avec qui travaillez-vous&nbsp;?</summary>
+        <p>À Bruxelles. Nos clients sont surtout de grandes organisations, dans des secteurs où une erreur coûte cher&nbsp;: logistique, énergie, médical. Nous travaillons en français, en anglais et en néerlandais.</p>
+      </details>
       </div>
     </div>
   </section>
