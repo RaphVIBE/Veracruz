@@ -233,14 +233,15 @@
   if (hero && finePointer) {
     hero.addEventListener('mousemove', function (e) {
       var r = hero.getBoundingClientRect();
-      tx = -((e.clientX - r.left) / r.width - 0.5) * 22;
-      ty = -((e.clientY - r.top) / r.height - 0.5) * 14;
+      tx = -((e.clientX - r.left) / r.width - 0.5) * 40;
+      ty = -((e.clientY - r.top) / r.height - 0.5) * 24;
       if (!raf) raf = requestAnimationFrame(heroLoop);
     });
     hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(heroLoop); });
   }
 
   /* ── Tout ce qui dépend du défilement, en une passe par image ── */
+  var portraitImg = portrait ? $('img', portrait) : null;
   var ticking = false;
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function onScroll() {
@@ -249,7 +250,7 @@
     var max = document.documentElement.scrollHeight - vh;
     bar.style.setProperty('--p', max > 0 ? (sy / max).toFixed(4) : 0);
 
-    if (hero && sy < vh * 1.2) hero.style.setProperty('--hs', (sy * 0.28).toFixed(1) + 'px');
+    if (hero && sy < vh * 1.2) hero.style.setProperty('--hs', (sy * 0.42).toFixed(1) + 'px');
 
     if (thread) {
       var lr = list.getBoundingClientRect();
@@ -261,9 +262,19 @@
         var img = $('.practice-image img', row);
         if (img && rr.bottom > 0 && rr.top < vh) {
           var c = (rr.top + rr.height / 2 - vh / 2) / vh;
-          img.style.setProperty('--py', (c * -26).toFixed(1) + 'px');
+          var lim = img.parentNode.offsetHeight * 0.12;
+          img.style.setProperty('--py', Math.max(-lim, Math.min(lim, c * -60)).toFixed(1) + 'px');
         }
       });
+    }
+
+    if (portraitImg) {
+      var pr = portrait.getBoundingClientRect();
+      if (pr.bottom > 0 && pr.top < vh) {
+        var pc = (pr.top + pr.height / 2 - vh / 2) / vh;
+        var plim = portrait.offsetHeight * 0.08;
+        portraitImg.style.setProperty('--py', Math.max(-plim, Math.min(plim, pc * -70)).toFixed(1) + 'px');
+      }
     }
 
     if (scrubWords.length) {

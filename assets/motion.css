@@ -84,12 +84,12 @@
   .m .hero .lede.reveal { transition-delay: 900ms; }
   .m .hero::before {
     translate: var(--hx, 0px) calc(var(--hy, 0px) + var(--hs, 0px));
-    scale: 1.06;
-    animation: m-hero-in 2400ms var(--m-ease) both;
+    scale: 1.08;
+    animation: m-hero-in 2800ms var(--m-ease) both;
   }
   @keyframes m-hero-in {
-    from { opacity: 0; scale: 1.16; }
-    to   { opacity: 0.21; scale: 1.06; }
+    from { opacity: 0; scale: 1.24; }
+    to   { opacity: 0.21; scale: 1.08; }
   }
 
   /* Libellés de section : le filet se dessine */
@@ -129,14 +129,16 @@
   /* L'image s'ouvre comme un rideau, puis suit le défilement */
   .m .practice-image {
     clip-path: inset(100% 0 0 0 round var(--r-md));
-    transition: clip-path 1100ms var(--m-ease) 120ms,
+    transition: clip-path 1400ms var(--m-ease) 120ms,
                 border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
   }
   .m .practice-row.in .practice-image { clip-path: inset(0 0 0 0 round var(--r-md)); }
   .m .practice-image img {
-    scale: 1.12; translate: 0 var(--py, 0px);
-    transition: transform var(--dur-slow) var(--ease), filter 700ms var(--m-ease);
+    scale: 1.5; translate: 0 var(--py, 0px);
+    transition: transform 900ms var(--m-ease), filter 700ms var(--m-ease), scale 1800ms var(--m-ease) 120ms;
   }
+  .m .practice-row.in .practice-image img { scale: 1.26; }
+  .m .practice-row:hover .practice-image img { transform: scale(1.08); }
   .m .practice-row:hover .practice-image img { filter: grayscale(0) contrast(1); }
 
   /* Le trait du haut se remplit au survol, le nom avance d'un pas */
@@ -185,8 +187,8 @@
   /* ── Portrait : rideau, puis un léger recul ── */
   .m .about-portrait { clip-path: inset(100% 0 0 0 round var(--r-md)); transition: clip-path 1300ms var(--m-ease), opacity 700ms, transform 700ms; }
   .m .about-portrait.in { clip-path: inset(0 0 0 0 round var(--r-md)); }
-  .m .about-portrait img { scale: 1.18; transition: scale 1800ms var(--m-ease), filter 700ms var(--m-ease); }
-  .m .about-portrait.in img { scale: 1.02; }
+  .m .about-portrait img { scale: 1.5; translate: 0 var(--py, 0px); transition: scale 2000ms var(--m-ease), filter 700ms var(--m-ease); }
+  .m .about-portrait.in img { scale: 1.18; }
   .m .about-portrait:hover img { filter: grayscale(0.4) contrast(1.02); }
 
   /* ── Questions : ouverture fluide, le + devient une croix ── */
