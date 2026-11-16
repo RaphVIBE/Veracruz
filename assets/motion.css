@@ -23,11 +23,13 @@
   }
 
   /* ── Symbole : tracé à l'ouverture, puis l'image officielle prend le relais ── */
-  .m .m-mark { position: relative; display: block; height: 26px; width: 26px; }
+  .m .m-mark { position: relative; display: block; line-height: 0; }
   .m .m-mark .mark-img { opacity: 0; transition: opacity 260ms ease; }
   .m .m-mark svg {
     position: absolute; inset: 0; width: 100%; height: 100%;
     overflow: visible; transition: opacity 260ms ease;
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
   }
   .m .m-mark path {
     fill: none; stroke: var(--ink);

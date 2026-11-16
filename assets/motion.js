@@ -77,9 +77,15 @@
     markWrap.appendChild(mark);
     markWrap.insertAdjacentHTML('beforeend',
       '<svg viewBox="0 0 256 256" aria-hidden="true">' +
-      '<path class="v" pathLength="1" stroke-width="21" stroke-linejoin="round" d="M 24 -8 L 133 180 L 244 -8"/>' +
-      '<path class="c" pathLength="1" stroke-width="18" d="M 238 148 A 122 61 0 1 0 238 218"/>' +
+      '<path class="v" pathLength="1" stroke-width="30" stroke-linejoin="round" d="M 6 -20 L 134 194 L 261 -20"/>' +
+      '<path class="c" pathLength="1" stroke-width="28" d="M 248.3 155.4 A 125 63 0 1 0 248.3 208.6"/>' +
       '</svg>');
+    // Le tracé est découpé par la forme exacte du symbole : à la fin du
+    // dessin, l'image et le tracé se superposent au pixel près.
+    var svgEl = markWrap.querySelector('svg');
+    var maskUrl = 'url("' + (mark.currentSrc || mark.src) + '")';
+    svgEl.style.webkitMaskImage = maskUrl;
+    svgEl.style.maskImage = maskUrl;
     var draw = function () {
       markWrap.classList.remove('is-done', 'is-drawing');
       void markWrap.offsetWidth;
