@@ -623,7 +623,7 @@
 
   /* Lead contact line: bigger, the room's primary action */
   .contact-line--lead { gap: 10px; }
-  .v--lead {
+  .contact-line .v--lead {
     font-family: var(--font-display);
     font-weight: 300;
     font-size: clamp(2rem, 3.6vw, 3.2rem);
@@ -632,7 +632,7 @@
     padding-bottom: 6px;
     border-bottom-width: 1px;
   }
-  .v--lead .arrow { font-size: 0.55em; }
+  .contact-line .v--lead .arrow { font-size: 0.55em; }
 
   /* ────────── Contact form ────────── */
   .contact-form {
@@ -808,7 +808,7 @@
 
     /* Contact */
     .contact-card { gap: 24px; }
-    .v--lead { font-size: clamp(1.6rem, 7.6vw, 2.4rem); }
+    .contact-line .v--lead { font-size: clamp(1.6rem, 7.6vw, 2.4rem); }
     .contact-pitch { max-width: none; }
 
     /* Footer */
@@ -822,7 +822,7 @@
     .wordmark .mark-img { height: 21px; }
     .wordmark .logotype-img { height: 13px; }
     .hero h1 { font-size: clamp(2.4rem, 11vw, 3.4rem); letter-spacing: -0.025em; }
-    .v--lead { font-size: clamp(1.4rem, 8vw, 2rem); letter-spacing: -0.025em; }
+    .contact-line .v--lead { font-size: clamp(1.4rem, 8vw, 2rem); letter-spacing: -0.025em; }
   }
 
   /* ────────── Reveal on scroll ────────── */
@@ -835,6 +835,7 @@
     .reveal { opacity: 1; transform: none; transition: none; }
   }
 </style>
+<link rel="stylesheet" href="/assets/motion.css" />
 <!-- Structured data: identity of the studio for search engines and AI assistants -->
 <script type="application/ld+json">
 {
@@ -1266,5 +1267,6 @@
   // Contact form removed — site uses a plain mailto. No JS needed here.
 </script>
 
+<script src="/assets/motion.js"></script>
 </body>
 </html>

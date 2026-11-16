@@ -1,0 +1,220 @@
+/* VeraCruz motion layer.
+   Chargé par l'accueil (EN et FR). Tout ce qui bouge passe par ici, et rien
+   ne bouge si le visiteur a demandé de réduire les animations.
+   Le script ajoute la classe .m sur <html> : sans JS, le site reste tel quel. */
+
+@view-transition { navigation: auto; }
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: 380ms; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+
+@media (prefers-reduced-motion: no-preference) {
+
+  :root {
+    --m-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --m-ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  /* ── Lecture du défilement : un fil cerise sous l'en-tête ── */
+  .m .m-progress {
+    position: absolute; left: 0; right: 0; bottom: -1px;
+    height: 1px; background: var(--cherry);
+    transform-origin: left; transform: scaleX(var(--p, 0));
+    pointer-events: none;
+  }
+
+  /* ── Symbole : tracé à l'ouverture, puis l'image officielle prend le relais ── */
+  .m .m-mark { position: relative; display: block; height: 26px; width: 26px; }
+  .m .m-mark .mark-img { opacity: 0; transition: opacity 260ms ease; }
+  .m .m-mark svg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    overflow: visible; transition: opacity 260ms ease;
+  }
+  .m .m-mark path {
+    fill: none; stroke: var(--ink);
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+  }
+  .m .m-mark.is-drawing path { animation: m-draw 900ms var(--m-ease-io) forwards; }
+  .m .m-mark.is-drawing path.c { animation-delay: 380ms; animation-duration: 1000ms; }
+  .m .m-mark.is-done .mark-img { opacity: 1; }
+  .m .m-mark.is-done svg { opacity: 0; }
+  @keyframes m-draw { to { stroke-dashoffset: 0; } }
+  .m .wordmark .logotype-img {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 900ms var(--m-ease) 700ms;
+  }
+  .m.m-ready .wordmark .logotype-img { clip-path: inset(0 0 0 0); }
+  .m .wordmark:hover { opacity: 1; }
+
+  /* ── Navigation : un seul trait qui glisse d'un lien à l'autre ── */
+  .m nav.primary ul { position: relative; }
+  .m nav.primary a::after { display: none; }
+  .m .m-nav-bar {
+    position: absolute; bottom: 8px; left: 0; height: 1px; width: 0;
+    background: var(--cherry); pointer-events: none;
+    transition: transform 460ms var(--m-ease), width 460ms var(--m-ease), opacity 200ms ease;
+    opacity: 0;
+  }
+  .m nav.primary li {
+    opacity: 0; transform: translateY(-6px);
+    transition: opacity 600ms var(--m-ease), transform 600ms var(--m-ease);
+    transition-delay: calc(500ms + var(--i, 0) * 60ms);
+  }
+  .m.m-ready nav.primary li { opacity: 1; transform: none; }
+
+  /* ── Titres : les mots montent depuis la ligne de base ── */
+  .m .m-split .w {
+    display: inline-block; overflow: hidden; vertical-align: top;
+    padding-bottom: 0.14em; margin-bottom: -0.14em;
+  }
+  .m .m-split .wi {
+    display: inline-block; transform: translateY(108%);
+    transition: transform 1000ms var(--m-ease);
+    transition-delay: calc(var(--d, 0ms) + var(--i, 0) * 55ms);
+  }
+  .m .m-split.in .wi { transform: none; }
+
+  /* Hero */
+  .m .hero h1 { --d: 280ms; }
+  .m .hero .eyebrow::before {
+    width: 0; transition: width 900ms var(--m-ease) 200ms;
+  }
+  .m .hero .eyebrow.in::before { width: 26px; }
+  .m .hero .lede.reveal { transition-delay: 900ms; }
+  .m .hero::before {
+    translate: var(--hx, 0px) calc(var(--hy, 0px) + var(--hs, 0px));
+    scale: 1.06;
+    animation: m-hero-in 2400ms var(--m-ease) both;
+  }
+  @keyframes m-hero-in {
+    from { opacity: 0; scale: 1.16; }
+    to   { opacity: 0.21; scale: 1.06; }
+  }
+
+  /* Libellés de section : le filet se dessine */
+  .m .block-head .label::before {
+    content: ""; display: inline-block; height: 1px; background: var(--fg3);
+    width: 0; transition: width 800ms var(--m-ease) 150ms;
+  }
+  .m .block-head.in .label::before { width: 22px; }
+
+  /* ── Practice : un fil qui traverse les trois métiers ── */
+  .m .practice-list { position: relative; }
+  .m .m-thread { display: none; }
+  @media (min-width: 900px) {
+    .m .m-thread {
+      display: block; position: absolute; top: 0; bottom: 0;
+      left: calc(-1 * clamp(18px, 2.2vw, 30px)); width: 1px;
+      background: var(--line); pointer-events: none;
+    }
+    .m .m-thread i {
+      position: absolute; inset: 0; background: var(--cherry);
+      transform-origin: top; transform: scaleY(var(--t, 0));
+    }
+    .m .practice-row::before {
+      content: ""; position: absolute;
+      left: calc(-1 * clamp(18px, 2.2vw, 30px) - 3px);
+      top: calc(clamp(32px, 5vh, 52px) + 0.9rem);
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--paper); box-shadow: inset 0 0 0 1px var(--line-strong);
+      transition: background 360ms var(--m-ease), box-shadow 360ms var(--m-ease), transform 360ms var(--m-ease);
+    }
+    .m .practice-row.is-lit::before {
+      background: var(--cherry); box-shadow: inset 0 0 0 1px var(--cherry);
+      transform: scale(1.25);
+    }
+  }
+
+  /* L'image s'ouvre comme un rideau, puis suit le défilement */
+  .m .practice-image {
+    clip-path: inset(100% 0 0 0 round var(--r-md));
+    transition: clip-path 1100ms var(--m-ease) 120ms,
+                border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .m .practice-row.in .practice-image { clip-path: inset(0 0 0 0 round var(--r-md)); }
+  .m .practice-image img {
+    scale: 1.12; translate: 0 var(--py, 0px);
+    transition: transform var(--dur-slow) var(--ease), filter 700ms var(--m-ease);
+  }
+  .m .practice-row:hover .practice-image img { filter: grayscale(0) contrast(1); }
+
+  /* Le trait du haut se remplit au survol, le nom avance d'un pas */
+  .m .practice-row::after {
+    content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px;
+    background: var(--ink); transform: scaleX(0); transform-origin: left;
+    transition: transform 700ms var(--m-ease);
+  }
+  .m .practice-row:hover::after { transform: scaleX(1); }
+  .m .practice-row .name { transition: transform 600ms var(--m-ease); }
+  .m .practice-row:hover .name { transform: translateX(10px); }
+  .m .practice-row .name .index { transition: color 300ms ease; }
+  .m .practice-row:hover .name .index { color: var(--cherry); }
+  .m .practice-row .examples li {
+    transition: color 300ms ease, transform 500ms var(--m-ease);
+    transition-delay: calc(var(--i, 0) * 50ms);
+  }
+  .m .practice-row:hover .examples li { color: var(--fg1); transform: translateX(4px); }
+
+  /* ── Approach : le point s'étire en trait ── */
+  .m .approach-item h3 .dot {
+    transform: scale(0);
+    transition: transform 600ms var(--m-ease) 250ms, width 500ms var(--m-ease), border-radius 500ms var(--m-ease);
+  }
+  .m .approach-item.in h3 .dot { transform: none; }
+  .m .approach-item:hover h3 .dot { width: 22px; border-radius: 3px; transition-delay: 0ms; }
+
+  /* ── Quiet by design : le texte s'encre au fil de la lecture ── */
+  .m .m-scrub .sw { color: var(--n-300); transition: color 420ms ease; }
+  .m .m-scrub .sw.on { color: var(--fg2); }
+  .m .m-scrub .ink .sw.on { color: var(--fg1); }
+
+  .m .sectors li {
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 600ms var(--m-ease), transform 700ms var(--m-ease);
+    transition-delay: calc(150ms + var(--i, 0) * 80ms);
+  }
+  .m .sectors li:not(:last-child)::after {
+    transform: rotate(45deg) scale(0);
+    transition: transform 600ms var(--m-ease);
+    transition-delay: calc(400ms + var(--i, 0) * 80ms);
+  }
+  .m .sectors-block.in .sectors li { opacity: 1; transform: none; }
+  .m .sectors-block.in .sectors li:not(:last-child)::after { transform: none; }
+
+  /* ── Portrait : rideau, puis un léger recul ── */
+  .m .about-portrait { clip-path: inset(100% 0 0 0 round var(--r-md)); transition: clip-path 1300ms var(--m-ease), opacity 700ms, transform 700ms; }
+  .m .about-portrait.in { clip-path: inset(0 0 0 0 round var(--r-md)); }
+  .m .about-portrait img { scale: 1.18; transition: scale 1800ms var(--m-ease), filter 700ms var(--m-ease); }
+  .m .about-portrait.in img { scale: 1.02; }
+  .m .about-portrait:hover img { filter: grayscale(0.4) contrast(1.02); }
+
+  /* ── Questions : ouverture fluide, le + devient une croix ── */
+  .m .faq summary { transition: color 240ms ease; }
+  .m .faq summary .q { display: inline-block; transition: transform 500ms var(--m-ease); }
+  .m .faq summary:hover .q { transform: translateX(8px); }
+  .m .faq summary::after {
+    transition: transform 520ms var(--m-ease);
+    font-size: 1.25em; line-height: 1; font-weight: 300;
+  }
+  .m .faq details[open] summary::after { transform: rotate(135deg); }
+  .m .faq details.is-closing summary::after { transform: none; }
+  .m .faq details p { overflow: hidden; }
+
+  /* ── Contact : les lettres roulent vers le cerise ── */
+  .m .m-roll { display: inline-flex; overflow: hidden; line-height: 1.12; vertical-align: bottom; padding-block: 0.02em; }
+  .m .m-roll .ch {
+    display: inline-block; white-space: pre;
+    text-shadow: 0 1.4em 0 var(--cherry);
+    transition: transform 620ms var(--m-ease);
+    transition-delay: calc(var(--i, 0) * 18ms);
+  }
+  .m .contact-line a.v--lead:hover .m-roll .ch,
+  .m .contact-line a.v--lead:focus-visible .m-roll .ch { transform: translateY(-1.4em); }
+  .m .contact-line a.v--lead { transition: border-color 400ms ease, translate 500ms var(--m-ease); translate: var(--mx, 0px) var(--my, 0px); }
+  .m .contact-line a.v--lead:hover { color: var(--fg1); }
+  .m .contact-line a.v--lead .arrow { transition: transform 600ms var(--m-ease); }
+  .m .contact-line a.v--lead:hover .arrow { transform: translate(6px, -6px) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
