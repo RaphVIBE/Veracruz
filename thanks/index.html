@@ -24,6 +24,72 @@ html{scroll-behavior:smooth;background:#0A0A0A}
 summary::-webkit-details-marker{display:none}
 .vc-skip{position:absolute;left:-9999px;top:8px;z-index:100;background:#F4EFE6;color:#0A0A0A;padding:12px 16px;border-radius:999px}
 .vc-skip:focus{left:16px}
+.vc-ok{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(10,10,10,.93);opacity:0;visibility:hidden;cursor:pointer;transition:opacity .5s ease,visibility 0s linear .5s}
+.vc-ok.on{opacity:1;visibility:visible;transition:opacity .5s ease}
+.vc-ok-in{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;max-width:min(720px,76vw);transform:translateY(18px);opacity:0;transition:transform .7s cubic-bezier(.2,.7,.2,1) .15s,opacity .7s ease .15s}
+.vc-ok.on .vc-ok-in{transform:none;opacity:1}
+.vc-ok-ring{position:absolute;left:50%;top:50%;width:min(92vw,640px);height:min(92vw,640px);transform:translate(-50%,-50%) rotate(-90deg);pointer-events:none}
+.vc-ok-ring circle{fill:none;stroke:#D21F3C;stroke-width:3;stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 1.4s cubic-bezier(.6,.1,.2,1) .2s}
+.vc-ok.on .vc-ok-ring circle{stroke-dashoffset:0}
+
+/* motion layer: everything stays visible without JS, nothing moves if reduced motion is asked */
+@view-transition{navigation:auto}
+.vc-progress{position:fixed;left:0;top:0;height:2px;width:100%;background:#D21F3C;transform-origin:left;transform:scaleX(0);z-index:150;pointer-events:none}
+header a[aria-label] img:first-child{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+header a[aria-label]:hover img:first-child{transform:rotate(1turn)}
+header nav a,#vc-mnav a,footer a{position:relative}
+header nav a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1.5px;background:#D21F3C;transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+header nav a:hover::after,header nav a:focus-visible::after{transform:scaleX(1);transform-origin:left}
+a[style*="border-radius:999px"],button[style*="border-radius:999px"]{transition:transform .25s cubic-bezier(.2,.7,.2,1),background-color .25s,border-color .25s,box-shadow .25s}
+a[style*="border-radius:999px"]:hover,button[style*="border-radius:999px"]:hover{transform:translateY(-2px)}
+a[style*="border-radius:999px"]:active,button[style*="border-radius:999px"]:active{transform:translateY(0)}
+a[style*="background:#D21F3C"]:hover,button[type=submit]:hover{background:#E63147!important;box-shadow:0 10px 30px rgba(210,31,60,.35)}
+a[style*="border:1px solid #77736C"]:hover,button[data-menu]:hover{border-color:#F4EFE6!important;background:rgba(244,239,230,.06)!important}
+a[href^="mailto"]:hover{background:#D21F3C!important}
+a span[aria-hidden="true"],button span[aria-hidden="true"]{display:inline-block;transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+a[href^="mailto"]:hover span[aria-hidden="true"]{transform:translate(3px,-3px)}
+button[type=submit]:hover span[aria-hidden="true"]{transform:translateX(4px)}
+article[style*="background:#151515"]{transition:border-color .3s,transform .35s cubic-bezier(.2,.7,.2,1),background-color .3s}
+article[style*="background:#151515"]:hover{border-color:#77736C!important;transform:translateY(-4px)}
+article span[style*="border-radius:50%"]{transition:background-color .3s,border-color .3s}
+article:hover span[style*="border-radius:50%"]{background:#D21F3C;border-color:#D21F3C!important}
+li[style*="border-radius:999px"]{transition:border-color .25s}
+article li[style*="border-radius:999px"]:hover{border-color:#F4EFE6!important}
+div[role=group]>div{transition:border-color .3s,transform .35s cubic-bezier(.2,.7,.2,1)}
+div[role=group]>div:hover{border-color:#77736C!important;transform:translateY(-3px)}
+details summary span[aria-hidden="true"]{transition:transform .35s cubic-bezier(.2,.7,.2,1),background-color .3s,border-color .3s}
+details[open] summary span[aria-hidden="true"]{transform:rotate(45deg);background:#D21F3C;border-color:#D21F3C!important}
+details summary:hover span[aria-hidden="true"]{border-color:#F4EFE6!important}
+input[style*="border:1px solid #77736C"],textarea{transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus{outline:none;border-color:#0A0A0A!important;box-shadow:0 0 0 3px rgba(210,31,60,.35)}
+@media (prefers-reduced-motion:no-preference){
+.vc-m .vc-pre{opacity:0;transform:translateY(28px)}
+.vc-m .vc-pre.vc-in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.vc-m article.vc-pre.vc-in{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),border-color .3s}
+.vc-m .vc-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.vc-m .vc-wi{display:inline-block;transform:translateY(110%);animation:vc-rise 1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(.25s + var(--i)*.06s)}
+@keyframes vc-rise{to{transform:none}}
+.vc-m .vc-fade{opacity:0;animation:vc-fade .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,.6s)}
+@keyframes vc-fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.vc-m .vc-bg{animation:vc-bg 2.6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vc-bg{from{opacity:0;scale:1.14}to{opacity:.22;scale:1.04}}
+.vc-m .vc-bg{scale:1.04}
+.vc-m header a[aria-label] img:first-child{animation:vc-sym 1.2s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vc-sym{from{opacity:0;transform:rotate(-140deg) scale(.6)}to{opacity:1;transform:none}}
+.vc-m header a[aria-label] img:last-child{animation:vc-word 1s cubic-bezier(.2,.7,.2,1) .35s both}
+@keyframes vc-word{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.vc-m header nav a{animation:vc-fade .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.45s + var(--i,0)*.05s)}
+.vc-m .vc-arc{stroke-dasharray:100;stroke-dashoffset:100}
+.vc-m .vc-needle{transform-box:view-box;transform-origin:50% 50%;transform:rotate(var(--from))}
+.vc-m .vc-go .vc-arc{stroke-dashoffset:0;transition:stroke-dashoffset 1.4s cubic-bezier(.6,.1,.2,1) .2s}
+.vc-m .vc-go .vc-needle{transform:none;transition:transform 1.6s cubic-bezier(.3,1.35,.4,1) .2s}
+.vc-bezel{animation:vc-turn 140s linear infinite}
+@keyframes vc-turn{to{transform:rotate(1turn)}}
+.vc-m .vc-dialx img.vc-pre{transform:scale(.82)}
+.vc-m .vc-img{opacity:0}
+.vc-m .vc-img.vc-loaded{opacity:1;transition:opacity .6s ease}
+}
+@media (prefers-reduced-motion:reduce){.vc-ok,.vc-ok.on,.vc-ok-in,.vc-ok-ring circle{transition:none}.vc-ok-ring circle{stroke-dashoffset:0}}
 
 </style>
 </head>
