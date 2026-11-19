@@ -17,6 +17,52 @@
   if (reduce || !('IntersectionObserver' in window)) return;
   root.classList.add('vc-m');
 
+  // Symbol: the V then the C are drawn stroke by stroke. The strokes only
+  // reveal the symbol image itself, so the end state is the logo, pixel for pixel.
+  (function () {
+    var img = document.querySelector('header a[href="/"] img[src*="sym-cream"]');
+    if (!img) return;
+    var NS = 'http://www.w3.org/2000/svg';
+    var st = document.createElement('style');
+    st.textContent =
+      '.vc-sym{position:relative;display:block;flex:none;line-height:0}' +
+      '.vc-sym svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}' +
+      '.vc-sym .p{fill:none;stroke:#fff;stroke-dasharray:1;stroke-dashoffset:1}' +
+      '.vc-sym.go .p{animation:vc-draw 900ms cubic-bezier(.65,0,.35,1) forwards}' +
+      '.vc-sym.go .p.c{animation-delay:380ms;animation-duration:1000ms}' +
+      '.vc-sym img{animation:none!important;transform:none!important}' +
+      '.vc-sym.drawing img{opacity:0!important}' +
+      '@keyframes vc-draw{to{stroke-dashoffset:0}}';
+    document.head.appendChild(st);
+    var wrap = document.createElement('span');
+    wrap.className = 'vc-sym';
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(img);
+    var id = 'vc-sym-m';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 256 256');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.innerHTML =
+      '<defs><mask id="' + id + '" maskUnits="userSpaceOnUse" x="-20" y="-40" width="300" height="320">' +
+      '<path class="p v" pathLength="1" stroke-width="30" stroke-linejoin="round" d="M 6 -20 L 134 194 L 261 -20"/>' +
+      '<path class="p c" pathLength="1" stroke-width="28" d="M 248.3 155.4 A 125 63 0 1 0 248.3 208.6"/>' +
+      '</mask></defs>' +
+      '<image href="' + (img.currentSrc || img.src) + '" x="0" y="0" width="256" height="256" mask="url(#' + id + ')"/>';
+    wrap.appendChild(svg);
+    var busy = false;
+    function draw() {
+      if (busy) return; busy = true;
+      wrap.classList.remove('go');
+      void wrap.offsetWidth;
+      wrap.classList.add('drawing', 'go');
+      setTimeout(function () { wrap.classList.remove('drawing'); busy = false; }, 1450);
+    }
+    draw();
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      wrap.parentNode.addEventListener('mouseenter', draw);
+    }
+  })();
+
   $$('#main img').forEach(function (img) {
     if (hero && hero.contains(img)) return;
     if (img.complete && img.naturalWidth) return;
