@@ -82,7 +82,7 @@ const CSS = `<style>
 
 function block(lang, data) {
   const t = T[lang];
-  const projects = data.projects.filter((p) => p.draft !== true).sort((a, b) => b.year - a.year);
+  const projects = data.projects.filter((p) => p.draft !== true).sort((a, b) => b.year - a.year || (a.example ? 1 : 0) - (b.example ? 1 : 0));
   const used = Object.keys(data.tags).filter((k) => projects.some((p) => p.tags.includes(k)));
 
   for (const p of projects) {
@@ -95,7 +95,7 @@ function block(lang, data) {
 
   const tagLabel = (k) => esc(data.tags[k][lang]);
 
-  const items = projects.map((p) => `<details data-tags="${p.tags.join(' ')}"><summary><span class="vc-pj-meta"><span>${p.year}</span><i></i><span>${esc(p.sector[lang])}</span></span><span class="vc-pj-t"><b>${esc(p.title[lang])}</b><ul class="vc-pj-tags">${p.example ? `<li class="ex">${t.example}</li>` : ''}${p.tags.map((k) => `<li>${tagLabel(k)}</li>`).join('')}</ul></span><span aria-hidden="true">+</span></summary><div class="vc-pj-body"><div><h3>${t.context}</h3><p>${esc(p.context[lang])}</p></div><div><h3>${t.work}</h3><p>${esc(p.work[lang])}</p></div><div><h3>${t.outcome}</h3><p>${esc(p.outcome[lang])}</p></div></div></details>`).join('\n');
+  const items = projects.map((p) => `<details data-tags="${p.tags.join(' ')}"><summary><span class="vc-pj-meta"><span>${p.year}</span><i></i><span>${esc(p.sector[lang])}</span></span><span class="vc-pj-t"><b>${esc(p.title[lang])}</b><ul class="vc-pj-tags">${p.example ? `<li class="ex">${t.example}</li>` : ''}${p.tags.map((k) => `<li>${tagLabel(k)}</li>`).join('')}</ul></span><span aria-hidden="true">+</span></summary><div class="vc-pj-body"><div><h3>${t.context}</h3><p>${esc(p.context[lang])}</p></div><div><h3>${t.work}</h3><p>${esc(p.work[lang])}</p></div><div><h3>${t.outcome}</h3><p>${esc(p.outcome[lang])}</p>${p.link ? `<p style="margin-top:12px"><a href="${esc(p.link.url)}" target="_blank" rel="noopener" style="color:#F4EFE6">${esc(p.link.label[lang])} <span aria-hidden="true">&#8599;</span></a></p>` : ''}</div></div></details>`).join('\n');
 
   const buttons = [`<button type="button" class="vc-pj-f" data-tag="" aria-pressed="true">${t.all}</button>`]
     .concat(used.map((k) => `<button type="button" class="vc-pj-f" data-tag="${k}" data-label="${tagLabel(k)}" aria-pressed="false">${tagLabel(k)}</button>`))

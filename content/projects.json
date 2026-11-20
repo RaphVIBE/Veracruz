@@ -1,23 +1,119 @@
 {
-  "_readme": "Liste des projets affichée sur l'accueil (EN et FR). Après modification : npm run projects, puis commit de index.html et fr/index.html. Les clients restent anonymes. Un projet avec \"draft\": true n'est pas publié. Un projet avec \"example\": true est un exemple de démonstration, à remplacer avant mise en ligne.",
-
+  "_readme": "Liste des projets affichée sur l'accueil (EN et FR). Après modification : npm run projects, puis commit de index.html et fr/index.html. Les clients restent anonymes. Un projet avec \"draft\": true n'est pas publié. Un projet avec \"example\": true est un exemple de démonstration, à remplacer avant mise en ligne. Champ optionnel \"link\" : {url, label:{en,fr}}, rendu comme un lien suivi (backlink).",
   "tags": {
-    "ai":           { "en": "AI",             "fr": "IA" },
-    "crm":          { "en": "CRM",            "fr": "CRM" },
-    "segmentation": { "en": "Segmentation",   "fr": "Segmentation" },
-    "saas":         { "en": "SaaS",           "fr": "SaaS" },
-    "service":      { "en": "Service design", "fr": "Design de service" },
-    "physical":     { "en": "Physical",       "fr": "Physique" },
-    "data":         { "en": "Data",           "fr": "Data" }
+    "ai": {
+      "en": "AI",
+      "fr": "IA"
+    },
+    "crm": {
+      "en": "CRM",
+      "fr": "CRM"
+    },
+    "segmentation": {
+      "en": "Segmentation",
+      "fr": "Segmentation"
+    },
+    "saas": {
+      "en": "SaaS",
+      "fr": "SaaS"
+    },
+    "service": {
+      "en": "Service design",
+      "fr": "Design de service"
+    },
+    "physical": {
+      "en": "Physical",
+      "fr": "Physique"
+    },
+    "data": {
+      "en": "Data",
+      "fr": "Data"
+    }
   },
-
   "projects": [
+    {
+      "id": "ai-reputation",
+      "year": 2026,
+      "sector": {
+        "en": "Studio product",
+        "fr": "Produit du studio"
+      },
+      "tags": [
+        "ai",
+        "saas",
+        "data"
+      ],
+      "title": {
+        "en": "AI Réputation: what AI assistants say about a brand",
+        "fr": "AI Réputation : ce que les IA disent d'une marque"
+      },
+      "context": {
+        "en": "When customers ask ChatGPT or Perplexity for a recommendation, a business has no way of knowing whether it is mentioned, or how.",
+        "fr": "Quand un client demande une recommandation à ChatGPT ou à Perplexity, une entreprise ne sait pas si elle est citée, ni comment."
+      },
+      "work": {
+        "en": "A free two-minute check on one AI, a paid report across four assistants with a correction plan, and an optional monthly follow-up.",
+        "fr": "Un test gratuit de deux minutes sur une IA, un rapport payant sur quatre assistants avec un plan de correction, et un suivi mensuel en option."
+      },
+      "outcome": {
+        "en": "Live and run by the studio.",
+        "fr": "En ligne, exploité par le studio."
+      },
+      "link": {
+        "url": "https://reputation.veracruz.be/",
+        "label": {
+          "en": "Visit reputation.veracruz.be",
+          "fr": "Voir reputation.veracruz.be"
+        }
+      }
+    },
+    {
+      "id": "acquit",
+      "year": 2026,
+      "sector": {
+        "en": "Studio product",
+        "fr": "Produit du studio"
+      },
+      "tags": [
+        "ai",
+        "saas"
+      ],
+      "title": {
+        "en": "Acquit: invoices that reach the accountant on their own",
+        "fr": "Acquit : les pièces arrivent seules chez le comptable"
+      },
+      "context": {
+        "en": "Every quarter, accounting firms chase their clients for missing purchase invoices.",
+        "fr": "Chaque trimestre, les cabinets comptables et les fiduciaires courent après les factures d'achat de leurs clients."
+      },
+      "work": {
+        "en": "A web app where the firm invites its clients. Each client agrees once, then invoices from their mailbox and supplier portals are collected and passed to the firm.",
+        "fr": "Une application où le cabinet invite ses clients. Chaque client donne son accord une fois, puis les factures de sa boîte mail et des portails fournisseurs sont collectées et transmises au cabinet."
+      },
+      "outcome": {
+        "en": "Live, open to clients invited by their accounting firm.",
+        "fr": "En ligne, ouvert aux clients invités par leur cabinet."
+      },
+      "link": {
+        "url": "https://www.acquit.be/",
+        "label": {
+          "en": "Visit acquit.be",
+          "fr": "Voir acquit.be"
+        }
+      }
+    },
     {
       "id": "dispatch-logistics",
       "example": true,
       "year": 2025,
-      "sector": { "en": "Logistics", "fr": "Logistique" },
-      "tags": ["ai", "saas"],
+      "sector": {
+        "en": "Logistics",
+        "fr": "Logistique"
+      },
+      "tags": [
+        "ai",
+        "saas"
+      ],
       "title": {
         "en": "A dispatch tool for a parcel network",
         "fr": "Un outil de dispatch pour un réseau de colis"
@@ -39,8 +135,15 @@
       "id": "segmentation-bank",
       "example": true,
       "year": 2025,
-      "sector": { "en": "Banking", "fr": "Banque" },
-      "tags": ["segmentation", "crm", "data"],
+      "sector": {
+        "en": "Banking",
+        "fr": "Banque"
+      },
+      "tags": [
+        "segmentation",
+        "crm",
+        "data"
+      ],
       "title": {
         "en": "Customer segmentation for a retail bank",
         "fr": "Segmentation client pour une banque de détail"
@@ -62,8 +165,14 @@
       "id": "field-crm-energy",
       "example": true,
       "year": 2024,
-      "sector": { "en": "Energy", "fr": "Énergie" },
-      "tags": ["crm", "service"],
+      "sector": {
+        "en": "Energy",
+        "fr": "Énergie"
+      },
+      "tags": [
+        "crm",
+        "service"
+      ],
       "title": {
         "en": "A field-service journey for an energy supplier",
         "fr": "Un parcours d'intervention pour un fournisseur d'énergie"
@@ -85,8 +194,14 @@
       "id": "device-medical",
       "example": true,
       "year": 2024,
-      "sector": { "en": "Medical", "fr": "Médical" },
-      "tags": ["physical", "ai"],
+      "sector": {
+        "en": "Medical",
+        "fr": "Médical"
+      },
+      "tags": [
+        "physical",
+        "ai"
+      ],
       "title": {
         "en": "A connected device and its companion app",
         "fr": "Un appareil connecté et son application"
@@ -108,8 +223,14 @@
       "id": "onboarding-telco",
       "example": true,
       "year": 2023,
-      "sector": { "en": "Telco", "fr": "Télécoms" },
-      "tags": ["saas", "service"],
+      "sector": {
+        "en": "Telco",
+        "fr": "Télécoms"
+      },
+      "tags": [
+        "saas",
+        "service"
+      ],
       "title": {
         "en": "Self-serve onboarding for a B2B offer",
         "fr": "Onboarding en libre-service pour une offre B2B"
