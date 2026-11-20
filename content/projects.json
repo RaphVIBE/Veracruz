@@ -1,0 +1,131 @@
+{
+  "_readme": "Liste des projets affichée sur l'accueil (EN et FR). Après modification : npm run projects, puis commit de index.html et fr/index.html. Les clients restent anonymes. Un projet avec \"draft\": true n'est pas publié. Un projet avec \"example\": true est un exemple de démonstration, à remplacer avant mise en ligne.",
+
+  "tags": {
+    "ai":           { "en": "AI",             "fr": "IA" },
+    "crm":          { "en": "CRM",            "fr": "CRM" },
+    "segmentation": { "en": "Segmentation",   "fr": "Segmentation" },
+    "saas":         { "en": "SaaS",           "fr": "SaaS" },
+    "service":      { "en": "Service design", "fr": "Design de service" },
+    "physical":     { "en": "Physical",       "fr": "Physique" },
+    "data":         { "en": "Data",           "fr": "Data" }
+  },
+
+  "projects": [
+    {
+      "id": "dispatch-logistics",
+      "example": true,
+      "year": 2025,
+      "sector": { "en": "Logistics", "fr": "Logistique" },
+      "tags": ["ai", "saas"],
+      "title": {
+        "en": "A dispatch tool for a parcel network",
+        "fr": "Un outil de dispatch pour un réseau de colis"
+      },
+      "context": {
+        "en": "Planners were rebuilding delivery rounds by hand every morning from three different systems.",
+        "fr": "Les planificateurs reconstruisaient les tournées à la main chaque matin, à partir de trois systèmes différents."
+      },
+      "work": {
+        "en": "Field research with planners and drivers, then the design of a web tool that suggests rounds and lets planners adjust them before they go out.",
+        "fr": "Observation des planificateurs et des chauffeurs sur le terrain, puis conception d'un outil web qui propose les tournées et laisse le planificateur les ajuster avant le départ."
+      },
+      "outcome": {
+        "en": "Rolled out to the first depots, with planners keeping the final say on every round.",
+        "fr": "Déployé dans les premiers dépôts, le planificateur garde la main sur chaque tournée."
+      }
+    },
+    {
+      "id": "segmentation-bank",
+      "example": true,
+      "year": 2025,
+      "sector": { "en": "Banking", "fr": "Banque" },
+      "tags": ["segmentation", "crm", "data"],
+      "title": {
+        "en": "Customer segmentation for a retail bank",
+        "fr": "Segmentation client pour une banque de détail"
+      },
+      "context": {
+        "en": "Marketing and branch staff used different customer groups and could not agree on who to contact first.",
+        "fr": "Le marketing et les agences travaillaient avec des groupes de clients différents et ne s'accordaient pas sur qui contacter en premier."
+      },
+      "work": {
+        "en": "A shared segmentation built with both teams, turned into views and next actions inside the existing CRM.",
+        "fr": "Une segmentation commune construite avec les deux équipes, traduite en vues et en actions dans le CRM existant."
+      },
+      "outcome": {
+        "en": "One set of segments used across channels, and a CRM the branches actually open.",
+        "fr": "Un seul jeu de segments pour tous les canaux, et un CRM que les agences ouvrent vraiment."
+      }
+    },
+    {
+      "id": "field-crm-energy",
+      "example": true,
+      "year": 2024,
+      "sector": { "en": "Energy", "fr": "Énergie" },
+      "tags": ["crm", "service"],
+      "title": {
+        "en": "A field-service journey for an energy supplier",
+        "fr": "Un parcours d'intervention pour un fournisseur d'énergie"
+      },
+      "context": {
+        "en": "Customers waiting for a technician had no idea when they would come, and call volumes followed.",
+        "fr": "Les clients qui attendaient un technicien ne savaient pas quand il passerait, et les appels suivaient."
+      },
+      "work": {
+        "en": "Service blueprint of the full journey, then notifications and a technician view connected to the CRM.",
+        "fr": "Blueprint de service du parcours complet, puis notifications et vue technicien reliées au CRM."
+      },
+      "outcome": {
+        "en": "Customers know the time slot in advance and technicians arrive with the history of the site.",
+        "fr": "Le client connaît le créneau à l'avance et le technicien arrive avec l'historique du site."
+      }
+    },
+    {
+      "id": "device-medical",
+      "example": true,
+      "year": 2024,
+      "sector": { "en": "Medical", "fr": "Médical" },
+      "tags": ["physical", "ai"],
+      "title": {
+        "en": "A connected device and its companion app",
+        "fr": "Un appareil connecté et son application"
+      },
+      "context": {
+        "en": "A medical supplier wanted patients to use a device at home without a nurse present.",
+        "fr": "Un fournisseur médical voulait que les patients utilisent un appareil à domicile, sans infirmière présente."
+      },
+      "work": {
+        "en": "Housing and controls of the device, the setup sequence and the app that guides each session.",
+        "fr": "Boîtier et commandes de l'appareil, séquence d'installation et application qui guide chaque séance."
+      },
+      "outcome": {
+        "en": "Tested with patients at home before the regulatory file was submitted.",
+        "fr": "Testé chez des patients avant le dépôt du dossier réglementaire."
+      }
+    },
+    {
+      "id": "onboarding-telco",
+      "example": true,
+      "year": 2023,
+      "sector": { "en": "Telco", "fr": "Télécoms" },
+      "tags": ["saas", "service"],
+      "title": {
+        "en": "Self-serve onboarding for a B2B offer",
+        "fr": "Onboarding en libre-service pour une offre B2B"
+      },
+      "context": {
+        "en": "Small business customers needed a sales call to activate a product they had already paid for.",
+        "fr": "Les petites entreprises devaient passer par un commercial pour activer un produit déjà payé."
+      },
+      "work": {
+        "en": "A self-serve activation flow, the admin console behind it and the support scripts for the cases it cannot handle.",
+        "fr": "Un parcours d'activation en libre-service, la console d'administration derrière, et les scripts du support pour les cas qu'il ne couvre pas."
+      },
+      "outcome": {
+        "en": "Most activations now happen without a call.",
+        "fr": "La plupart des activations se font désormais sans appel."
+      }
+    }
+  ]
+}
