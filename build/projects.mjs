@@ -33,6 +33,7 @@ const T = {
     work: 'What we did',
     outcome: 'What came of it',
     example: 'Example',
+    shot: (n) => `Home page of ${n}`,
     count: (n, tag) => `${n} ${n === 1 ? 'project' : 'projects'}${tag ? ` tagged ${tag}` : ''}`,
   },
   fr: {
@@ -47,6 +48,7 @@ const T = {
     work: 'Ce que nous avons fait',
     outcome: 'Ce qui en est sorti',
     example: 'Exemple',
+    shot: (n) => `Capture du site ${n}`,
     count: (n, tag) => `${n} projet${n === 1 ? '' : 's'}${tag ? ` ${tag}` : ''}`,
   },
 };
@@ -74,6 +76,7 @@ const CSS = `<style>
 .vc-pj-tags li.ex{background:transparent;border:1px solid #D21F3C;color:#F4EFE6}
 .vc-pj summary>span[aria-hidden="true"]{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(244,239,230,0.74);display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;color:#F4EFE6}
 .vc-pj-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px 32px;padding:0 0 28px 174px}
+.vc-pj-img{grid-column:1/-1;width:100%;max-width:880px;height:auto;aspect-ratio:auto;border-radius:6px;border:1px solid #2A2A2A}
 .vc-pj-body h3{margin:0 0 6px;font-size:15px;font-weight:500;color:rgba(244,239,230,0.74)}
 .vc-pj-body p{margin:0;font-size:16px;line-height:1.55;color:#F4EFE6}
 @media (max-width:760px){.vc-pj summary{grid-template-columns:1fr 28px}.vc-pj-meta{grid-column:1/-1;flex-direction:row;gap:10px}.vc-pj-meta i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#D21F3C;align-self:center}.vc-pj-body{padding-left:0}}
@@ -95,7 +98,7 @@ function block(lang, data) {
 
   const tagLabel = (k) => esc(data.tags[k][lang]);
 
-  const items = projects.map((p) => `<details data-tags="${p.tags.join(' ')}"><summary><span class="vc-pj-meta"><span>${p.year}</span><i></i><span>${esc(p.sector[lang])}</span></span><span class="vc-pj-t"><b>${esc(p.title[lang])}</b><ul class="vc-pj-tags">${p.example ? `<li class="ex">${t.example}</li>` : ''}${p.tags.map((k) => `<li>${tagLabel(k)}</li>`).join('')}</ul></span><span aria-hidden="true">+</span></summary><div class="vc-pj-body"><div><h3>${t.context}</h3><p>${esc(p.context[lang])}</p></div><div><h3>${t.work}</h3><p>${esc(p.work[lang])}</p></div><div><h3>${t.outcome}</h3><p>${esc(p.outcome[lang])}</p>${p.link ? `<p style="margin-top:12px"><a href="${esc(p.link.url)}" target="_blank" rel="noopener" style="color:#F4EFE6">${esc(p.link.label[lang])} <span aria-hidden="true">&#8599;</span></a></p>` : ''}</div></div></details>`).join('\n');
+  const items = projects.map((p) => `<details data-tags="${p.tags.join(' ')}"><summary><span class="vc-pj-meta"><span>${p.year}</span><i></i><span>${esc(p.sector[lang])}</span></span><span class="vc-pj-t"><b>${esc(p.title[lang])}</b><ul class="vc-pj-tags">${p.example ? `<li class="ex">${t.example}</li>` : ''}${p.tags.map((k) => `<li>${tagLabel(k)}</li>`).join('')}</ul></span><span aria-hidden="true">+</span></summary><div class="vc-pj-body">${p.image ? `<img class="vc-pj-img" src="${esc(p.image)}" alt="${esc(t.shot(p.title[lang].split(/ ?:/)[0]))}" width="1200" height="750" loading="lazy" decoding="async"/>` : ''}<div><h3>${t.context}</h3><p>${esc(p.context[lang])}</p></div><div><h3>${t.work}</h3><p>${esc(p.work[lang])}</p></div><div><h3>${t.outcome}</h3><p>${esc(p.outcome[lang])}</p>${p.link ? `<p style="margin-top:12px"><a href="${esc(p.link.url)}" target="_blank" rel="noopener" style="color:#F4EFE6">${esc(p.link.label[lang])} <span aria-hidden="true">&#8599;</span></a></p>` : ''}</div></div></details>`).join('\n');
 
   const buttons = [`<button type="button" class="vc-pj-f" data-tag="" aria-pressed="true">${t.all}</button>`]
     .concat(used.map((k) => `<button type="button" class="vc-pj-f" data-tag="${k}" data-label="${tagLabel(k)}" aria-pressed="false">${tagLabel(k)}</button>`))

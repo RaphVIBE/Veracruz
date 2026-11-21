@@ -1,5 +1,5 @@
 {
-  "_readme": "Liste des projets affichée sur l'accueil (EN et FR). Après modification : npm run projects, puis commit de index.html et fr/index.html. Les clients restent anonymes. Un projet avec \"draft\": true n'est pas publié. Un projet avec \"example\": true est un exemple de démonstration, à remplacer avant mise en ligne. Champ optionnel \"link\" : {url, label:{en,fr}}, rendu comme un lien suivi (backlink).",
+  "_readme": "Liste des projets affichée sur l'accueil (EN et FR). Après modification : npm run projects, puis commit de index.html et fr/index.html. Les clients restent anonymes. Un projet avec \"draft\": true n'est pas publié. Un projet avec \"example\": true est un exemple de démonstration, à remplacer avant mise en ligne. Champ optionnel \"link\" : {url, label:{en,fr}}, rendu comme un lien suivi (backlink). Champ optionnel \"image\" : chemin d'une capture (1200 px de large, webp) affichée dans le détail.",
   "tags": {
     "ai": {
       "en": "AI",
@@ -28,6 +28,10 @@
     "data": {
       "en": "Data",
       "fr": "Data"
+    },
+    "process": {
+      "en": "Process",
+      "fr": "Processus"
     }
   },
   "projects": [
@@ -65,7 +69,8 @@
           "en": "Visit reputation.veracruz.be",
           "fr": "Voir reputation.veracruz.be"
         }
-      }
+      },
+      "image": "/assets/projects/ai-reputation.webp"
     },
     {
       "id": "acquit",
@@ -100,7 +105,44 @@
           "en": "Visit acquit.be",
           "fr": "Voir acquit.be"
         }
-      }
+      },
+      "image": "/assets/projects/acquit.webp"
+    },
+    {
+      "id": "vsdx2bpmn",
+      "year": 2026,
+      "sector": {
+        "en": "Studio product",
+        "fr": "Produit du studio"
+      },
+      "tags": [
+        "saas",
+        "process"
+      ],
+      "title": {
+        "en": "Visio2BPMN: Visio diagrams turned into BPMN",
+        "fr": "Visio2BPMN : des schémas Visio convertis en BPMN"
+      },
+      "context": {
+        "en": "Teams moving to a process platform hold years of Visio diagrams that would otherwise be redrawn by hand.",
+        "fr": "Les équipes qui passent à une plateforme de processus ont des années de schémas Visio qu'il faudrait sinon redessiner à la main."
+      },
+      "work": {
+        "en": "A web converter that maps Visio pages, pools, lanes and shapes to editable BPMN 2.0, with a preview before export.",
+        "fr": "Un convertisseur en ligne qui transpose pages, pools, couloirs et formes Visio en BPMN 2.0 modifiable, avec un aperçu avant l'export."
+      },
+      "outcome": {
+        "en": "Live, with free conversions to try it and paid plans for regular use.",
+        "fr": "En ligne, avec des conversions gratuites pour essayer et des formules payantes pour un usage régulier."
+      },
+      "link": {
+        "url": "https://vsdx2bpmn.com/",
+        "label": {
+          "en": "Visit vsdx2bpmn.com",
+          "fr": "Voir vsdx2bpmn.com"
+        }
+      },
+      "image": "/assets/projects/vsdx2bpmn.webp"
     },
     {
       "id": "dispatch-logistics",
